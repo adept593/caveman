@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="gsap.min.js"></script>
+    <script src="ink-theater.js"></script>
+    <script src="strokes.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      @font-face { font-family: "InkHand"; src: url("assets/patrickhand.ttf") format("truetype"); font-display: block; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #fcfbf8; }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; }
+      .stage { position: absolute; inset: 0; background: #fcfbf8; }
+      .stage svg { position: absolute; inset: 0; display: block; width: 1080px; height: 1920px; }
+      .cap { position: absolute; left: 0; width: 1080px; text-align: center; font-family: "InkHand", cursive; opacity: 0; color: #2b2b30; }
+      #c-light  { top: 250px; font-size: 72px; color: #8a847c; opacity: 1; }
+      #c-detail { top: 250px; font-size: 72px; color: #5c5750; }
+      #c-shade  { top: 250px; font-size: 72px; color: #5c5750; }
+      #c-name   { top: 1490px; font-size: 108px; letter-spacing: 2px; }
+      #c-sub    { top: 1625px; font-size: 58px; color: #6b6560; }
+      #c-end    { top: 1750px; font-size: 54px; color: #6b6560; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="26" data-width="1080" data-height="1920">
+      <section id="scene" class="clip" data-start="0" data-duration="26" data-track-index="1">
+        <div class="stage">
+          <svg viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <filter id="boil" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence id="boilTurb" type="fractalNoise" baseFrequency="0.011" numOctaves="1" seed="7" result="n"/>
+                <feDisplacementMap in="SourceGraphic" in2="n" scale="1.4"/>
+              </filter>
+            </defs>
+            <g id="world" filter="url(#boil)">
+              <g id="gSketch"></g>
+              <g id="gHmid"></g>
+              <g id="gHdark"></g>
+              <g id="gDetail"></g>
+            </g>
+          </svg>
+          <div id="c-light"  class="cap">first, a few light lines ✏️</div>
+          <div id="c-detail" class="cap">now the details...</div>
+          <div id="c-shade"  class="cap">...and the shadows</div>
+          <div id="c-name"   class="cap">NEUSCHWANSTEIN</div>
+          <div id="c-sub"    class="cap">the fairytale castle &middot; Bavaria, 1869</div>
+          <div id="c-end"    class="cap">which castle should I draw next? 👇</div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      if (document.fonts && document.fonts.load) { document.fonts.load("90px InkHand"); }
+      var IT = window.InkTheater;
+      var tl = gsap.timeline({ paused: true });
+      var SVGNS = "http://www.w3.org/2000/svg";
+
+      // ---- build one layer of baked strokes -----------------------------
+      function buildLayer(mountId, strokes, style) {
+        var mount = document.getElementById(mountId);
+        for (var i = 0; i < strokes.length; i++) {
+          var s = strokes[i];
+          var el = document.createElementNS(SVGNS, "path");
+          el.setAttribute("d", IT.inkPath(s.p, { wobble: style.wobble, step: style.step, seed: style.seed + i }));
+          el.setAttribute("fill", "none");
+          el.setAttribute("stroke", style.color);
+          el.setAttribute("stroke-width", style.w);
+          el.setAttribute("stroke-linecap", "round");
+          el.setAttribute("stroke-linejoin", "round");
+          mount.appendChild(el);
+          var L = el.getTotalLength();
+          if (L < 1) { L = 1; }
+          el.style.strokeDasharray = L + " " + L;
+          gsap.set(el, { strokeDashoffset: L, opacity: 0 });
+          tl.set(el, { opacity: 1 }, s.t);
+          tl.to(el, { strokeDashoffset: 0, duration: s.d, ease: "power1.inOut" }, s.t);
+        }
+      }
+
+      // чёткие линии: минимальный wobble
+      buildLayer("gSketch", window.SKETCH, { color: "#a49d93", w: 4,   wobble: 0.9, step: 30, seed: 100 });
+      buildLayer("gDetail", window.DETAIL, { color: "#35322e", w: 2.6, wobble: 0.55, step: 26, seed: 900 });
+      buildLayer("gHmid",  window.HMID,  { color: "#7a746c", w: 2.2, wobble: 0.5, step: 34, seed: 2000 });
+      buildLayer("gHdark", window.HDARK, { color: "#45413b", w: 2.2, wobble: 0.5, step: 34, seed: 3200 });
+
+      // ---- captions -----------------------------------------------------
+      tl.to("#c-light", { opacity: 0, duration: 0.4 }, 4.05);
+      tl.fromTo("#c-detail", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5 }, 4.5);
+      tl.to("#c-detail", { opacity: 0, duration: 0.4 }, 13.9);
+      tl.fromTo("#c-shade", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5 }, 14.5);
+      tl.to("#c-shade", { opacity: 0, duration: 0.4 }, 21.5);
+
+      // ---- живая камера -------------------------------------------------
+      // медленный вдох во время деталей, выдох-осадка на реветле
+      tl.to("#world", { scale: 1.045, transformOrigin: "50% 44%", duration: 7.0, ease: "power1.inOut" }, 4.4);
+      tl.to("#world", { scale: 1.06, transformOrigin: "50% 46%", duration: 5.0, ease: "power1.inOut" }, 14.6);
+      tl.to("#world", { scale: 1.0, duration: 1.3, ease: "power2.inOut" }, 22.0);
+
+      // ---- reveal -------------------------------------------------------
+      tl.fromTo("#c-name", { opacity: 0, y: 26, scale: 0.92 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "back.out(1.6)" }, 22.6);
+      tl.fromTo("#c-sub", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5 }, 23.2);
+      tl.fromTo("#c-end", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 24.4);
+
+      // финальный кадр держится до 28s
+      tl.set({}, {}, 26);
+
+      IT.boil(document.getElementById("boilTurb"), tl, { duration: 26, fps: 9 });
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
