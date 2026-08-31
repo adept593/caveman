@@ -12,7 +12,9 @@
 2. Studio канала **Scroll & Flame** → там же, вставить: `bible stories, scripture, faith, old testament, animated bible, christian shorts`
 3. На СТАРОМ аккаунте (владелец Abyssal/S&F): Studio → Настройки → Канал → Доступность функций — доложи статус: сколько из 3 уровней включено (нужны расширенные функции для кастомных превью). Если просит телефон — НЕ подтверждай, просто доложи.
 4. На ОСНОВНОМ аккаунте: Studio Photo Rescue и Restored History → Настройки → Канал → Расширенные → отметить «Нет, этот канал не для детей» (канальный дефолт; на видео мы и так ставим).
-5. Итоговая строка: «SETUP: abyssal kw ok/fail, s&f kw ok/fail, функции X/3, kids-default ok/fail».
+5. Итоговая строка: «SETUP: abyssal kw ok/fail, s&f kw ok/fail, функции X/3, kids-default ok/fail, pins ok/fail».
+6. (добавка 14:35 UTC) На ОСНОВНОМ аккаунте закрепи по комменту от имени канала: на видео m6vDyirRPvI (Photo Rescue): «Which photo should we rescue next? Drop a decade below 👇», на uUcZFePv4Ms (Restored History): «Which face deserves a full episode? Tell us below 👇». Написать → три точки → Закрепить. В строку статуса добавь «pins ok/fail».
+
 
 ## Письмо #6 — 2026-08-31 11:55 UTC — S&F ПРИНЯТ ✓. Дай две строки статуса
 
