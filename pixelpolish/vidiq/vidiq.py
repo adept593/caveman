@@ -299,7 +299,8 @@ def cmd_report():
 
 
 if __name__ == "__main__":
-    cmds = {"ids": cmd_ids, "snapshot": cmd_snapshot, "scout": cmd_scout, "report": cmd_report}
+    cmds = {"ids": cmd_ids, "snapshot": cmd_snapshot, "scout": cmd_scout, "report": cmd_report,
+            "outliers": cmd_outliers, "besttime": cmd_besttime}
     if len(sys.argv) < 2:
         print(__doc__)
     elif sys.argv[1] in cmds:
