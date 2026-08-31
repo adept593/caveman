@@ -13,3 +13,6 @@
 
 ## Фрилансер запущен (2026-08-31 16:00 UTC)
 Сессия: session_01BsgVaHTJ84nNmiTyUQKxGj «Фрилансер PixelPolish на Kwork», статусы [FL]. Браузер: playwright-mcp (конфиг C:\pixelpolish\.mcp.json, профиль C:\pixelpolish\freelancer-profile; claude mcp add в PowerShell 5.1 ломается на -- и на JSON-кавычках — рабочий путь только .mcp.json файлом). Устав: pixelpolish/FREELANCER.md. Kwork-аккаунт adept593@gmail.com. Вахта: проверять ОБЕ сессии (Агент-1 [KW] + Фрилансер [FL]).
+
+## СТАНДАРТ РЕСТАВРАЦИИ (Седрак, 2026-08-31 19:00 UTC) — ДОКТРИНА
+«Реставрация = довести объект до состояния, когда его только сделали. Ноль царапин, пятен, помятостей». Сходство лиц свято (не выдумывать/не заменять). restore_v3 стандарт НЕ проходит (проявляет грязь контрастом). Photo Rescue батчи НА ПАУЗЕ до приёмки v5 (нейро-стек на ПК, письмо #11; эталон pixelpolish/test_plates/children_2017645715.jpg, худшая зона — штаны мальчика). Дневной цикл: реставрации скипать до v5. Формулировку «No fakes, no AI slop» в описании PR заменить на «Faces are sacred: we never invent or replace them» — после v5-приёмки вместе с перезаливом стандарта.
