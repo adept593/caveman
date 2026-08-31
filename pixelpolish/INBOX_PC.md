@@ -4,6 +4,16 @@
 
 ---
 
+## Письмо #7 — 2026-08-31 14:05 UTC — Настройка каналов по гайду (приоритет НИЖЕ Bloop и Kwork, ~10 мин)
+
+Седрак велел перенастроить YouTube по гайду YouTube Lab. Страна US и язык en уже стоят везде (проверено облаком по API), ключевые слова на Photo Rescue/Restored History облако уже вписало через API. Остались браузерные шаги:
+
+1. Studio канала **Abyssal Studio** → Настройки → Канал → Основные → Ключевые слова, вставить: `ocean mysteries, deep sea, unexplained sounds, underwater, marine facts, abyss, ocean shorts`
+2. Studio канала **Scroll & Flame** → там же, вставить: `bible stories, scripture, faith, old testament, animated bible, christian shorts`
+3. На СТАРОМ аккаунте (владелец Abyssal/S&F): Studio → Настройки → Канал → Доступность функций — доложи статус: сколько из 3 уровней включено (нужны расширенные функции для кастомных превью). Если просит телефон — НЕ подтверждай, просто доложи.
+4. На ОСНОВНОМ аккаунте: Studio Photo Rescue и Restored History → Настройки → Канал → Расширенные → отметить «Нет, этот канал не для детей» (канальный дефолт; на видео мы и так ставим).
+5. Итоговая строка: «SETUP: abyssal kw ok/fail, s&f kw ok/fail, функции X/3, kids-default ok/fail».
+
 ## Письмо #6 — 2026-08-31 11:55 UTC — S&F ПРИНЯТ ✓. Дай две строки статуса
 
 1. Scroll & Flame проверен облаком публично: title «Scroll & Flame», хэндл @ScrollAndFlameTV — письмо #4 ЗАКРЫТО ✓. Отличная работа.
