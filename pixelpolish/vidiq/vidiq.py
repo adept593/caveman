@@ -7,6 +7,9 @@
   scout               — RSS-разведка конкурентов (0 units), скорость просмотров
   keywords <seed>     — подсказки поиска YouTube (бесплатно)
   discover <query>    — найти каналы ниши через search (100 units за запрос)
+  indicators <query>  — каналы-индикаторы: новые, мало видео, аномальный рост
+  outliers            — видео-выбросы: просмотры выше медианы своего канала = рабочая тема
+  besttime            — лучшее время публикации по стреляющим видео конкурентов (Томск)
   report              — дайджест по последним данным
 
 Данные: data/*.json рядом со скриптом (коммитятся в репо = долговременная память).
@@ -223,6 +226,63 @@ def cmd_indicators(query, max_age_days=90, max_videos=50, min_views=100_000):
         print(f"  {views:>12,} просм | {age:>3}д | {vids:>3} видео | {subs:>7,} подп | {cid} | {title[:40]}")
     if not found:
         print("  (не найдено — расширь запрос или подними max_age_days)")
+
+
+def _load_scout_state():
+    p = DATA / "scout_state.json"
+    if not p.exists():
+        sys.exit("нет scout_state.json — сначала запусти: vidiq.py scout")
+    return json.loads(p.read_text())
+
+
+def cmd_outliers(min_ratio=3.0, min_views=10_000):
+    """видео сильно выше медианы своего канала — тема, доказанно стреляющая"""
+    import statistics
+    st = _load_scout_state()
+    by_chan = {}
+    for v in st["videos"].values():
+        by_chan.setdefault(v["chan"], []).append(v)
+    rows = []
+    for chan, vids in by_chan.items():
+        if len(vids) < 5:
+            continue
+        med = statistics.median(x["views"] for x in vids)
+        if med < 1:
+            continue
+        for v in vids:
+            r = v["views"] / med
+            if r >= min_ratio and v["views"] >= min_views:
+                rows.append((r, v, chan))
+    rows.sort(key=lambda t: -t[0])
+    print(f"ВЫБРОСЫ (≥{min_ratio}× медианы канала, ≥{min_views:,} просм.) — готовые рабочие темы:")
+    for r, v, chan in rows[:20]:
+        print(f"  ×{r:5.1f} | [{v['niche']}] {chan} | {v['title']} | {v['views']:,} | {v['published'][:10]}")
+    if not rows:
+        print("  (выбросов нет)")
+
+
+def cmd_besttime():
+    """когда постят стреляющие видео конкурентов; взвешено log-просмотрами, время Томска UTC+7"""
+    import math
+    st = _load_scout_state()
+    tomsk = dt.timezone(dt.timedelta(hours=7))
+    days = ["пн", "вт", "ср", "чт", "пт", "сб", "вс"]
+    slots = {}
+    n = 0
+    for v in st["videos"].values():
+        try:
+            t = dt.datetime.fromisoformat(v["published"]).astimezone(tomsk)
+        except ValueError:
+            continue
+        w = math.log10(v["views"] + 10)
+        key = (v["niche"], t.weekday(), t.hour)
+        slots[key] = slots.get(key, 0) + w
+        n += 1
+    print(f"ЛУЧШЕЕ ВРЕМЯ ПУБЛИКАЦИИ (по {n} видео конкурентов, время Томска):")
+    for niche in sorted({k[0] for k in slots}):
+        top = sorted(((w, d, h) for (nn, d, h), w in slots.items() if nn == niche), reverse=True)[:3]
+        line = ", ".join(f"{days[d]} {h:02d}:00-{h + 1:02d}:00" for _, d, h in top)
+        print(f"  [{niche}] {line}")
 
 
 def cmd_report():
