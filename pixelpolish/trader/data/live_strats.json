@@ -1,0 +1,39 @@
+[
+ {
+  "family": "sma",
+  "params": [
+   12,
+   50
+  ]
+ },
+ {
+  "family": "rsi",
+  "params": [
+   7,
+   30,
+   70
+  ]
+ },
+ {
+  "family": "donchian",
+  "params": [
+   35,
+   15
+  ]
+ },
+ {
+  "family": "roc",
+  "params": [
+   12,
+   5,
+   -5
+  ]
+ },
+ {
+  "family": "boll",
+  "params": [
+   20,
+   1.5
+  ]
+ }
+]
