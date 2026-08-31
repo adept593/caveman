@@ -10,3 +10,6 @@
 
 ## Максимизация каналов (2026-08-31 «доработать как можно максимум»)
 Сделано облаком через API: ключевые слова PR+RH; плейлисты PR («Rescued Faces — Before & After» PLMURabC48FMM 8 видео, «Old America Restored» PLafDiEmp8rk0 3 видео) и RH («Full Episodes» PLQEMAsYCJddU); трейлеры каналов (PR→m6vDyirRPvI, RH→uUcZFePv4Ms); водяной знак SUBSCRIBE (offsetFromStart 15s) на обоих; секции главной (PR: popular+2 плейлиста; RH: recent+эпизоды); кастом-превью uUcZFePv4Ms (v3, суб-призрак закрыт). Пиннед-комменты 403 (нет force-ssl scope) → письму #7 агенту. Abyssal/S&F: kw/функции/пины у агента; их watermark/секции — после первых видео.
+
+## Фрилансер запущен (2026-08-31 16:00 UTC)
+Сессия: session_01BsgVaHTJ84nNmiTyUQKxGj «Фрилансер PixelPolish на Kwork», статусы [FL]. Браузер: playwright-mcp (конфиг C:\pixelpolish\.mcp.json, профиль C:\pixelpolish\freelancer-profile; claude mcp add в PowerShell 5.1 ломается на -- и на JSON-кавычках — рабочий путь только .mcp.json файлом). Устав: pixelpolish/FREELANCER.md. Kwork-аккаунт adept593@gmail.com. Вахта: проверять ОБЕ сессии (Агент-1 [KW] + Фрилансер [FL]).
