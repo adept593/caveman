@@ -1,0 +1,100 @@
+{
+ "ours": {
+  "photo_rescue": {
+   "label": "Photo Rescue",
+   "id": "UC4CKS_ETfECsmRbtOpqy_HA",
+   "token": "photorescue_full"
+  },
+  "restored_history": {
+   "label": "Restored History",
+   "id": "UCvldpC8yVoFd8mmKQFQ8MxQ",
+   "token": "restoredhistory_full"
+  },
+  "abyssal": {
+   "label": "Abyssal Studio",
+   "id": "UCWuyiXkI0WWFOhYb189ad_A"
+  },
+  "scroll_flame": {
+   "label": "Scroll & Flame",
+   "id": "UCW2PAiXy58LRIzbN7V-9t8g"
+  }
+ },
+ "competitors": {
+  "photo_rescue": [
+   {
+    "id": "UCB5WIYoMUPLTgwqZvAdDFlg",
+    "label": "Milton Frank Restauracoes"
+   },
+   {
+    "id": "UCuig5pQBGDA1wmDTgdZwPYg",
+    "label": "memecrys"
+   },
+   {
+    "id": "UCRjkJ8d-SO2Gy1r1eUxrv_g",
+    "label": "Rust Revive"
+   },
+   {
+    "id": "UCNRVaaKO1aFFh-Ak9gpIxJg",
+    "label": "RustToRestored"
+   },
+   {
+    "id": "UCwd_qEDtugLM0atkNG6noYQ",
+    "label": "4K Enhance Nation PH"
+   }
+  ],
+  "abyssal": [
+   {
+    "id": "UCWC7EDQ64b_xm189shppHkw",
+    "label": "Low Bliss"
+   },
+   {
+    "id": "UC2Waz1zilzgeCkF9G5qwEXg",
+    "label": "Hist Myst"
+   },
+   {
+    "id": "UC7pB7DRzIlSKNQT8ZBkJ-7g",
+    "label": "Secret Vibe"
+   },
+   {
+    "id": "UCLvEEeu7UyfmnT7NJTMXw7w",
+    "label": "Facts Treasure"
+   },
+   {
+    "id": "UCOyKS8oWM8YeNDY-v-h5kbg",
+    "label": "Beyond LoreZ"
+   },
+   {
+    "id": "UCsRKjAdEkzmHN3KY7eFf7SQ",
+    "label": "Deep Sea Gem"
+   }
+  ],
+  "scroll_flame": [
+   {
+    "id": "UCkEdeSELPSJelZL7QHvW8LA",
+    "label": "Anna Miriam Brown"
+   },
+   {
+    "id": "UCsALNFSmC2T8W8PsL47gu-A",
+    "label": "JudahSketch Animation"
+   },
+   {
+    "id": "UCgEKH0HNhP_RYggwbIksHwg",
+    "label": "JivanJyoti 3DAnimation"
+   },
+   {
+    "id": "UCdcUjj2TszJw6GlqZu8JYnA",
+    "label": "Simply Scripture"
+   },
+   {
+    "id": "UCL0d2k1TBggACFWyTciqxKA",
+    "label": "3D Bible StoryVerse"
+   }
+  ],
+  "humor_reserve": [
+   {
+    "id": "UCSODgKRFMJYykBsGMAXuWBQ",
+    "label": "GUGUGAMER"
+   }
+  ]
+ }
+}
