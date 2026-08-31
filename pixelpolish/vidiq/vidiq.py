@@ -173,14 +173,12 @@ def cmd_keywords(seed):
     for suf in [""] + list(string.ascii_lowercase[:12]):
         q = f"{seed} {suf}".strip()
         try:
-            r = requests.get("https://suggestqueries-clients6.youtube.com/complete/search",
-                             params={"client": "yt", "ds": "yt", "q": q}, headers=UA, timeout=15)
-            txt = r.text
-            data = json.loads(txt[txt.index("(") + 1:txt.rindex(")")]) if txt.startswith(")]}'") is False and "(" in txt else json.loads(txt)
-            for s in data[1]:
-                term = s[0] if isinstance(s, list) else s
+            r = requests.get("https://suggestqueries.google.com/complete/search",
+                             params={"client": "firefox", "ds": "yt", "q": q}, headers=UA, timeout=15)
+            for term in r.json()[1]:
                 seen.setdefault(term, 0)
-        except Exception:
+        except Exception as e:
+            print(f"[keywords] {q}: {e}", file=sys.stderr)
             continue
     for t in list(seen)[:40]:
         print(" ", t)
