@@ -200,6 +200,31 @@ def cmd_discover(query):
         print(f"  {cid} | {m['title'][:35]:35s} | subs {m.get('subs', 0):>9,} | views {m.get('views', 0):>13,} | hits {m['hits']}")
 
 
+def cmd_indicators(query, max_age_days=90, max_videos=50, min_views=100_000):
+    """каналы-индикаторы по методе YouTube Lab: новые, мало видео, аномальный рост"""
+    r = api("search", part="snippet", q=query, type="video", order="viewCount",
+            maxResults=50, publishedAfter=(dt.datetime.now(dt.timezone.utc)
+                                           - dt.timedelta(days=45)).strftime("%Y-%m-%dT00:00:00Z"))
+    cids = list({it["snippet"]["channelId"] for it in r.get("items", [])})
+    found = []
+    for i in range(0, len(cids), 50):
+        st = api("channels", part="snippet,statistics", id=",".join(cids[i:i + 50]))
+        for c in st.get("items", []):
+            born = dt.datetime.fromisoformat(c["snippet"]["publishedAt"].replace("Z", "+00:00"))
+            age = (dt.datetime.now(dt.timezone.utc) - born).days
+            vids = int(c["statistics"].get("videoCount", 0))
+            views = int(c["statistics"].get("viewCount", 0))
+            subs = int(c["statistics"].get("subscriberCount", 0))
+            if age <= max_age_days and 0 < vids <= max_videos and views >= min_views:
+                found.append((views, age, vids, subs, c["id"], c["snippet"]["title"]))
+    found.sort(key=lambda t: -t[0])
+    print(f"ИНДИКАТОРЫ '{query}': канал ≤{max_age_days}д, ≤{max_videos} видео, ≥{min_views:,} просм.")
+    for views, age, vids, subs, cid, title in found:
+        print(f"  {views:>12,} просм | {age:>3}д | {vids:>3} видео | {subs:>7,} подп | {cid} | {title[:40]}")
+    if not found:
+        print("  (не найдено — расширь запрос или подними max_age_days)")
+
+
 def cmd_report():
     files = sorted(DATA.glob("ours_2*.json"))
     if not files:
@@ -223,5 +248,7 @@ if __name__ == "__main__":
         cmd_keywords(" ".join(sys.argv[2:]))
     elif sys.argv[1] == "discover":
         cmd_discover(" ".join(sys.argv[2:]))
+    elif sys.argv[1] == "indicators":
+        cmd_indicators(" ".join(sys.argv[2:]))
     else:
         print(__doc__)
