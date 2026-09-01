@@ -162,7 +162,10 @@ def cmd_scout():
                         vph = (v["views"] - old["views"]) / hrs
                         if vph > 0:
                             risers.append((vph, v, chan.get("label", ""), niche))
-    state_p.write_text(json.dumps(cur, ensure_ascii=False))
+    if cur["videos"]:
+        state_p.write_text(json.dumps(cur, ensure_ascii=False))
+    else:
+        print("[scout] все RSS-запросы упали — состояние НЕ перезаписано", file=sys.stderr)
     risers.sort(key=lambda t: -t[0])
     print(f"scout @ {now}: {len(cur['videos'])} видео у конкурентов")
     for vph, v, lab, niche in risers[:12]:
