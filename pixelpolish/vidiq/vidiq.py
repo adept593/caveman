@@ -136,6 +136,20 @@ def rss(chan_id):
     return out
 
 
+def api_channel_videos(chan_id, n=15):
+    """Замена RSS через официальный API: uploads-плейлист + batch-статы (квота ~1-2 ед.)."""
+    pl = api("playlistItems", part="contentDetails,snippet",
+             playlistId=uploads_playlist(chan_id), maxResults=n)
+    out = []
+    for it in pl.get("items", []):
+        out.append({"id": it["contentDetails"]["videoId"],
+                    "title": (it["snippet"]["title"] or "")[:70],
+                    "published": it["contentDetails"].get("videoPublishedAt",
+                                                          it["snippet"]["publishedAt"]),
+                    "views": None})  # добьём batch-запросом
+    return out
+
+
 def cmd_scout():
     c = cfg()
     now = dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")
@@ -143,29 +157,46 @@ def cmd_scout():
     prev = json.loads(state_p.read_text()) if state_p.exists() else {}
     cur = {"ts": now, "videos": {}}
     risers = []
+    pending = []  # видео без views — добрать одним batch videos.list
     for niche, chans in c["competitors"].items():
         for chan in chans:
             try:
                 vids = rss(chan["id"])
-            except Exception as e:
-                print(f"[scout] {chan.get('label', chan['id'])}: {e}", file=sys.stderr)
-                continue
+            except Exception:
+                try:
+                    vids = api_channel_videos(chan["id"])
+                except Exception as e2:
+                    print(f"[scout] {chan.get('label', chan['id'])}: {e2}", file=sys.stderr)
+                    continue
             for v in vids:
                 cur["videos"][v["id"]] = {"views": v["views"], "title": v["title"],
                                           "chan": chan.get("label", chan["id"]),
                                           "niche": niche, "published": v["published"]}
-                old = prev.get("videos", {}).get(v["id"])
-                if old and prev.get("ts"):
-                    hrs = (dt.datetime.fromisoformat(now)
-                           - dt.datetime.fromisoformat(prev["ts"])).total_seconds() / 3600
-                    if hrs > 0.2:
-                        vph = (v["views"] - old["views"]) / hrs
-                        if vph > 0:
-                            risers.append((vph, v, chan.get("label", ""), niche))
+                if v["views"] is None:
+                    pending.append(v["id"])
+    for i in range(0, len(pending), 50):
+        try:
+            st = api("videos", part="statistics", id=",".join(pending[i:i + 50]))
+            for it in st.get("items", []):
+                cur["videos"][it["id"]]["views"] = int(it["statistics"].get("viewCount", 0))
+        except Exception as e:
+            print(f"[scout] batch stats: {e}", file=sys.stderr)
+    cur["videos"] = {k: v for k, v in cur["videos"].items() if v["views"] is not None}
+    hrs = 0.0
+    if prev.get("ts"):
+        hrs = (dt.datetime.fromisoformat(now)
+               - dt.datetime.fromisoformat(prev["ts"])).total_seconds() / 3600
+    if hrs > 0.2:
+        for vid, v in cur["videos"].items():
+            old = prev.get("videos", {}).get(vid)
+            if old and old.get("views") is not None:
+                vph = (v["views"] - old["views"]) / hrs
+                if vph > 0:
+                    risers.append((vph, v, v["chan"], v["niche"]))
     if cur["videos"]:
         state_p.write_text(json.dumps(cur, ensure_ascii=False))
     else:
-        print("[scout] все RSS-запросы упали — состояние НЕ перезаписано", file=sys.stderr)
+        print("[scout] все источники упали — состояние НЕ перезаписано", file=sys.stderr)
     risers.sort(key=lambda t: -t[0])
     print(f"scout @ {now}: {len(cur['videos'])} видео у конкурентов")
     for vph, v, lab, niche in risers[:12]:
