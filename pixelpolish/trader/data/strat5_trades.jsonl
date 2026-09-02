@@ -1,2 +1,6 @@
 {"ts": 1788192000, "asset": "BTC", "strat": "roc", "side": "buy", "price": 78900.0}
 {"ts": 1788192000, "asset": "ETH", "strat": "roc", "side": "buy", "price": 2481.67}
+{"ts": 1788350400, "asset": "BTC", "strat": "rsi", "side": "buy", "price": 77248.4}
+{"ts": 1788350400, "asset": "BTC", "strat": "boll", "side": "buy", "price": 77248.4}
+{"ts": 1788350400, "asset": "ETH", "strat": "rsi", "side": "buy", "price": 2389.63}
+{"ts": 1788350400, "asset": "ETH", "strat": "boll", "side": "buy", "price": 2389.63}
