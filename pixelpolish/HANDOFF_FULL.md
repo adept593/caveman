@@ -80,3 +80,47 @@ Restored History 0/4/1; Abyssal 0/0/0; Scroll & Flame 0/0/0.
 сюжетом — «Goat taxi in Central Park, 1904» 704 просм. и «Flatiron 1902» 221 просм.,
 тогда как портреты того же периода дали 1-21 просм. Формулу «знаменитости → дети →
 женские портреты» стоит проверить против этих цифр перед батчем №2.
+
+## ЖЕЛЕЗО И ХРАНЕНИЕ (разведано 2026-09-02, приказ Седрака «медиа на D»)
+C: = SSD NVMe WD Green SN3000 1TB, свободно ~595 ГБ — здесь ComfyUI, restore_v5, репозиторий.
+D: = HDD SATA Seagate SkyHawk ST2000VX017 2TB, свободно ~1.8 ТБ — здесь всё медиа.
+Правило: на SSD то, что программа читает при каждом запуске (код, venv, веса моделей);
+на HDD то, что просто лежит (пластины, ролики, музыка, озвучка, арт, архив, загрузки).
+Структура D:\PixelPolish\: plates\raw, plates\restored, video\projects, video\published,
+music, voice, channel_art, archive. Перенесено: bloop (87 файлов), channel-art (4),
+kwork_portfolio (22) в archive. restore_v5 НЕ переносим — рабочий инструмент, остаётся на SSD.
+Окружение ПК: Python 3.12.10, torch 2.13.0+cu130, CUDA 13.0, RTX 5070 Ti 16 ГБ, RAM 62 ГБ,
+git 2.55, ffmpeg 9.0.1, yt-dlp 2026.08.19 (в venv ComfyUI), 7-Zip 26.02.
+
+## КОНВЕЙЕР РЕСТАВРАЦИИ — ГДЕ ОН И ЧТО В НЁМ (опись 2026-09-02)
+Живёт в C:\pixelpolish\restore_v5\ — это питоновский пайплайн, НЕ воркфлоу ComfyUI.
+Своё venv (torch 2.11.0+cu128, basicsr, facexlib, gfpgan, realesrgan, simple-lama-inpainting, timm).
+Веса models\ 2.2 ГБ: GFPGANv1.4 (лица, принят), codeformer.pth (скачан, НЕ используется — кода нет),
+detection_Resnet50_Final + parsing_parsenet (facexlib), RealESRGAN_x4plus (апскейл),
+FT_Epoch_latest.pt (BOPBTL, чистка носителя), ddcolor pytorch_model.bin + config.json (колоризация).
+Порядок кругов:
+  v5  — run_v5.py [GFPGAN лица → Real-ESRGAN x4] → finish_v5.py [тон + коллаж] → children_v5.png ПРИНЯТ
+  v5b — clean_v5b.py → stain_fix.py → BOPBTL → compose_v5b.py [носитель BOPBTL + лица из v5]
+        → lama_v5b.py → colorize_v5b.py [DDColor + 4K] → children_v5b.png
+  v5c — bg_v5c.py [пересборка фона через GrabCut], ОБОРВАН на v5c_step1.png 01.09 18:11
+Сквозной принцип во всех скриптах: лица либо замаскированы, либо возвращаются композитом
+из принятого v5. Стандарт Седрака «лица святы» вшит в код.
+ЧТО МЕШАЕТ ПОТОКУ: нет оркестратора (порядок шагов только в докстрингах), конвейер
+однокадровый (одна пластина, батча нет), fetch_models.sh неполон (не тянет BOPBTL 431 МБ
+и DDColor 870 МБ — на чистой машине не поднимется).
+МУСОР, можно снять ~545 МБ: gfpgan\weights\ (186 МБ дублей facexlib) + codeformer.pth (359 МБ).
+РЕШЕНИЕ: гоним реставрацию через restore_v5, а НЕ через ComfyUI. Веса для ComfyUI не качаем.
+Ноды ComfyUI (Impact-Pack, Impact-Subpack, UltimateSDUpscale, controlnet_aux, inpaint-nodes,
+essentials, Custom-Scripts) поставлены 2026-09-02 как задел, в текущем конвейере не участвуют.
+
+## СВЯЗЬ ОБЛАКО ↔ ПК (проверено 2026-09-02, важно для всех будущих сессий)
+Облако→ПК: сообщения в УЖЕ ЗАПУЩЕННУЮ сессию НЕ доходят (проверено на двух мостах, разных
+окружениях и принудительном прерывании). Единственный рабочий способ — create_session
+с полным заданием в стартовом промпте. Одна задача = одна сессия.
+ПК→облако: РАБОТАЕТ. Агент вызывает ListAgents, находит «Восстановление проекта PixelPolish»
+и шлёт SendMessage. Это единственный способ получить от него полный текст — через
+post_turn_summary видно только короткую сводку. Требовать отчёт через SendMessage в каждом задании.
+Мост trig_01HJdnVHjK17CX1UiY8gcJdC и trig_01XCrZJLafoyZYLjHKPtbqx2 — не работают, оставлены
+как след эксперимента. Старая сессия ПК (session_01HRotXFjm3WfDjNHrryML9t) мертва, восстановлению
+не подлежит: окно `claude remote-control --session-id` — около 4 часов после остановки сервера.
+Remote Control на ПК настроен на автоподключение всех сессий (/config).
