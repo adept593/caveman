@@ -124,3 +124,42 @@ post_turn_summary видно только короткую сводку. Тре�
 как след эксперимента. Старая сессия ПК (session_01HRotXFjm3WfDjNHrryML9t) мертва, восстановлению
 не подлежит: окно `claude remote-control --session-id` — около 4 часов после остановки сервера.
 Remote Control на ПК настроен на автоподключение всех сессий (/config).
+
+## БЕЗОПАСНОСТЬ ВЕСОВ (аудит 2026-09-02 по прямому поручению Седрака «проверить на уязвимости»)
+Проверено 17 pickle-файлов (ComfyUI\models, restore_v5\models, restore_v5\gfpgan\weights).
+Инструменты: picklescan 1.0.5 и modelscan 0.8.8 (Protect AI), оба в venv ComfyUI.
+Хеши SHA256 сверены с lfs.oid публичных метаданных HuggingFace — совпали 11 из 11.
+Формат: 4 файла safetensors, 1 gguf, остальные pickle.
+
+СРАБАТЫВАНИЕ, разобранное как ложное: person_yolov8m-seg.pt, dangerous import
+'__builtin__ getattr', severity CRITICAL. Разбор: pickle дизассемблирован статически
+(pickletools.dis, без torch.load). getattr встречается 1 раз на 56 724 опкода,
+аргументы константные: getattr(Detect, 'forward') — это строка self.detect = Detect.forward
+из конструктора класса Segment в ultralytics. В списке импортов нет os, subprocess, sys,
+eval, exec, socket, requests. У bbox-модели того же автора getattr отсутствует —
+появляется только в seg-моделях. Вывод: штатный артефакт ultralytics, карантин не нужен.
+Такое даёт ЛЮБАЯ YOLOv8-seg модель — не пугаться при следующих установках.
+
+НАСТОЯЩАЯ УЯЗВИМОСТЬ, найдена и закрыта — ГЛАВНОЕ ИЗ ЭТОГО АУДИТА:
+Ядро ComfyUI грузит веса безопасно (comfy/utils.py:191, torch.load(weights_only=True)).
+Но ultralytics/utils/patches.py:199-200 ПРИНУДИТЕЛЬНО отключает защиту:
+    if TORCH_1_13 and "weights_only" not in kwargs: kwargs["weights_only"] = False
+Whitelist-обёртка ComfyUI-Impact-Subpack ловит только pickle.UnpicklingError со словом
+'getattr'. При weights_only=False ошибки не возникает — загрузка проходит с первой
+попытки, whitelist не проверяется вообще. Защита была декоративной: ЛЮБОЙ .pt,
+положенный в models\ultralytics\, исполнился бы при загрузке независимо от вердикта
+сканеров.
+ИСПРАВЛЕНО: в ComfyUI\start_comfyui.ps1 добавлено $env:ULTRALYTICS_SAFE_LOAD = "1".
+Замер до/после подтвердил: было weights_only=False, стало True. Обе YOLO-модели
+грузятся нормально. НЕ УДАЛЯТЬ эту строку при правках скрипта запуска.
+
+ПРАВИЛА НА БУДУЩЕЕ:
+- Любой новый .pt/.pth/.ckpt/.bin перед первым запуском: picklescan + modelscan + сверка
+  SHA256 с lfs.oid апстрима. Сработало — разбирать статически, а не удалять вслепую.
+- Качать только с huggingface.co и github.com. Зеркала не использовать никогда.
+- Формат safetensors предпочтительнее pickle всегда, когда есть выбор.
+- sd-v1-5-inpainting: safetensors-версия существует (benjamin-paine), но репозиторий
+  gated — требует логина и принятия лицензии. Не берём: пароли вводит только Седрак.
+  Остались на .ckpt, он проверен (хеш c6bbc15e...366b19 совпал, оба сканера чисто).
+- Файлы вида .patch (Fooocus inpaint) — внутри обычный torch-pickle, но сканеры
+  не берут их рекурсивно по расширению. Проверять адресно, указывая файл явно.
