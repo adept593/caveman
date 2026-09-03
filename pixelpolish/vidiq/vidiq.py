@@ -73,6 +73,10 @@ def cmd_ids():
     save_cfg(c)
 
 
+# сколько роликов разбирать поштучно в snapshot
+LATEST_N = 25
+
+
 def uploads_playlist(chan_id):
     return "UU" + chan_id[2:]
 
@@ -89,16 +93,31 @@ def cmd_snapshot():
             continue
         it = by_id[ch["id"]]
         st = it["statistics"]
+        # videoCount из статистики канала ВРЁТ: обновляется с задержкой и
+        # непоследовательно считает Shorts (03.09.2026: показал 8 при 11 реальных
+        # роликах, все public). Настоящее число берём из плейлиста загрузок,
+        # цифру YouTube оставляем рядом справочно.
         rec = {"title": it["snippet"]["title"],
                "subs": int(st.get("subscriberCount", 0)),
                "views": int(st.get("viewCount", 0)),
-               "videos": int(st.get("videoCount", 0)), "latest": []}
+               "videos": 0,
+               "videos_api": int(st.get("videoCount", 0)), "latest": []}
         try:
-            pl = api("playlistItems", part="contentDetails",
-                     playlistId=uploads_playlist(ch["id"]), maxResults=10)
-            vids = [x["contentDetails"]["videoId"] for x in pl.get("items", [])]
-            if vids:
-                vs = api("videos", part="statistics,snippet", id=",".join(vids))
+            vids, token = [], None
+            while True:
+                kw = dict(part="contentDetails",
+                          playlistId=uploads_playlist(ch["id"]), maxResults=50)
+                if token:
+                    kw["pageToken"] = token
+                pl = api("playlistItems", **kw)
+                vids += [x["contentDetails"]["videoId"] for x in pl.get("items", [])]
+                token = pl.get("nextPageToken")
+                if not token:
+                    break
+            rec["videos"] = len(vids)
+            for i in range(0, min(len(vids), LATEST_N), 50):
+                vs = api("videos", part="statistics,snippet",
+                         id=",".join(vids[i:i + 50]))
                 for v in vs.get("items", []):
                     rec["latest"].append({
                         "id": v["id"], "title": v["snippet"]["title"][:70],
