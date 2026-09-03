@@ -1,0 +1,498 @@
+{
+  "_o_chyom": "Проверка гипотезы совета: внутренний масштабатор zoompan как источник потери резкости при кен-бёрнсе. Разбор — pixelpolish/REPORT_ZOOM_SHARPNESS.md.",
+  "_data": "2026-09-04",
+  "_stend": "C:/pixelpolish/zoom_sharp.py — определения gray/lapvar/reader импортированы из zoom_bench.py без изменений, поэтому числа сравнимы с verify_zoom.json. Сверка: на файлах совета sovet_A/B/C воспроизведены lapvar на t=1,0/15,0/29,0 и доли замерших пар из verify_zoom.json до десятой.",
+  "_edinicy": {
+    "lapvar": "дисперсия лапласиана по яркости всего кадра 1080x1920, больше = резче",
+    "lapvar_all_frames": "то же, посчитано по всем 900 кадрам ролика",
+    "mad_mean": "средняя абсолютная разница яркости соседних кадров, шкала 0..255",
+    "freeze_mad_lt_0.01_0_255": "замершие пары по строгому порогу MAD<0,01 прямо по шкале 0..255",
+    "bytes": "байты файла; ffv1 — черновик замера, не поставка"
+  },
+  "_varianty": {
+    "sovet_A_zoom_in": "файл совета A = twogirls1844_v5_zoom_in.mp4, ss=1",
+    "sovet_B_zoom_out": "файл совета B = twogirls1844_v5_zoom_out.mp4, ss=1",
+    "sovet_C_zoom_off": "файл совета C = twogirls1844_v5_zoom_off.mp4, статика",
+    "in_ss1": "пересборка наезда как раньше: zoompan s=1080x1920",
+    "in_ss2": "наезд, zoompan s=2160x3840 + scale=1080:1920:flags=lanczos — новое умолчание",
+    "in_ss3": "наезд, zoompan s=3240x5760 + lanczos вниз",
+    "in_ss4": "наезд, zoompan s=4320x7680 + lanczos вниз",
+    "out_ss1": "отъезд, как раньше",
+    "out_ss2": "отъезд, суперсэмплинг 2x",
+    "off_ffv1": "статика, тот же фильтр, но ffv1 lossless вместо x264 — выход фильтра",
+    "in_ss1_ffv1": "наезд ss=1, ffv1 lossless — выход фильтра",
+    "in_ss2_ffv1": "наезд ss=2, ffv1 lossless — выход фильтра",
+    "off_ffv1_x264_crf16": "off_ffv1, перекодирован производственными ключами (контроль тракта)",
+    "in_ss2_ffv1_x264_crf16": "in_ss2_ffv1, производственные ключи crf 16 maxrate 16M",
+    "in_ss2_ffv1_x264_crf16_nocap": "то же без потолка битрейта",
+    "in_ss2_ffv1_x264_crf12_nocap": "то же, crf 12 без потолка — попытка докупить резкость битрейтом"
+  },
+  "vremya_s": {
+    "_o_chyom": "[ffmpeg на 900 кадров, вся сборка wall], секунды",
+    "in_ss1": [
+      38.3,
+      63
+    ],
+    "in_ss2": [
+      83.7,
+      108
+    ],
+    "in_ss3": [
+      81.6,
+      106
+    ],
+    "in_ss4": [
+      104.5,
+      127
+    ],
+    "out_ss1": [
+      38.0,
+      62
+    ],
+    "out_ss2": [
+      84.3,
+      108
+    ],
+    "off_ffv1": [
+      null,
+      43
+    ],
+    "in_ss1_ffv1": [
+      null,
+      58
+    ],
+    "in_ss2_ffv1": [
+      null,
+      101
+    ]
+  },
+  "odin_kadr_trakty": {
+    "_o_chyom": "lapvar одного кадра холста in_ss2/stages/S4.png (1350x2400, без зерна и без кодека), проведённого разными трактами до 1080x1920.",
+    "dannye": {
+      "S  статика: 1350 -> 1080 lanczos (как режим off)": 486.3,
+      "R  4x вверх lanczos -> 1080 lanczos, без zoompan": 483.2,
+      "Z1 4x вверх lanczos -> zoompan s=1080x1920 (как сейчас)": 426.6,
+      "Z2 4x вверх lanczos -> zoompan s=2160x3840 -> 1080 lanczos": 483.1,
+      "Z4 4x вверх lanczos -> zoompan s=4320x7680 -> 1080 lanczos": 486.3,
+      "B  1350 -> 1080 bilinear (что делает встроенный масштабатор по духу)": 285.6
+    }
+  },
+  "roliki": {
+    "sovet_A_zoom_in": {
+      "file": "D:\\PixelPolish\\ШОРТСЫ\\_blind\\A.mp4",
+      "bytes": 21446315,
+      "bitrate_kbps": 5719.0,
+      "frames": 900,
+      "lapvar": {
+        "t=1.0": 546.5,
+        "t=15.0": 484.9,
+        "t=29.0": 430.9
+      },
+      "lapvar_all_frames": {
+        "mean": 402.2,
+        "median": 411.8,
+        "min": 39.5,
+        "max": 870.4
+      },
+      "mad_mean": 1.3524,
+      "freeze_mad_lt_0.01_0_255": {
+        "pairs": 0,
+        "of": 899,
+        "share": 0.0,
+        "max_run_pairs": 0,
+        "max_freeze_ms": 0.0
+      },
+      "brightness_mean": 133.14
+    },
+    "sovet_B_zoom_out": {
+      "file": "D:\\PixelPolish\\ШОРТСЫ\\_blind\\B.mp4",
+      "bytes": 20973005,
+      "bitrate_kbps": 5592.8,
+      "frames": 900,
+      "lapvar": {
+        "t=1.0": 502.6,
+        "t=15.0": 480.0,
+        "t=29.0": 448.5
+      },
+      "lapvar_all_frames": {
+        "mean": 402.3,
+        "median": 418.7,
+        "min": 42.3,
+        "max": 885.2
+      },
+      "mad_mean": 1.3428,
+      "freeze_mad_lt_0.01_0_255": {
+        "pairs": 0,
+        "of": 899,
+        "share": 0.0,
+        "max_run_pairs": 0,
+        "max_freeze_ms": 0.0
+      },
+      "brightness_mean": 133.59
+    },
+    "sovet_C_zoom_off": {
+      "file": "D:\\PixelPolish\\ШОРТСЫ\\_blind\\C.mp4",
+      "bytes": 8735453,
+      "bitrate_kbps": 2329.5,
+      "frames": 900,
+      "lapvar": {
+        "t=1.0": 710.9,
+        "t=15.0": 608.9,
+        "t=29.0": 535.4
+      },
+      "lapvar_all_frames": {
+        "mean": 502.6,
+        "median": 515.7,
+        "min": 92.8,
+        "max": 967.7
+      },
+      "mad_mean": 0.1988,
+      "freeze_mad_lt_0.01_0_255": {
+        "pairs": 714,
+        "of": 899,
+        "share": 0.7942,
+        "max_run_pairs": 88,
+        "max_freeze_ms": 2933.3
+      },
+      "brightness_mean": 134.07
+    },
+    "in_ss1": {
+      "file": "D:\\PixelPolish\\video\\projects\\layers_twogirls1844_v5b\\in_ss1\\video_noaudio.mp4",
+      "bytes": 19837113,
+      "bitrate_kbps": 5289.9,
+      "frames": 900,
+      "lapvar": {
+        "t=1.0": 546.3,
+        "t=15.0": 482.4,
+        "t=29.0": 431.6
+      },
+      "lapvar_all_frames": {
+        "mean": 401.1,
+        "median": 410.4,
+        "min": 39.3,
+        "max": 868.1
+      },
+      "mad_mean": 1.3496,
+      "freeze_mad_lt_0.01_0_255": {
+        "pairs": 0,
+        "of": 899,
+        "share": 0.0,
+        "max_run_pairs": 0,
+        "max_freeze_ms": 0.0
+      },
+      "brightness_mean": 133.13
+    },
+    "in_ss2": {
+      "file": "D:\\PixelPolish\\video\\projects\\layers_twogirls1844_v5b\\in_ss2\\video_noaudio.mp4",
+      "bytes": 22610748,
+      "bitrate_kbps": 6029.5,
+      "frames": 900,
+      "lapvar": {
+        "t=1.0": 631.2,
+        "t=15.0": 525.1,
+        "t=29.0": 467.5
+      },
+      "lapvar_all_frames": {
+        "mean": 438.9,
+        "median": 447.4,
+        "min": 50.1,
+        "max": 905.9
+      },
+      "mad_mean": 0.851,
+      "freeze_mad_lt_0.01_0_255": {
+        "pairs": 0,
+        "of": 899,
+        "share": 0.0,
+        "max_run_pairs": 0,
+        "max_freeze_ms": 0.0
+      },
+      "brightness_mean": 133.07
+    },
+    "in_ss3": {
+      "file": "D:\\PixelPolish\\video\\projects\\layers_twogirls1844_v5b\\in_ss3\\video_noaudio.mp4",
+      "bytes": 22966958,
+      "bitrate_kbps": 6124.5,
+      "frames": 900,
+      "lapvar": {
+        "t=1.0": 632.9,
+        "t=15.0": 526.8,
+        "t=29.0": 469.1
+      },
+      "lapvar_all_frames": {
+        "mean": 440.9,
+        "median": 449.8,
+        "min": 53.3,
+        "max": 909.6
+      },
+      "mad_mean": 0.8512,
+      "freeze_mad_lt_0.01_0_255": {
+        "pairs": 0,
+        "of": 899,
+        "share": 0.0,
+        "max_run_pairs": 0,
+        "max_freeze_ms": 0.0
+      },
+      "brightness_mean": 133.35
+    },
+    "in_ss4": {
+      "file": "D:\\PixelPolish\\video\\projects\\layers_twogirls1844_v5b\\in_ss4\\video_noaudio.mp4",
+      "bytes": 23235306,
+      "bitrate_kbps": 6196.1,
+      "frames": 900,
+      "lapvar": {
+        "t=1.0": 631.5,
+        "t=15.0": 529.7,
+        "t=29.0": 469.7
+      },
+      "lapvar_all_frames": {
+        "mean": 441.6,
+        "median": 450.8,
+        "min": 53.2,
+        "max": 909.4
+      },
+      "mad_mean": 0.8536,
+      "freeze_mad_lt_0.01_0_255": {
+        "pairs": 0,
+        "of": 899,
+        "share": 0.0,
+        "max_run_pairs": 0,
+        "max_freeze_ms": 0.0
+      },
+      "brightness_mean": 133.1
+    },
+    "out_ss1": {
+      "file": "D:\\PixelPolish\\video\\projects\\layers_twogirls1844_v5b\\out_ss1\\video_noaudio.mp4",
+      "bytes": 19693372,
+      "bitrate_kbps": 5251.6,
+      "frames": 900,
+      "lapvar": {
+        "t=1.0": 502.1,
+        "t=15.0": 479.9,
+        "t=29.0": 448.6
+      },
+      "lapvar_all_frames": {
+        "mean": 401.7,
+        "median": 416.6,
+        "min": 41.9,
+        "max": 881.4
+      },
+      "mad_mean": 1.3409,
+      "freeze_mad_lt_0.01_0_255": {
+        "pairs": 0,
+        "of": 899,
+        "share": 0.0,
+        "max_run_pairs": 0,
+        "max_freeze_ms": 0.0
+      },
+      "brightness_mean": 133.58
+    },
+    "out_ss2": {
+      "file": "D:\\PixelPolish\\video\\projects\\layers_twogirls1844_v5b\\out_ss2\\video_noaudio.mp4",
+      "bytes": 22269192,
+      "bitrate_kbps": 5938.5,
+      "frames": 900,
+      "lapvar": {
+        "t=1.0": 565.1,
+        "t=15.0": 522.7,
+        "t=29.0": 486.3
+      },
+      "lapvar_all_frames": {
+        "mean": 439.0,
+        "median": 457.5,
+        "min": 54.2,
+        "max": 913.6
+      },
+      "mad_mean": 0.8307,
+      "freeze_mad_lt_0.01_0_255": {
+        "pairs": 0,
+        "of": 899,
+        "share": 0.0,
+        "max_run_pairs": 0,
+        "max_freeze_ms": 0.0
+      },
+      "brightness_mean": 133.51
+    },
+    "off_ffv1": {
+      "file": "D:\\PixelPolish\\video\\projects\\layers_twogirls1844_v5b\\off_ll\\video_lossless.mkv",
+      "bytes": 1050847744,
+      "bitrate_kbps": 280226.1,
+      "frames": 900,
+      "lapvar": {
+        "t=1.0": 712.6,
+        "t=15.0": 601.2,
+        "t=29.0": 535.9
+      },
+      "lapvar_all_frames": {
+        "mean": 504.9,
+        "median": 512.7,
+        "min": 94.8,
+        "max": 974.0
+      },
+      "mad_mean": 0.1896,
+      "freeze_mad_lt_0.01_0_255": {
+        "pairs": 748,
+        "of": 899,
+        "share": 0.832,
+        "max_run_pairs": 88,
+        "max_freeze_ms": 2933.3
+      },
+      "brightness_mean": 134.05
+    },
+    "in_ss1_ffv1": {
+      "file": "D:\\PixelPolish\\video\\projects\\layers_twogirls1844_v5b\\in_ss1_ll\\video_lossless.mkv",
+      "bytes": 1024857532,
+      "bitrate_kbps": 273295.3,
+      "frames": 900,
+      "lapvar": {
+        "t=1.0": 623.9,
+        "t=15.0": 533.5,
+        "t=29.0": 469.6
+      },
+      "lapvar_all_frames": {
+        "mean": 446.2,
+        "median": 446.0,
+        "min": 69.9,
+        "max": 911.0
+      },
+      "mad_mean": 1.5097,
+      "freeze_mad_lt_0.01_0_255": {
+        "pairs": 0,
+        "of": 899,
+        "share": 0.0,
+        "max_run_pairs": 0,
+        "max_freeze_ms": 0.0
+      },
+      "brightness_mean": 132.94
+    },
+    "in_ss2_ffv1": {
+      "file": "D:\\PixelPolish\\video\\projects\\layers_twogirls1844_v5b\\in_ss2_ll\\video_lossless.mkv",
+      "bytes": 1058907124,
+      "bitrate_kbps": 282375.2,
+      "frames": 900,
+      "lapvar": {
+        "t=1.0": 708.4,
+        "t=15.0": 579.5,
+        "t=29.0": 509.3
+      },
+      "lapvar_all_frames": {
+        "mean": 486.3,
+        "median": 488.0,
+        "min": 85.8,
+        "max": 950.1
+      },
+      "mad_mean": 1.0702,
+      "freeze_mad_lt_0.01_0_255": {
+        "pairs": 0,
+        "of": 899,
+        "share": 0.0,
+        "max_run_pairs": 0,
+        "max_freeze_ms": 0.0
+      },
+      "brightness_mean": 132.9
+    },
+    "off_ffv1_x264_crf16": {
+      "file": "D:\\PixelPolish\\video\\projects\\layers_twogirls1844_v5b\\_reenc\\off_crf16m16.mp4",
+      "bytes": 7929189,
+      "bitrate_kbps": 2114.5,
+      "frames": 900,
+      "lapvar": {
+        "t=1.0": 711.1,
+        "t=15.0": 611.6,
+        "t=29.0": 535.4
+      },
+      "lapvar_all_frames": {
+        "mean": 503.3,
+        "median": 515.5,
+        "min": 93.0,
+        "max": 968.7
+      },
+      "mad_mean": 0.1992,
+      "freeze_mad_lt_0.01_0_255": {
+        "pairs": 724,
+        "of": 899,
+        "share": 0.8053,
+        "max_run_pairs": 88,
+        "max_freeze_ms": 2933.3
+      },
+      "brightness_mean": 134.07
+    },
+    "in_ss2_ffv1_x264_crf16": {
+      "file": "D:\\PixelPolish\\video\\projects\\layers_twogirls1844_v5b\\_reenc\\in_ss2_crf16m16.mp4",
+      "bytes": 23710154,
+      "bitrate_kbps": 6322.7,
+      "frames": 900,
+      "lapvar": {
+        "t=1.0": 632.5,
+        "t=15.0": 524.9,
+        "t=29.0": 467.5
+      },
+      "lapvar_all_frames": {
+        "mean": 440.7,
+        "median": 447.7,
+        "min": 50.3,
+        "max": 905.9
+      },
+      "mad_mean": 0.8534,
+      "freeze_mad_lt_0.01_0_255": {
+        "pairs": 0,
+        "of": 899,
+        "share": 0.0,
+        "max_run_pairs": 0,
+        "max_freeze_ms": 0.0
+      },
+      "brightness_mean": 133.07
+    },
+    "in_ss2_ffv1_x264_crf16_nocap": {
+      "file": "D:\\PixelPolish\\video\\projects\\layers_twogirls1844_v5b\\_reenc\\in_ss2_crf16free.mp4",
+      "bytes": 24779158,
+      "bitrate_kbps": 6607.8,
+      "frames": 900,
+      "lapvar": {
+        "t=1.0": 635.3,
+        "t=15.0": 533.0,
+        "t=29.0": 467.1
+      },
+      "lapvar_all_frames": {
+        "mean": 441.9,
+        "median": 447.5,
+        "min": 52.3,
+        "max": 905.9
+      },
+      "mad_mean": 0.8542,
+      "freeze_mad_lt_0.01_0_255": {
+        "pairs": 0,
+        "of": 899,
+        "share": 0.0,
+        "max_run_pairs": 0,
+        "max_freeze_ms": 0.0
+      },
+      "brightness_mean": 133.06
+    },
+    "in_ss2_ffv1_x264_crf12_nocap": {
+      "file": "D:\\PixelPolish\\video\\projects\\layers_twogirls1844_v5b\\_reenc\\in_ss2_crf12free.mp4",
+      "bytes": 54822195,
+      "bitrate_kbps": 14619.3,
+      "frames": 900,
+      "lapvar": {
+        "t=1.0": 655.7,
+        "t=15.0": 550.8,
+        "t=29.0": 491.9
+      },
+      "lapvar_all_frames": {
+        "mean": 460.5,
+        "median": 471.1,
+        "min": 67.1,
+        "max": 931.7
+      },
+      "mad_mean": 0.8851,
+      "freeze_mad_lt_0.01_0_255": {
+        "pairs": 0,
+        "of": 899,
+        "share": 0.0,
+        "max_run_pairs": 0,
+        "max_freeze_ms": 0.0
+      },
+      "brightness_mean": 133.06
+    }
+  }
+}
