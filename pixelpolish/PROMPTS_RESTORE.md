@@ -83,7 +83,7 @@
 ## Добавки к промпту 2, наши
 
 К любому варианту добавлять в конец:
-    Background must be a plain smooth studio backdrop with soft vignette. No curtains, no drapery, no tulle, no fabric folds, no patterned background.
+    KEEP THE ORIGINAL BACKGROUND EXACTLY AS IT IS. Remove only the damage on it: stains, tarnish, scratches, dust. Do NOT paint, invent or replace the backdrop. No added curtains, drapery, tulle, lace, clouds, mottling or painted studio canvas.
 
 Для сепийного варианта с рамкой (эталон 3) дополнительно:
     Warm sepia toned platinum print, perfectly preserved antique photographic print, fine noble film grain.
@@ -142,7 +142,7 @@ Correct anatomy, five fingers per hand, natural articulation, exactly the origin
 Remove cracks, folds, scratches, dust, silver mirroring, chemical and water stains, mould, and edge decay. Rebuild covered areas from surrounding context only. Introduce no new objects, patterns, jewellery, or background elements.
 
 [5. BACKGROUND]
-Plain smooth studio backdrop, warm neutral grey-beige, soft vignette. No curtains, no drapery, no tulle, no lace, no fabric folds, no patterned or busy background.
+KEEP THE ORIGINAL BACKGROUND EXACTLY AS IT IS. Remove only the damage on it: stains, tarnish, scratches, dust. Do NOT paint, invent or replace the backdrop. No added curtains, drapery, tulle, lace, clouds, mottling or painted studio canvas.
 
 [6. OPTICS AND TONE]
 Render as a large-format view-camera portrait: even soft frontal light, gentle falloff, natural depth, no HDR, no glow halos, no clarity or structure over-processing. Recover shadow and highlight detail on a natural film gamma curve.
