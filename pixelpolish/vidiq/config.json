@@ -15,8 +15,9 @@
    "id": "UCWuyiXkI0WWFOhYb189ad_A"
   },
   "scroll_flame": {
-   "label": "Scroll & Flame",
-   "id": "UCW2PAiXy58LRIzbN7V-9t8g"
+   "label": "Years in a Minute",
+   "id": "UCW2PAiXy58LRIzbN7V-9t8g",
+   "note": "канал переименован 03.09 из Scroll & Flame, ниша сменена с библейских историй на таймлапсы; ключ бакета оставлен прежним, чтобы не рвать историю в ours_history.jsonl"
   }
  },
  "competitors": {
@@ -82,36 +83,32 @@
   ],
   "scroll_flame": [
    {
-    "id": "UCkEdeSELPSJelZL7QHvW8LA",
-    "label": "Anna Miriam Brown"
+    "id": "UCac6m8K3OGHUT4itHwpCAmw",
+    "label": "Lost in Time"
    },
    {
-    "id": "UCsALNFSmC2T8W8PsL47gu-A",
-    "label": "JudahSketch Animation"
+    "id": "UCiL9l2J57t5OG2aZ0huswZw",
+    "label": "Boxlapse"
    },
    {
-    "id": "UCgEKH0HNhP_RYggwbIksHwg",
-    "label": "JivanJyoti 3DAnimation"
+    "id": "UCANp2YejdjMHJ4rIuce93oA",
+    "label": "History by Mae"
    },
    {
-    "id": "UCdcUjj2TszJw6GlqZu8JYnA",
-    "label": "Simply Scripture"
+    "id": "UCvDNYBi4oqB9kINNVu-iFig",
+    "label": "CITY 3D TIMELAPSE"
    },
    {
-    "id": "UCL0d2k1TBggACFWyTciqxKA",
-    "label": "3D Bible StoryVerse"
+    "id": "UC6LVQFhIJQqtKyBlypxacuA",
+    "label": "AI & Evolution"
    },
    {
-    "id": "UCAW9IHTdpkVa4vIFhUEjMfA",
-    "label": "IND Daily Discovery"
+    "id": "UCLC0wSkZJdCIyJIP2qAXMYQ",
+    "label": "Robert Quimby"
    },
    {
-    "id": "UCnu84SFythwqhmEto1IQetw",
-    "label": "IND Forgotten Bible Stories"
-   },
-   {
-    "id": "UC52uKR0heLpyeiGTqT8iouw",
-    "label": "IND Mythora AI"
+    "id": "UCVLNWQlAjRHV21x7RMtfRTQ",
+    "label": "curiousitygeek"
    }
   ],
   "humor_reserve": [
