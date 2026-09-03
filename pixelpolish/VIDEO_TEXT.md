@@ -46,12 +46,15 @@ they simply could not move.
 <N> years of tarnish, scratches and silver mirroring removed layer by layer.
 Source: <архив>, Public Domain. No known restrictions on publication.
 
-## Язык надписей — открытый вопрос к хозяину
+## Язык надписей — РЕШЕНО 03.09.2026: ТОЛЬКО АНГЛИЙСКИЙ
 
-Рекомендация: делать надписи ПО-АНГЛИЙСКИ. Ниша визуальная, язык почти не
-мешает, а у конкурентов в photo_rescue ролики англо- и португалоязычные и
-собирают десятки тысяч просмотров. Русский текст режет охват в разы.
-Решение за хозяином, по умолчанию пока русский.
+Слово хозяина: «субтитры на английском, слова на английском надо, канал же
+американский». Русский текст на этом канале больше не ставить нигде — ни на
+экране, ни в заголовке, ни в описании, ни в тегах.
+
+Основание: у конкурентов в photo_rescue ролики англо- и португалоязычные,
+лидер Milton Frank Restauracoes — 85 тыс. просмотров при медиане ~11 тыс.
+Русский текст режет охват в разы.
 
 ## Правило честности
 
@@ -111,3 +114,79 @@ Start-Process. Правило введено 03.09 после жалобы хо�
 - Всё по судебному делу (`00_*`, `Апелляционная_*`, `Ходатайство_*`,
   `Приговор_*`, `Протокол_*`, `дело.zip`, папки `01_Prigovor`–`04_Tom_2`) —
   файлы хозяина, не наши.
+
+---
+
+# АНГЛИЙСКИЙ ЭКРАННЫЙ ТЕКСТ — канонический шаблон (03.09.2026)
+
+Тайминги те же, что в русской версии, кегли те же, оформление то же:
+белая заливка `white@1.0`, чёрная обводка не тоньше кегль/12, мягкая тень,
+непрозрачность 100 %, полупрозрачных надписей нет вообще.
+
+| время | надпись | кегль | место |
+|---|---|---|---|
+| 1.0–3.5   | **1844** | 120 | верх |
+| 1.0–3.5   | this photo is 182 years old | 44 | низ |
+| 3.5–6.0   | removing the damage | 48 | низ |
+| 8.0–10.5  | restoring the tone | 48 | низ |
+| 12.5–15.5 | recovering detail | 48 | низ |
+| 18.0–21.5 | adding color | 48 | низ |
+| 21.5–24.0 | **Their names were never recorded** | 60 | верх |
+| 24.0–27.0 | **But the picture survived** | 66 | верх |
+| 24.0–27.0 | AI restoration · fine detail reconstructed | 34 | низ |
+| 27.0–30.0 | Library of Congress · Public Domain | 40 | низ |
+
+Правописание американское: **color**, не colour. Проверять на каждом ролике.
+
+Кегль строки про имена снижен со 66 до 60: «Their names were never recorded» —
+31 знак против 25 в русской «Их имена не сохранились», при 66 она выйдет за
+безопасное поле 960 px. Ширину каждой строки проверять по факту, а не на глаз.
+
+## Почему «But the picture survived», а не «Now you can see them again»
+
+Прямой перевод русской строки утверждал бы, что зритель видит этих людей.
+На сильно выцветших пластинах тонкие черты лица — синтез модели, а не
+восстановление. «But the picture survived» — про снимок, а не про лица:
+эмоционально работает так же, а соврать не даёт.
+
+По той же причине на 24–27 с стоит мелкая строка «AI restoration · fine detail
+reconstructed». Это не осторожность ради осторожности: правила YouTube требуют
+раскрывать реалистичный синтетический контент, который зритель может принять за
+настоящий. При заливке отмечать галочку «Altered or synthetic content».
+
+## Английское описание, шаблон
+
+```
+Half-plate daguerreotype, <year>. <кто на снимке, если известно; иначе:
+Their names were never recorded — the plate was never signed, and the archive
+catalogued it simply as [<каталожный заголовок>]>.
+
+A daguerreotype was made on a silvered copper sheet, and the exposure took tens
+of seconds. That is why children on these plates almost never smile: they simply
+could not hold one that long.
+
+<N> years of tarnish, scratches and silver mirroring, removed layer by layer.
+
+Source: <архив>, Public Domain. No known restrictions on publication.
+Restored with AI. Fine facial detail is reconstructed, not recovered — the
+original plate is too faded to carry it.
+```
+
+Готовое описание для twogirls1844 — в `pixelpolish/VIDEO_TEXT_TWOGIRLS_EN.md`.
+
+## Музыка
+
+Трек: `D:\PixelPolish\МУЗЫКА\gemini_lyria_01.m4a` — 61,4 с, AAC 128 кбит/с,
+44,1 кГц, стерео. Сгенерирован в Gemini (Lyria), права на использование у
+хозяина. Параметры замера: mean −14,4 дБ, max −0,1 дБ.
+
+Ролик 30 с, трек 61 с — значит РЕЗАТЬ, а не зацикливать.
+
+Правила подкладки:
+- выбрать окно 30 с: сравнить `0–30` и окно с наибольшим RMS; если трек
+  начинается с нарастания из тишины, брать второе. В отчёте привести RMS обоих;
+- фейд на входе 0,5 с, на выходе 2 с (`afade`);
+- громкость привести к вещательной норме YouTube: `loudnorm=I=-14:TP=-1.5:LRA=11`;
+- кодек AAC 192 кбит/с, 44,1 кГц, стерео;
+- видеодорожку НЕ перекодировать: `-c:v copy`. Пережимать уже готовый h264
+  второй раз незачем.
