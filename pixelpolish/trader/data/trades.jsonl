@@ -3,3 +3,4 @@
 {"ts": 1788282000, "asset": "BTC", "strat": "rsi", "side": "buy", "price": 77237.5, "rsi": 27.6}
 {"ts": 1788282000, "asset": "ETH", "strat": "rsi", "side": "buy", "price": 2417.09, "rsi": 27.4}
 {"ts": 1788400800, "asset": "BTC", "strat": "rsi", "side": "sell", "price": 77780.3, "rsi": 70.7}
+{"ts": 1788444000, "asset": "ETH", "strat": "rsi", "side": "sell", "price": 2489.53, "rsi": 84.8}

@@ -148,3 +148,9 @@
 {"ts": 1788433200, "asset": "ETH", "strat": "hold", "eq": 972.37}
 {"ts": 1788433200, "asset": "ETH", "strat": "sma", "eq": 1000.0}
 {"ts": 1788433200, "asset": "ETH", "strat": "rsi", "eq": 994.63}
+{"ts": 1788444000, "asset": "BTC", "strat": "hold", "eq": 1020.56}
+{"ts": 1788444000, "asset": "BTC", "strat": "sma", "eq": 1000.0}
+{"ts": 1788444000, "asset": "BTC", "strat": "rsi", "eq": 1005.01}
+{"ts": 1788444000, "asset": "ETH", "strat": "hold", "eq": 1005.92}
+{"ts": 1788444000, "asset": "ETH", "strat": "sma", "eq": 1000.0}
+{"ts": 1788444000, "asset": "ETH", "strat": "rsi", "eq": 1027.91}
