@@ -1,0 +1,864 @@
+{
+  "_o_chyom": "Замер 1080x1920 против 1440x2560 на одном и том же ролике twogirls1844 v5, режим in, ss=2, crf 16. Всё считано на ПК, никуда ничего не заливалось.",
+  "_stendy": {
+    "res_bench.py": "C:/pixelpolish/res_bench.py — оба файла приводятся lanczos к одному размеру просмотра, дальше lapvar по всем 900 кадрам и кроп 1:1 по лицу левой девочки на t=29. Определения gray/lapvar импортированы из zoom_bench.py без изменений; стенд воспроизвёл in_ss2 из REPORT_ZOOM_SHARPNESS.md до десятой (631.2 / 525.1 / 467.5, средняя 438.9).",
+    "res_ref.py": "C:/pixelpolish/res_ref.py — опорный кадр собран из холста рендера той же сборки (stages/S*.png) без zoompan и без x264, сравнение PSNR/SSIM по сборкам БЕЗ надписей.",
+    "res_source.py": "C:/pixelpolish/res_source.py — сколько измеренных отсчётов лежит в окне 9:16 и что даёт 1440 над 1080 на одном источнике."
+  },
+  "sborki": {
+    "v1_1080": "1080x1920, холст 1350x2400, crf 16 — производственная сегодня",
+    "v2_1440": "1440x2560, холст 1350x2400, crf 16 — только выход другой, потолок растяжения поднят с 1.15 до 1.20, иначе не собирается",
+    "v3_1440_fair": "1440x2560, холст 1800x3200, crf 16 — запас разрешения как у v1, растяжения нет",
+    "v4_1080_crf12": "1080x1920, холст 1350x2400, crf 12 — контроль на биты"
+  },
+  "lapvar_po_razmeru_prosmotra": {
+    "view_1080x1920": {
+      "v1_1080": {
+        "file": "D:\\PixelPolish\\ШОРТСЫ\\twogirls1844_v5_in_1080.mp4",
+        "view": "1080x1920",
+        "bytes": 23353734,
+        "bitrate_kbps": 6227.7,
+        "frames": 900,
+        "lapvar": {
+          "t=1.0": 631.2,
+          "t=15.0": 525.1,
+          "t=29.0": 467.5
+        },
+        "lapvar_all_frames": {
+          "mean": 438.9,
+          "median": 447.4,
+          "min": 50.1,
+          "max": 905.9
+        },
+        "face_crop_t29": {
+          "box_in_view": [
+            146,
+            473,
+            420,
+            783
+          ],
+          "size": [
+            274,
+            310
+          ],
+          "lapvar": 215.3
+        },
+        "mad_mean": 0.851,
+        "freeze_mad_lt_0.01_0_255": {
+          "pairs": 0,
+          "of": 899
+        },
+        "brightness_mean": 133.07
+      },
+      "v2_1440": {
+        "file": "D:\\PixelPolish\\ШОРТСЫ\\twogirls1844_v5_in_1440.mp4",
+        "view": "1080x1920",
+        "bytes": 31286499,
+        "bitrate_kbps": 8343.1,
+        "frames": 900,
+        "lapvar": {
+          "t=1.0": 641.2,
+          "t=15.0": 516.0,
+          "t=29.0": 448.1
+        },
+        "lapvar_all_frames": {
+          "mean": 428.6,
+          "median": 441.9,
+          "min": 71.6,
+          "max": 794.8
+        },
+        "face_crop_t29": {
+          "box_in_view": [
+            146,
+            473,
+            420,
+            783
+          ],
+          "size": [
+            274,
+            310
+          ],
+          "lapvar": 245.3
+        },
+        "mad_mean": 1.004,
+        "freeze_mad_lt_0.01_0_255": {
+          "pairs": 0,
+          "of": 899
+        },
+        "brightness_mean": 132.6
+      },
+      "v3_1440_fair": {
+        "file": "D:\\PixelPolish\\ШОРТСЫ\\twogirls1844_v5_in_1440fair.mp4",
+        "view": "1080x1920",
+        "bytes": 36920184,
+        "bitrate_kbps": 9845.4,
+        "frames": 900,
+        "lapvar": {
+          "t=1.0": 648.5,
+          "t=15.0": 527.8,
+          "t=29.0": 464.0
+        },
+        "lapvar_all_frames": {
+          "mean": 438.8,
+          "median": 454.3,
+          "min": 81.7,
+          "max": 806.1
+        },
+        "face_crop_t29": {
+          "box_in_view": [
+            146,
+            473,
+            420,
+            783
+          ],
+          "size": [
+            274,
+            310
+          ],
+          "lapvar": 251.1
+        },
+        "mad_mean": 0.9828,
+        "freeze_mad_lt_0.01_0_255": {
+          "pairs": 0,
+          "of": 899
+        },
+        "brightness_mean": 132.6
+      },
+      "v1_1080_nt": {
+        "file": "D:\\PixelPolish\\video\\projects\\layers_twogirls1844_v5b\\res_1080\\video_notext.mp4",
+        "view": "1080x1920",
+        "bytes": 22224526,
+        "bitrate_kbps": 5926.5,
+        "frames": 900,
+        "lapvar": {
+          "t=1.0": 484.1,
+          "t=15.0": 363.8,
+          "t=29.0": 303.6
+        },
+        "lapvar_all_frames": {
+          "mean": 268.4,
+          "median": 303.5,
+          "min": 45.1,
+          "max": 566.8
+        },
+        "face_crop_t29": {
+          "box_in_view": [
+            146,
+            473,
+            420,
+            783
+          ],
+          "size": [
+            274,
+            310
+          ],
+          "lapvar": 214.5
+        },
+        "mad_mean": 0.8332,
+        "freeze_mad_lt_0.01_0_255": {
+          "pairs": 0,
+          "of": 899
+        },
+        "brightness_mean": 133.63
+      },
+      "v2_1440_nt": {
+        "file": "D:\\PixelPolish\\video\\projects\\layers_twogirls1844_v5b\\res_1440\\video_notext.mp4",
+        "view": "1080x1920",
+        "bytes": 30566576,
+        "bitrate_kbps": 8151.1,
+        "frames": 900,
+        "lapvar": {
+          "t=1.0": 539.0,
+          "t=15.0": 401.3,
+          "t=29.0": 335.9
+        },
+        "lapvar_all_frames": {
+          "mean": 303.0,
+          "median": 337.6,
+          "min": 63.2,
+          "max": 578.2
+        },
+        "face_crop_t29": {
+          "box_in_view": [
+            146,
+            473,
+            420,
+            783
+          ],
+          "size": [
+            274,
+            310
+          ],
+          "lapvar": 245.5
+        },
+        "mad_mean": 0.9889,
+        "freeze_mad_lt_0.01_0_255": {
+          "pairs": 0,
+          "of": 899
+        },
+        "brightness_mean": 133.17
+      },
+      "v3_1440_fair_nt": {
+        "file": "D:\\PixelPolish\\video\\projects\\layers_twogirls1844_v5b\\res_1440fair\\video_notext.mp4",
+        "view": "1080x1920",
+        "bytes": 36647053,
+        "bitrate_kbps": 9772.5,
+        "frames": 900,
+        "lapvar": {
+          "t=1.0": 551.2,
+          "t=15.0": 412.5,
+          "t=29.0": 349.8
+        },
+        "lapvar_all_frames": {
+          "mean": 313.5,
+          "median": 349.2,
+          "min": 71.4,
+          "max": 587.2
+        },
+        "face_crop_t29": {
+          "box_in_view": [
+            146,
+            473,
+            420,
+            783
+          ],
+          "size": [
+            274,
+            310
+          ],
+          "lapvar": 251.6
+        },
+        "mad_mean": 0.9679,
+        "freeze_mad_lt_0.01_0_255": {
+          "pairs": 0,
+          "of": 899
+        },
+        "brightness_mean": 133.17
+      },
+      "v4_1080_crf12": {
+        "file": "D:\\PixelPolish\\ШОРТСЫ\\twogirls1844_v5_in_1080_crf12.mp4",
+        "view": "1080x1920",
+        "bytes": 40282766,
+        "bitrate_kbps": 10742.1,
+        "frames": 900,
+        "lapvar": {
+          "t=1.0": 615.9,
+          "t=15.0": 542.7,
+          "t=29.0": 484.3
+        },
+        "lapvar_all_frames": {
+          "mean": 452.2,
+          "median": 464.9,
+          "min": 62.0,
+          "max": 924.9
+        },
+        "face_crop_t29": {
+          "box_in_view": [
+            146,
+            473,
+            420,
+            783
+          ],
+          "size": [
+            274,
+            310
+          ],
+          "lapvar": 233.9
+        },
+        "mad_mean": 0.8709,
+        "freeze_mad_lt_0.01_0_255": {
+          "pairs": 0,
+          "of": 899
+        },
+        "brightness_mean": 133.06
+      },
+      "v4_1080_crf12_nt": {
+        "file": "D:\\PixelPolish\\video\\projects\\layers_twogirls1844_v5b\\res_1080_crf12\\video_notext.mp4",
+        "view": "1080x1920",
+        "bytes": 39383358,
+        "bitrate_kbps": 10502.2,
+        "frames": 900,
+        "lapvar": {
+          "t=1.0": 479.1,
+          "t=15.0": 383.3,
+          "t=29.0": 321.2
+        },
+        "lapvar_all_frames": {
+          "mean": 282.6,
+          "median": 317.9,
+          "min": 59.2,
+          "max": 566.8
+        },
+        "face_crop_t29": {
+          "box_in_view": [
+            146,
+            473,
+            420,
+            783
+          ],
+          "size": [
+            274,
+            310
+          ],
+          "lapvar": 234.3
+        },
+        "mad_mean": 0.8538,
+        "freeze_mad_lt_0.01_0_255": {
+          "pairs": 0,
+          "of": 899
+        },
+        "brightness_mean": 133.62
+      }
+    },
+    "view_1440x2560": {
+      "v1_1080": {
+        "file": "D:\\PixelPolish\\ШОРТСЫ\\twogirls1844_v5_in_1080.mp4",
+        "view": "1440x2560",
+        "bytes": 23353734,
+        "bitrate_kbps": 6227.7,
+        "frames": 900,
+        "lapvar": {
+          "t=1.0": 233.4,
+          "t=15.0": 189.3,
+          "t=29.0": 166.5
+        },
+        "lapvar_all_frames": {
+          "mean": 158.5,
+          "median": 162.1,
+          "min": 21.0,
+          "max": 315.9
+        },
+        "face_crop_t29": {
+          "box_in_view": [
+            195,
+            631,
+            560,
+            1045
+          ],
+          "size": [
+            365,
+            414
+          ],
+          "lapvar": 81.2
+        },
+        "mad_mean": 0.8762,
+        "freeze_mad_lt_0.01_0_255": {
+          "pairs": 0,
+          "of": 899
+        },
+        "brightness_mean": 132.58
+      },
+      "v2_1440": {
+        "file": "D:\\PixelPolish\\ШОРТСЫ\\twogirls1844_v5_in_1440.mp4",
+        "view": "1440x2560",
+        "bytes": 31286499,
+        "bitrate_kbps": 8343.1,
+        "frames": 900,
+        "lapvar": {
+          "t=1.0": 347.4,
+          "t=15.0": 286.5,
+          "t=29.0": 275.0
+        },
+        "lapvar_all_frames": {
+          "mean": 269.1,
+          "median": 262.5,
+          "min": 55.8,
+          "max": 609.3
+        },
+        "face_crop_t29": {
+          "box_in_view": [
+            195,
+            631,
+            560,
+            1045
+          ],
+          "size": [
+            365,
+            414
+          ],
+          "lapvar": 115.3
+        },
+        "mad_mean": 1.0287,
+        "freeze_mad_lt_0.01_0_255": {
+          "pairs": 0,
+          "of": 899
+        },
+        "brightness_mean": 133.09
+      },
+      "v3_1440_fair": {
+        "file": "D:\\PixelPolish\\ШОРТСЫ\\twogirls1844_v5_in_1440fair.mp4",
+        "view": "1440x2560",
+        "bytes": 36920184,
+        "bitrate_kbps": 9845.4,
+        "frames": 900,
+        "lapvar": {
+          "t=1.0": 358.8,
+          "t=15.0": 314.7,
+          "t=29.0": 313.4
+        },
+        "lapvar_all_frames": {
+          "mean": 297.7,
+          "median": 293.9,
+          "min": 80.4,
+          "max": 643.4
+        },
+        "face_crop_t29": {
+          "box_in_view": [
+            195,
+            631,
+            560,
+            1045
+          ],
+          "size": [
+            365,
+            414
+          ],
+          "lapvar": 138.4
+        },
+        "mad_mean": 1.0497,
+        "freeze_mad_lt_0.01_0_255": {
+          "pairs": 0,
+          "of": 899
+        },
+        "brightness_mean": 133.08
+      },
+      "v1_1080_nt": {
+        "file": "D:\\PixelPolish\\video\\projects\\layers_twogirls1844_v5b\\res_1080\\video_notext.mp4",
+        "view": "1440x2560",
+        "bytes": 22224526,
+        "bitrate_kbps": 5926.5,
+        "frames": 900,
+        "lapvar": {
+          "t=1.0": 185.2,
+          "t=15.0": 135.1,
+          "t=29.0": 112.9
+        },
+        "lapvar_all_frames": {
+          "mean": 100.9,
+          "median": 112.9,
+          "min": 19.5,
+          "max": 214.6
+        },
+        "face_crop_t29": {
+          "box_in_view": [
+            195,
+            631,
+            560,
+            1045
+          ],
+          "size": [
+            365,
+            414
+          ],
+          "lapvar": 80.9
+        },
+        "mad_mean": 0.8597,
+        "freeze_mad_lt_0.01_0_255": {
+          "pairs": 0,
+          "of": 899
+        },
+        "brightness_mean": 133.14
+      },
+      "v2_1440_nt": {
+        "file": "D:\\PixelPolish\\video\\projects\\layers_twogirls1844_v5b\\res_1440\\video_notext.mp4",
+        "view": "1440x2560",
+        "bytes": 30566576,
+        "bitrate_kbps": 8151.1,
+        "frames": 900,
+        "lapvar": {
+          "t=1.0": 241.5,
+          "t=15.0": 173.6,
+          "t=29.0": 152.5
+        },
+        "lapvar_all_frames": {
+          "mean": 142.8,
+          "median": 152.9,
+          "min": 47.5,
+          "max": 298.4
+        },
+        "face_crop_t29": {
+          "box_in_view": [
+            195,
+            631,
+            560,
+            1045
+          ],
+          "size": [
+            365,
+            414
+          ],
+          "lapvar": 115.9
+        },
+        "mad_mean": 1.0126,
+        "freeze_mad_lt_0.01_0_255": {
+          "pairs": 0,
+          "of": 899
+        },
+        "brightness_mean": 133.66
+      },
+      "v3_1440_fair_nt": {
+        "file": "D:\\PixelPolish\\video\\projects\\layers_twogirls1844_v5b\\res_1440fair\\video_notext.mp4",
+        "view": "1440x2560",
+        "bytes": 36647053,
+        "bitrate_kbps": 9772.5,
+        "frames": 900,
+        "lapvar": {
+          "t=1.0": 256.7,
+          "t=15.0": 202.7,
+          "t=29.0": 185.0
+        },
+        "lapvar_all_frames": {
+          "mean": 172.1,
+          "median": 182.1,
+          "min": 64.7,
+          "max": 351.2
+        },
+        "face_crop_t29": {
+          "box_in_view": [
+            195,
+            631,
+            560,
+            1045
+          ],
+          "size": [
+            365,
+            414
+          ],
+          "lapvar": 139.1
+        },
+        "mad_mean": 1.0347,
+        "freeze_mad_lt_0.01_0_255": {
+          "pairs": 0,
+          "of": 899
+        },
+        "brightness_mean": 133.65
+      },
+      "v4_1080_crf12": {
+        "file": "D:\\PixelPolish\\ШОРТСЫ\\twogirls1844_v5_in_1080_crf12.mp4",
+        "view": "1440x2560",
+        "bytes": 40282766,
+        "bitrate_kbps": 10742.1,
+        "frames": 900,
+        "lapvar": {
+          "t=1.0": 227.8,
+          "t=15.0": 195.5,
+          "t=29.0": 172.4
+        },
+        "lapvar_all_frames": {
+          "mean": 163.0,
+          "median": 167.3,
+          "min": 24.9,
+          "max": 322.3
+        },
+        "face_crop_t29": {
+          "box_in_view": [
+            195,
+            631,
+            560,
+            1045
+          ],
+          "size": [
+            365,
+            414
+          ],
+          "lapvar": 87.9
+        },
+        "mad_mean": 0.8948,
+        "freeze_mad_lt_0.01_0_255": {
+          "pairs": 0,
+          "of": 899
+        },
+        "brightness_mean": 132.58
+      },
+      "v4_1080_crf12_nt": {
+        "file": "D:\\PixelPolish\\video\\projects\\layers_twogirls1844_v5b\\res_1080_crf12\\video_notext.mp4",
+        "view": "1440x2560",
+        "bytes": 39383358,
+        "bitrate_kbps": 10502.2,
+        "frames": 900,
+        "lapvar": {
+          "t=1.0": 183.3,
+          "t=15.0": 142.0,
+          "t=29.0": 119.1
+        },
+        "lapvar_all_frames": {
+          "mean": 105.9,
+          "median": 118.1,
+          "min": 24.6,
+          "max": 214.6
+        },
+        "face_crop_t29": {
+          "box_in_view": [
+            195,
+            631,
+            560,
+            1045
+          ],
+          "size": [
+            365,
+            414
+          ],
+          "lapvar": 87.9
+        },
+        "mad_mean": 0.8787,
+        "freeze_mad_lt_0.01_0_255": {
+          "pairs": 0,
+          "of": 899
+        },
+        "brightness_mean": 133.14
+      }
+    }
+  },
+  "opora_bez_kodeka": {
+    "_o_chyom": "Opornyy kadr sobran iz holsta rendera toy zhe sborki (stages/S<n>.png), krop okna zuma + lanczos. Bez zoompan i bez x264. Sravnenie idet s kadrami sborki BEZ nadpisey, chtoby drawtext ne portil PSNR.",
+    "sborki": {
+      "v1_1080": {
+        "opisanie": "1080x1920, holst 1350x2400",
+        "fayl": "D:\\PixelPolish\\video\\projects\\layers_twogirls1844_v5b\\res_1080\\video_notext.mp4",
+        "tochki": {
+          "t=1.0 view=1080x1920": {
+            "sdvig_dy_dx": [
+              0,
+              0
+            ],
+            "psnr_k_opore": 38.17,
+            "ssim_k_opore": 0.9738,
+            "lapvar_opory": 565.9,
+            "lapvar_sborki": 484.1,
+            "lapvar_dolya_ot_opory": 0.8556,
+            "moshchnost_vyshe_0.75_nyquista_opora": 2.5e-05,
+            "moshchnost_vyshe_0.75_nyquista_sborka": 2e-05
+          },
+          "t=1.0 view=1440x2560": {
+            "sdvig_dy_dx": [
+              0,
+              0
+            ],
+            "psnr_k_opore": 35.96,
+            "ssim_k_opore": 0.95187,
+            "lapvar_opory": 328.4,
+            "lapvar_sborki": 185.2,
+            "lapvar_dolya_ot_opory": 0.5638,
+            "moshchnost_vyshe_0.75_nyquista_opora": 1e-05,
+            "moshchnost_vyshe_0.75_nyquista_sborka": 1e-06
+          },
+          "t=29.0 view=1080x1920": {
+            "sdvig_dy_dx": [
+              0,
+              0
+            ],
+            "psnr_k_opore": 36.2,
+            "ssim_k_opore": 0.96952,
+            "lapvar_opory": 367.1,
+            "lapvar_sborki": 303.6,
+            "lapvar_dolya_ot_opory": 0.8269,
+            "moshchnost_vyshe_0.75_nyquista_opora": 9e-06,
+            "moshchnost_vyshe_0.75_nyquista_sborka": 6e-06
+          },
+          "t=29.0 view=1440x2560": {
+            "sdvig_dy_dx": [
+              0,
+              0
+            ],
+            "psnr_k_opore": 35.53,
+            "ssim_k_opore": 0.95301,
+            "lapvar_opory": 191.7,
+            "lapvar_sborki": 112.9,
+            "lapvar_dolya_ot_opory": 0.589,
+            "moshchnost_vyshe_0.75_nyquista_opora": 3e-06,
+            "moshchnost_vyshe_0.75_nyquista_sborka": 1e-06
+          }
+        }
+      },
+      "v2_1440": {
+        "opisanie": "1440x2560, holst 1350x2400 (rastyazhenie na pike 1.195)",
+        "fayl": "D:\\PixelPolish\\video\\projects\\layers_twogirls1844_v5b\\res_1440\\video_notext.mp4",
+        "tochki": {
+          "t=1.0 view=1080x1920": {
+            "sdvig_dy_dx": [
+              0,
+              0
+            ],
+            "psnr_k_opore": 37.05,
+            "ssim_k_opore": 0.97293,
+            "lapvar_opory": 565.9,
+            "lapvar_sborki": 539.0,
+            "lapvar_dolya_ot_opory": 0.9526,
+            "moshchnost_vyshe_0.75_nyquista_opora": 2.5e-05,
+            "moshchnost_vyshe_0.75_nyquista_sborka": 2.1e-05
+          },
+          "t=1.0 view=1440x2560": {
+            "sdvig_dy_dx": [
+              0,
+              0
+            ],
+            "psnr_k_opore": 37.01,
+            "ssim_k_opore": 0.9583,
+            "lapvar_opory": 328.4,
+            "lapvar_sborki": 241.5,
+            "lapvar_dolya_ot_opory": 0.7353,
+            "moshchnost_vyshe_0.75_nyquista_opora": 1e-05,
+            "moshchnost_vyshe_0.75_nyquista_sborka": 4e-06
+          },
+          "t=29.0 view=1080x1920": {
+            "sdvig_dy_dx": [
+              0,
+              0
+            ],
+            "psnr_k_opore": 36.15,
+            "ssim_k_opore": 0.97486,
+            "lapvar_opory": 367.1,
+            "lapvar_sborki": 335.9,
+            "lapvar_dolya_ot_opory": 0.9149,
+            "moshchnost_vyshe_0.75_nyquista_opora": 9e-06,
+            "moshchnost_vyshe_0.75_nyquista_sborka": 7e-06
+          },
+          "t=29.0 view=1440x2560": {
+            "sdvig_dy_dx": [
+              0,
+              0
+            ],
+            "psnr_k_opore": 36.14,
+            "ssim_k_opore": 0.96429,
+            "lapvar_opory": 191.7,
+            "lapvar_sborki": 152.5,
+            "lapvar_dolya_ot_opory": 0.7956,
+            "moshchnost_vyshe_0.75_nyquista_opora": 3e-06,
+            "moshchnost_vyshe_0.75_nyquista_sborka": 2e-06
+          }
+        }
+      },
+      "v3_1440_fair": {
+        "opisanie": "1440x2560, holst 1800x3200 (zapas kak u 1080)",
+        "fayl": "D:\\PixelPolish\\video\\projects\\layers_twogirls1844_v5b\\res_1440fair\\video_notext.mp4",
+        "tochki": {
+          "t=1.0 view=1080x1920": {
+            "sdvig_dy_dx": [
+              0,
+              0
+            ],
+            "psnr_k_opore": 36.78,
+            "ssim_k_opore": 0.97167,
+            "lapvar_opory": 564.9,
+            "lapvar_sborki": 551.2,
+            "lapvar_dolya_ot_opory": 0.9758,
+            "moshchnost_vyshe_0.75_nyquista_opora": 2.5e-05,
+            "moshchnost_vyshe_0.75_nyquista_sborka": 2.1e-05
+          },
+          "t=1.0 view=1440x2560": {
+            "sdvig_dy_dx": [
+              0,
+              0
+            ],
+            "psnr_k_opore": 36.49,
+            "ssim_k_opore": 0.95291,
+            "lapvar_opory": 368.4,
+            "lapvar_sborki": 256.7,
+            "lapvar_dolya_ot_opory": 0.6968,
+            "moshchnost_vyshe_0.75_nyquista_opora": 1.2e-05,
+            "moshchnost_vyshe_0.75_nyquista_sborka": 6e-06
+          },
+          "t=29.0 view=1080x1920": {
+            "sdvig_dy_dx": [
+              0,
+              0
+            ],
+            "psnr_k_opore": 35.72,
+            "ssim_k_opore": 0.97274,
+            "lapvar_opory": 365.7,
+            "lapvar_sborki": 349.8,
+            "lapvar_dolya_ot_opory": 0.9565,
+            "moshchnost_vyshe_0.75_nyquista_opora": 9e-06,
+            "moshchnost_vyshe_0.75_nyquista_sborka": 8e-06
+          },
+          "t=29.0 view=1440x2560": {
+            "sdvig_dy_dx": [
+              0,
+              0
+            ],
+            "psnr_k_opore": 35.13,
+            "ssim_k_opore": 0.94492,
+            "lapvar_opory": 291.6,
+            "lapvar_sborki": 185.0,
+            "lapvar_dolya_ot_opory": 0.6345,
+            "moshchnost_vyshe_0.75_nyquista_opora": 6e-06,
+            "moshchnost_vyshe_0.75_nyquista_sborka": 3e-06
+          }
+        }
+      }
+    },
+    "potolok_1080": {
+      "_o_chyom": "Opornyy kadr t=29 v 1440 progonyaetsya cherez setku 1080 i obratno. Chto ne perezhilo etot krug — to, chto 1440 nesyot, a 1080 net.",
+      "psnr_1440_vs_1440_cherez_1080": 44.4,
+      "ssim_1440_vs_1440_cherez_1080": 0.98302,
+      "lapvar_1440": 191.7,
+      "lapvar_1440_cherez_1080": 125.9,
+      "dolya_moshchnosti_vyshe_0.75_nyquista_1440": 3e-06,
+      "dolya_moshchnosti_vyshe_0.75_posle_kruga": 1e-06,
+      "_poyasnenie_0_75": "0.75 Nyquista kadra 1440 = Nyquist kadra 1080. Vsyo vyshe etoy cherty fayl 1080 peredat ne mozhet v principe."
+    }
+  },
+  "potolok_istochnika": {
+    "_o_chyom": "Skolko izmerennyh otschyotov lezhit v okne 9:16 i chto daet vyhod 1440 nad vyhodom 1080 na odnom i tom zhe istochnike. Vsyo bez zoompan i bez x264.",
+    "cepochka": {
+      "plastina": [
+        1328,
+        1760
+      ],
+      "plastina_v_holst_koeff": 1.3636,
+      "holst": [
+        1350,
+        2400
+      ],
+      "okno_9x16_v_pikselyah_plastiny": 990.0,
+      "okno_9x16_v_pikselyah_holsta": 1350,
+      "vyhod_1080_k_oknu_plastiny": 1.0909,
+      "vyhod_1440_k_oknu_plastiny": 1.4545,
+      "na_pike_zuma_1.12_okno_plastiny": 883.9,
+      "na_pike_1080_k_oknu": 1.2218,
+      "na_pike_1440_k_oknu": 1.6291
+    },
+    "plastina_bez_zerna": {
+      "_chto": "L5_color.png, okno 9:16, bez zerna",
+      "na_ekrane_1080": {
+        "psnr_1440vniz_protiv_rodnogo_1080": 50.29,
+        "ssim": 0.99786,
+        "lapvar_rodnoy_1080": 409.7,
+        "lapvar_1440_vniz": 383.5
+      },
+      "na_ekrane_1440": {
+        "psnr_1080vverh_protiv_rodnogo_1440": 48.43,
+        "ssim": 0.99658,
+        "moshchnost_vyshe_0.75_nyquista_rodnoy_1440": 2e-06,
+        "moshchnost_vyshe_0.75_nyquista_1080_vverh": 1e-06
+      },
+      "spektr_1440_po_polosam": {
+        "0.00-0.25": 0.999283,
+        "0.25-0.50": 0.000687,
+        "0.50-0.75": 2.7e-05,
+        "0.75-1.00": 2e-06
+      }
+    },
+    "holst_so_zernom": {
+      "_chto": "stages/S5.png, ves holst, zerno uzhe vnutri",
+      "na_ekrane_1080": {
+        "psnr_1440vniz_protiv_rodnogo_1080": 51.99,
+        "ssim": 0.99804,
+        "lapvar_rodnoy_1080": 380.0,
+        "lapvar_1440_vniz": 375.1
+      },
+      "na_ekrane_1440": {
+        "psnr_1080vverh_protiv_rodnogo_1440": 42.84,
+        "ssim": 0.97422,
+        "moshchnost_vyshe_0.75_nyquista_rodnoy_1440": 6e-06,
+        "moshchnost_vyshe_0.75_nyquista_1080_vverh": 1e-06
+      },
+      "spektr_1440_po_polosam": {
+        "0.00-0.25": 0.999327,
+        "0.25-0.50": 0.000637,
+        "0.50-0.75": 3.1e-05,
+        "0.75-1.00": 6e-06
+      }
+    }
+  }
+}

@@ -33,14 +33,20 @@ MAX_UPSCALE = 1.15               # предел растяжения на пик
 MODES = {"off": None, "in": (1.00, 1.12), "out": (1.12, 1.00)}
 
 
-def build(mode, seconds, fps, master_w, master_h, out_w, out_h, ss=2):
+def build(mode, seconds, fps, master_w, master_h, out_w, out_h, ss=2,
+          max_upscale=None):
     """ss — во сколько раз zoompan отдаёт кадр крупнее выхода (суперсэмплинг).
 
     По умолчанию 2. ss=1 — это прежнее поведение, оставлено только для контроля:
     на нём zoompan сам жмёт окно до 1080x1920 и теряет 12,3 % резкости кадра.
     Выше 2 не нужно: ss=3 и ss=4 добавляют меньше 0,7 % и стоят лишнего времени
     (ФОРМАТ_V5.md, J.2a).
+
+    max_upscale — потолок растяжения на пике зума. По умолчанию MAX_UPSCALE.
+    Поднимать его в производстве нельзя; параметр нужен замерам, которые как раз
+    и выясняют, где этот потолок должен стоять (REPORT_RESOLUTION.md).
     """
+    max_upscale = MAX_UPSCALE if max_upscale is None else max_upscale
     frames = int(round(seconds * fps))
     win_w = int(round(master_h * out_w / out_h))      # окно 9:16 по высоте мастера
     if win_w > master_w:
@@ -59,9 +65,9 @@ def build(mode, seconds, fps, master_w, master_h, out_w, out_h, ss=2):
     z0, z1 = MODES[mode]
     z_max = max(z0, z1)
     upscale_at_peak = z_max / headroom          # <1 — ещё пересэмплирование вниз
-    if upscale_at_peak > MAX_UPSCALE:
+    if upscale_at_peak > max_upscale:
         sys.exit(f"на пике зума кадр растянется в {upscale_at_peak:.2f} раза "
-                 f"при потолке {MAX_UPSCALE} — уменьшай зум или выход")
+                 f"при потолке {max_upscale} — уменьшай зум или выход")
 
     # подбираем целый апскейл входа так, чтобы окно шло >= 0.35 px за кадр
     span = 1 - 1 / z_max
@@ -92,7 +98,7 @@ def build(mode, seconds, fps, master_w, master_h, out_w, out_h, ss=2):
     return ",".join(parts), {
         "окно": f"{win_w}x{win_h}", "запас разрешения": f"{headroom:.3f}x",
         "зум": f"{z0} -> {z1}", "апскейл входа": f"{up}x",
-        "растяжение на пике": f"{upscale_at_peak:.3f}x (потолок {MAX_UPSCALE})",
+        "растяжение на пике": f"{upscale_at_peak:.3f}x (потолок {max_upscale})",
         "ход окна": f"{travel:.3f} px/кадр (порог {MIN_TRAVEL_PX_PER_FRAME})",
         "выход zoompan": f"{zp_w}x{zp_h}" + ("" if (zp_w, zp_h) == (out_w, out_h)
                                              else f" -> {out_w}x{out_h} lanczos"),
@@ -109,10 +115,12 @@ if __name__ == "__main__":
     a.add_argument("--out", default="1440x2560")
     a.add_argument("--ss", type=float, default=2.0,
                    help="суперсэмплинг выхода zoompan, потом lanczos вниз (J.2a)")
+    a.add_argument("--max-upscale", type=float, default=None,
+                   help="потолок растяжения на пике зума, только для замеров")
     n = a.parse_args()
     mw, mh = map(int, n.master.split("x"))
     ow, oh = map(int, n.out.split("x"))
-    filt, info = build(n.mode, n.seconds, n.fps, mw, mh, ow, oh, n.ss)
+    filt, info = build(n.mode, n.seconds, n.fps, mw, mh, ow, oh, n.ss, n.max_upscale)
     for k, v in info.items():
         print(f"  {k:22s} {v}")
     print("\n" + filt)
