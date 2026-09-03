@@ -84,6 +84,7 @@
 
 К любому варианту добавлять в конец:
     KEEP THE ORIGINAL BACKGROUND EXACTLY AS IT IS. Remove only the damage on it: stains, tarnish, scratches, dust. Do NOT paint, invent or replace the backdrop. No added curtains, drapery, tulle, lace, clouds, mottling or painted studio canvas.
+   - LOST CLOTHING PATTERN MUST BE REBUILT. Where damage has destroyed the pattern of a garment, reconstruct that pattern by continuing it from the surviving part of the SAME cloth: same check size, same thread spacing, same angle, following the folds. This is restoration of what was certainly there, not invention. Leaving a smeared or blank patch inside patterned fabric is a failure.
 
 Для сепийного варианта с рамкой (эталон 3) дополнительно:
     Warm sepia toned platinum print, perfectly preserved antique photographic print, fine noble film grain.
@@ -143,6 +144,7 @@ Remove cracks, folds, scratches, dust, silver mirroring, chemical and water stai
 
 [5. BACKGROUND]
 KEEP THE ORIGINAL BACKGROUND EXACTLY AS IT IS. Remove only the damage on it: stains, tarnish, scratches, dust. Do NOT paint, invent or replace the backdrop. No added curtains, drapery, tulle, lace, clouds, mottling or painted studio canvas.
+   - LOST CLOTHING PATTERN MUST BE REBUILT. Where damage has destroyed the pattern of a garment, reconstruct that pattern by continuing it from the surviving part of the SAME cloth: same check size, same thread spacing, same angle, following the folds. This is restoration of what was certainly there, not invention. Leaving a smeared or blank patch inside patterned fabric is a failure.
 
 [6. OPTICS AND TONE]
 Render as a large-format view-camera portrait: even soft frontal light, gentle falloff, natural depth, no HDR, no glow halos, no clarity or structure over-processing. Recover shadow and highlight detail on a natural film gamma curve.
@@ -250,3 +252,28 @@ B) Colorize with muted, chemically plausible period tones: natural pastel skin, 
 генеративной реставрации. При равном сюжете предпочитать пластины без
 мелкой клетки, полоски и кружева; если такая пластина всё же взята,
 закладывать отдельный проход по узорной ткани.
+
+
+---
+
+## Фон и утраченный рисунок одежды — это РАЗНЫЕ случаи (03.09, вечер)
+
+Глобальный запрет «ничего не дорисовывать» был слишком широким и три раза
+подряд ломал юбку. Разбор оригинала и результата рядом показал: на пластине
+левая часть нижней оборки УНИЧТОЖЕНА повреждением, клетки там нет вовсе.
+Модель честно выполнила запрет — не стала достраивать — и оставила на этом
+месте ту же муть с крапинами.
+
+ПРАВИЛО, разделять два случая:
+1. ФОН — не выдумывать. Сохранить исходный, убрать только повреждения.
+   Никаких расписных задников, драпировок, облаков.
+2. РИСУНОК ОДЕЖДЫ, УТРАЧЕННЫЙ ПОВРЕЖДЕНИЕМ — ОБЯЗАТЕЛЬНО достраивать
+   по образцу уцелевшей части ТОЙ ЖЕ ткани: тот же размер клетки, тот же
+   шаг нитей, тот же угол, по складкам. Это восстановление того, что
+   заведомо было, а не выдумывание нового объекта.
+   Мутное или пустое пятно внутри узорной ткани — это БРАК, а не
+   осторожность.
+
+ПРИЗНАК, по которому отличать: если рядом на том же предмете одежды узор
+сохранился — достраивать обязательно. Если предмет утрачен целиком и
+образца нет — не выдумывать, оставить как есть и отметить в отчёте.
