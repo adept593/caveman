@@ -38,3 +38,5 @@
 {"ts": 1788374333, "strat": "roll_call", "eq": 956.19}
 {"ts": 1788385095, "strat": "trend_call", "eq": 1000.0}
 {"ts": 1788385095, "strat": "roll_call", "eq": 955.21}
+{"ts": 1788396040, "strat": "trend_call", "eq": 1000.0}
+{"ts": 1788396040, "strat": "roll_call", "eq": 953.49}

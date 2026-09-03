@@ -163,3 +163,48 @@ Whitelist-обёртка ComfyUI-Impact-Subpack ловит только pickle.U
   Остались на .ckpt, он проверен (хеш c6bbc15e...366b19 совпал, оба сканера чисто).
 - Файлы вида .patch (Fooocus inpaint) — внутри обычный torch-pickle, но сканеры
   не берут их рекурсивно по расширению. Проверять адресно, указывая файл явно.
+
+## ГИПОТЕЗА ПО ТЕМАМ ОПРОВЕРГНУТА (проверка 2026-09-03 00:40 UTC)
+Утром 02.09 я предположил по неполным данным, что заходят жанровые сцены, а не портреты
+(«Goat taxi» 704 против портретов по 1-21). Проверил на полной выборке — НЕВЕРНО.
+
+Наши ролики Photo Rescue по просмотрам:
+  1310  This Baby Is 170 Years Old — Watch the Photo Come Back to Life 🍼
+  1214  Married in the 1850s. Their Only Photo Was Dying — Until Now 😱
+   704  Goat taxi in Central Park, 1904 - rescued from fading #shorts
+   221  1902: they swore the Flatiron would fall - plate rescued #shorts
+    21  Half His Face Was Gone. We Brought It Back.
+    18  Two Children Fading Since the 1840s - Restored #shorts
+    12  He Waited 170 Years to Be Seen Clearly Again
+     1  The Face in a Civil War Locket, Dark for 165 Years #shorts
+     1  This Baby Was Smiling in 1860 - We Saved It #shorts
+     1  Six leaders in a 1905 motorcar - photo rescued after 121 years #shorts
+
+ОБА ЛИДЕРА — ПОРТРЕТЫ, а не сцены. Жанровые сцены на 3-4 месте.
+
+РЕШАЕТ НЕ СЮЖЕТ, А ЗАГОЛОВОК. Два наблюдения:
+1. Оба лидера — БЕЗ «#shorts» в заголовке и С эмодзи. Все, что ниже 704, — с «#shorts».
+2. Одна и та же тема даёт разброс в тысячу раз в зависимости от формулировки:
+   «This Baby Is 170 Years Old — Watch the Photo Come Back to Life 🍼» = 1310
+   «This Baby Was Smiling in 1860 - We Saved It #shorts» = 1
+   Разница только в подаче: загадка с обещанием превращения против сухой констатации.
+
+КОНКУРЕНТЫ ниши photo_rescue, топ по просмотрам:
+   85373  Glória Menezes: uma vida que o tempo jamais apagará (бразильская актриса)
+   54067  Memórias raras colorizadas: atrizes brasileiras em 1987
+   33205  Rusty Metal Wolf Sculpture Restoration | Before & After
+   26184  Vina Morales #4KEnhanceNationPH
+У них наверху — УЗНАВАЕМЫЕ ЛЮДИ (актрисы, знаменитости) и реставрация предметов
+с явным «до/после» в заголовке.
+
+ВЫВОД, который надо учесть в батче №2:
+1. Формула Седрака (знаменитости → дети → женские портреты) данными КОНКУРЕНТОВ
+   подтверждается: у них наверху именно знаменитости. Моя утренняя правка формулы
+   в сторону «жанровых сцен» ошибочна, снимаю её.
+2. Наше узкое место — не выбор пластин, а ЗАГОЛОВКИ. Правила по данным:
+   — не ставить «#shorts» в заголовок (YouTube и так распознаёт формат);
+   — эмодзи в конце заголовка (оба лидера с ним);
+   — формулировка «загадка + обещание превращения», а не описание факта;
+   — «до/после» в явном виде работает у конкурентов.
+3. Проверять эту связку на следующих 5 роликах: половину с заголовком по старому
+   образцу, половину по новому, и сравнить.
