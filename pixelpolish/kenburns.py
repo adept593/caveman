@@ -6,8 +6,10 @@
 и движение читается как рывки. Замеры — ФОРМАТ_V5.md, группа J, и переизмерение
 04.09 на всех 899 парах (REPORT_V5B.md, задача 1).
 
-Мина 2 — зум глубже отношения (ширина окна / ширина выхода) начинает
-растягивать пиксели, то есть выдумывать их. Для мастера 2160x2528 потолок 1,31.
+Мина 2 — зум растягивает пиксели, когда окно становится уже выхода. При выходе
+1080x1920 запас был 1,31 и тратить его было не на что. При 1440x2560 запаса нет
+вовсе: окно 1422 против 1440 — это уже 1,3 % растяжения на старте. Поэтому здесь
+не запрет, а потолок: растягивать больше чем в MAX_UPSCALE раз нельзя.
 
 Мина 3 — сам zoompan флагов масштабирования не принимает и последнюю пересборку
 кадра делает своим внутренним swscale. При s=1080x1920 это ужатие 5400 -> 1080
@@ -27,6 +29,7 @@ import argparse, sys
 #   0,590 px/кадр ->   4/899   0,643 px/кадр        ->  0/899
 # Порог поставлен на первое значение, где заморозок нет вообще.
 MIN_TRAVEL_PX_PER_FRAME = 0.64   # ниже — заморозки, см. J.3 и REPORT_V5B.md
+MAX_UPSCALE = 1.15               # предел растяжения на пике зума, см. J.1
 MODES = {"off": None, "in": (1.00, 1.12), "out": (1.12, 1.00)}
 
 
@@ -48,12 +51,17 @@ def build(mode, seconds, fps, master_w, master_h, out_w, out_h, ss=2):
 
     if mode == "off":
         return f"{crop},scale={out_w}:{out_h}:flags=lanczos,fps={fps}", {
-            "окно": f"{win_w}x{win_h}", "запас разрешения": f"{headroom:.3f}x", "зум": "нет"}
+            "окно": f"{win_w}x{win_h}",
+            "запас разрешения": f"{headroom:.3f}x"
+                                + ("" if headroom >= 1 else f"  (растяжение {1/headroom:.3f}x)"),
+            "зум": "нет"}
 
     z0, z1 = MODES[mode]
     z_max = max(z0, z1)
-    if z_max > headroom:
-        sys.exit(f"зум {z_max} глубже запаса {headroom:.3f} — начнётся растягивание пикселей")
+    upscale_at_peak = z_max / headroom          # <1 — ещё пересэмплирование вниз
+    if upscale_at_peak > MAX_UPSCALE:
+        sys.exit(f"на пике зума кадр растянется в {upscale_at_peak:.2f} раза "
+                 f"при потолке {MAX_UPSCALE} — уменьшай зум или выход")
 
     # подбираем целый апскейл входа так, чтобы окно шло >= 0.35 px за кадр
     span = 1 - 1 / z_max
@@ -84,6 +92,7 @@ def build(mode, seconds, fps, master_w, master_h, out_w, out_h, ss=2):
     return ",".join(parts), {
         "окно": f"{win_w}x{win_h}", "запас разрешения": f"{headroom:.3f}x",
         "зум": f"{z0} -> {z1}", "апскейл входа": f"{up}x",
+        "растяжение на пике": f"{upscale_at_peak:.3f}x (потолок {MAX_UPSCALE})",
         "ход окна": f"{travel:.3f} px/кадр (порог {MIN_TRAVEL_PX_PER_FRAME})",
         "выход zoompan": f"{zp_w}x{zp_h}" + ("" if (zp_w, zp_h) == (out_w, out_h)
                                              else f" -> {out_w}x{out_h} lanczos"),
@@ -97,7 +106,7 @@ if __name__ == "__main__":
     a.add_argument("--seconds", type=float, default=30.0)
     a.add_argument("--fps", type=int, default=30)
     a.add_argument("--master", default="2160x2528")
-    a.add_argument("--out", default="1080x1920")
+    a.add_argument("--out", default="1440x2560")
     a.add_argument("--ss", type=float, default=2.0,
                    help="суперсэмплинг выхода zoompan, потом lanczos вниз (J.2a)")
     n = a.parse_args()
