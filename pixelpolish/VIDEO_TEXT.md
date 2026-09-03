@@ -58,3 +58,56 @@ Source: <архив>, Public Domain. No known restrictions on publication.
 Если мастер сильно выцвел и лица на выходе — синтез, в тексте ролика и в
 описании НЕЛЬЗЯ утверждать точное сходство. Формулировки вида «вот как они
 выглядели на самом деле» запрещены. Отмечать это в meta.json до монтажа.
+
+## Правило: рабочий стол хозяина не засорять
+
+Не копировать файлы на рабочий стол хозяина. Открывать прямо с диска D через
+Start-Process. Правило введено 03.09 после жалобы хозяина.
+
+Пример вместо копии:
+
+    Start-Process "D:\PixelPolish\ШОРТСЫ\twogirls1844.mp4"
+
+Скрипты конвейера (`make_short.py`, `make_layers_short.py` и остальные
+`C:\pixelpolish\*.py`) копий на рабочий стол не делают — проверено поиском по
+`Desktop` / `Copy-Item` / `shutil.copy`, совпадений нет. Выдача идёт только в
+`D:\PixelPolish\ШОРТСЫ`. Правку вносить было нечего; оба скрипта после проверки
+запускаются (`--help` отрабатывает).
+
+### Уборка стола 03.09
+
+Намечены к удалению как точные копии (md5 сошёлся с оригиналом на D):
+
+| Файл на столе | Оригинал на D |
+|---|---|
+| col_grid.jpg | D:\PixelPolish\plates\redraw\col_grid.jpg |
+| gen_grid.jpg | D:\PixelPolish\plates\redraw\gen_grid.jpg |
+| kx_grid.jpg | D:\PixelPolish\plates\redraw\kx_grid.jpg |
+| kx_grid_28.jpg | D:\PixelPolish\plates\redraw\kx_grid_28.jpg |
+| ref_grid.jpg | D:\PixelPolish\plates\redraw\ref_grid.jpg |
+| ref_crop_faces.jpg | D:\PixelPolish\plates\redraw\ref_crop_faces.jpg |
+| sep_grid.jpg | D:\PixelPolish\plates\redraw\sep_grid.jpg |
+| sep_best.jpg | D:\PixelPolish\plates\redraw\sep_best.jpg |
+| final_grid.jpg | D:\PixelPolish\plates\final\final_grid.jpg |
+| gem_compare.jpg | D:\PixelPolish\ИЗ_ГЕМИНИ\_НЕОПОЗНАННЫЕ\gem_compare.jpg |
+| gem_crop_faces.jpg | D:\PixelPolish\ИЗ_ГЕМИНИ\_НЕОПОЗНАННЫЕ\gem_crop_faces.jpg |
+| twogirls1844.mp4 | D:\PixelPolish\ШОРТСЫ\twogirls1844.mp4 |
+| twogirls1844_layers.mp4 | D:\PixelPolish\ШОРТСЫ\twogirls1844_layers.mp4 |
+
+ФАКТИЧЕСКИ НЕ УДАЛЕНО: удаление заблокировано политикой доступа сессии
+(и `rm`, и `Remove-Item`). Файлы всё ещё лежат на столе, оригиналы на D целы —
+удалить можно вручную или в сессии с разрешением на удаление.
+
+Ничего не переносили в `D:\PixelPolish\с_рабочего_стола\` — оригинал нашёлся
+для каждого файла из списка.
+
+Оставлено под вопросом (имя не даёт понять, наш файл или хозяина — не трогали):
+
+- `Точечный рисунок.bmp` — создан 03.09 16:16, но имя стандартное для Paint,
+  похоже на файл хозяина.
+- `youtube_cookies.txt`, `helsinki.conf`, `wireguard-log-*.txt`,
+  `amneziawg-amd64-3.1.0.msi`, `OCCT.exe`, `OCCT.config.json` — к конвейеру
+  PixelPolish отношения не имеют, считаем файлами хозяина.
+- Всё по судебному делу (`00_*`, `Апелляционная_*`, `Ходатайство_*`,
+  `Приговор_*`, `Протокол_*`, `дело.zip`, папки `01_Prigovor`–`04_Tom_2`) —
+  файлы хозяина, не наши.
