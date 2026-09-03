@@ -5,3 +5,8 @@
 {"ts": 1788350400, "asset": "ETH", "strat": "rsi", "side": "buy", "price": 2389.63}
 {"ts": 1788350400, "asset": "ETH", "strat": "boll", "side": "buy", "price": 2389.63}
 {"ts": 1788422400, "asset": "BTC", "strat": "boll", "side": "sell", "price": 77917.5}
+{"ts": 1788436800, "asset": "BTC", "strat": "rsi", "side": "sell", "price": 81361.7}
+{"ts": 1788436800, "asset": "BTC", "strat": "donchian", "side": "buy", "price": 81361.7}
+{"ts": 1788436800, "asset": "ETH", "strat": "rsi", "side": "sell", "price": 2517.04}
+{"ts": 1788436800, "asset": "ETH", "strat": "donchian", "side": "buy", "price": 2517.04}
+{"ts": 1788436800, "asset": "ETH", "strat": "boll", "side": "sell", "price": 2517.04}
