@@ -98,3 +98,64 @@
 Всегда мастер-файл архива, а не превью и не выход Real-ESRGAN.
 Для пластины с двумя детьми: D:\PixelPolish\plates\masters\ppmsca.51837u.tif
 (2964x3456, loc.gov). Превью children_source.jpg 878x1024 НЕ использовать.
+
+---
+
+## Промпт 3 — доработанный. С 03.09 брать ЕГО по умолчанию
+
+Что изменено против промпта 2 и почему:
+1. Убрана строка «Maintain 100% exact facial geometry». В наших пластинах
+   лица не разрешены физически (lapvar 82 на боксе 508x635), и требование
+   стопроцентной точности приказывает модели скопировать размытие. Разделены
+   два разных требования: ЛИЧНОСТЬ не менять, мелкую ФАКТУРУ обязательно
+   синтезировать.
+2. Добавлено описание того, ЧТО на входе — пластина середины XIX века с
+   потемнением серебра. Анкер по эпохе и тональности.
+3. Композиция вынесена в отдельный запертый блок: кадр, поза, руки,
+   предметы, мебель, количество людей.
+4. Отдельный пункт про руки — классическое место поломки.
+5. Убран анахронизм: у дагеротипа нет плёночного зерна. Просим микрофактуру
+   отпечатка эпохи, а не 35 мм зерно.
+6. Директива цвета теперь ОДНА строка на прогон, а не меню из двух опций.
+   Меню заставляло модель хеджировать и выдавать нечто между сепией и цветом.
+7. Требование гладкого фона без драпировки внесено в промпт.
+8. Приоритет повторён в конце — внимание модели к концу промпта падает.
+
+### Текст (брать дословно)
+
+[ROLE] Museum photo-restoration engine. Input: one damaged historical photograph. Output: one restored image and nothing else.
+
+[SOURCE] A mid-19th-century cased photographic plate (daguerreotype or ambrotype). Expect tarnish haloes, silver mirroring, chemical staining, dust, paper and case decay, and very low resolved detail in the faces, because the optics and process of that era could not record fine skin texture.
+
+[1. IDENTITY - HIGHEST PRIORITY]
+Every person must remain the same individual. Preserve facial proportions and landmark positions: eye spacing and shape, nose length and width, mouth width, lip fullness, jaw line, hairline shape, apparent age, gaze direction and expression.
+Fine detail that the degraded original cannot resolve - skin pores, eyelashes, individual hair strands, lip texture - must be SYNTHESIZED plausibly, not copied from the blur. Synthesizing that texture is required. Changing identity is forbidden.
+Do not beautify, slim, symmetrize, whiten, or age-shift anyone. Do not alter ethnic features.
+
+[2. COMPOSITION - LOCKED]
+Same crop and aspect ratio. Same number of people. Same poses, same hand and finger positions, same held objects, same furniture, same spatial relationships and headroom. Add nothing, remove nothing, move nothing.
+
+[3. HANDS]
+Correct anatomy, five fingers per hand, natural articulation, exactly the original placement and grip. No fused, extra, or missing fingers.
+
+[4. DAMAGE REMOVAL]
+Remove cracks, folds, scratches, dust, silver mirroring, chemical and water stains, mould, and edge decay. Rebuild covered areas from surrounding context only. Introduce no new objects, patterns, jewellery, or background elements.
+
+[5. BACKGROUND]
+Plain smooth studio backdrop, warm neutral grey-beige, soft vignette. No curtains, no drapery, no tulle, no lace, no fabric folds, no patterned or busy background.
+
+[6. OPTICS AND TONE]
+Render as a large-format view-camera portrait: even soft frontal light, gentle falloff, natural depth, no HDR, no glow halos, no clarity or structure over-processing. Recover shadow and highlight detail on a natural film gamma curve.
+Surface micro-texture appropriate to a fine photographic print of that period. NOT 35mm film grain. NOT digital noise.
+
+[7. FORBIDDEN]
+Plastic or waxy skin, airbrushing, AI smoothing, over-sharpening halos, 3D render or illustration look, modern smartphone HDR aesthetic, teeth or eye whitening, added make-up, catchlights that were not in the original.
+
+[8. OUTPUT]
+Maximum resolution. Return only the final image, with no text and no explanation.
+
+[COLOR] Use exactly ONE of these lines per run, never both:
+A) Keep monochrome. Warm sepia-platinum tone. Optimize tonal range only.
+B) Colorize with muted, chemically plausible period tones: natural pastel skin, desaturated dyes typical of the 1850s. No neon, no oversaturation, no magenta cast.
+
+[REMINDER] Identity and composition outrank everything above. If more detail and the same person ever conflict, choose the same person.
