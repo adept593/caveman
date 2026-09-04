@@ -25,6 +25,7 @@
     Агент-1     C:\pixelpolish\agent1-profile
     Фрилансер   C:\pixelpolish\freelancer-profile
     Трейдер     C:\pixelpolish\trader-profile
+    Проверка источников (loc.gov)   C:\pixelpolish\loc-profile
 
 Пароли вводит только Седрак, один раз, в открывшемся окне. Дальше профиль помнит
 вход, и агент работает уже залогиненным. В чужой профиль не лезть.

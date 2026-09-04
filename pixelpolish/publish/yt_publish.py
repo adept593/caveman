@@ -14,7 +14,7 @@
 
 meta.json:
 {
-  "token":       "C:/pixelpolish/secrets/token_photorescue_full.json",
+  "token":       "D:/secrets/token_photorescue_full.json",
   "video":       "D:/PixelPolish/ШОРТСЫ/twogirls1844_v5_zoom_in.mp4",
   "thumbnail":   "D:/PixelPolish/ШОРТСЫ/twogirls1844_v5_cover.jpg",
   "title":       "...",
@@ -30,12 +30,9 @@ meta.json:
 import argparse, json, os, sys, time
 import urllib.error, urllib.parse, urllib.request
 
-# Папка с ключами. На ПК Седрака — D:\secrets, задаётся через YT_SECRETS.
-# Старый путь оставлен запасным, чтобы не ломать машины, где он ещё в ходу.
-_SEC = os.environ.get("YT_SECRETS", "")
-CLIENT = os.environ.get("YT_OAUTH_CLIENT") or (
-    os.path.join(_SEC, "oauth_client.json") if _SEC
-    else "C:/pixelpolish/secrets/oauth_client.json")
+# Папка с ключами задаётся через YT_SECRETS (на ПК Седрака — D:\secrets).
+_SEC = os.environ.get("YT_SECRETS") or sys.exit("задай переменную окружения YT_SECRETS")
+CLIENT = os.environ.get("YT_OAUTH_CLIENT") or os.path.join(_SEC, "oauth_client.json")
 API = "https://www.googleapis.com/youtube/v3"
 UPLOAD = "https://www.googleapis.com/upload/youtube/v3"
 CHUNK = 8 * 1024 * 1024
