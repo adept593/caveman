@@ -13,10 +13,13 @@
   report              — дайджест по последним данным
 
 Данные: data/*.json рядом со скриптом (коммитятся в репо = долговременная память).
-Ключи: /root/.config/youtube/{api_key, oauth_client.json, token_*.json}
+Ключи: $YT_SECRETS/{api_key, oauth_client.json, token_*.json}
+       По умолчанию ~/.config/youtube (Linux) — на ПК Седрака задать
+       YT_SECRETS=D:\secrets
 """
 import datetime as dt
 import json
+import os
 import pathlib
 import string
 import sys
@@ -29,7 +32,9 @@ DATA = HERE / "data"
 DATA.mkdir(exist_ok=True)
 CFG_PATH = HERE / "config.json"
 YT = "https://www.googleapis.com/youtube/v3"
-KEY = open("/root/.config/youtube/api_key").read().strip()
+SEC = pathlib.Path(os.environ.get("YT_SECRETS",
+                                  pathlib.Path.home() / ".config" / "youtube"))
+KEY = (SEC / "api_key").read_text().strip()
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
 
 
@@ -49,8 +54,8 @@ def api(path, **params):
 
 
 def oauth_access(label):
-    c = json.load(open("/root/.config/youtube/oauth_client.json"))
-    t = json.load(open(f"/root/.config/youtube/token_{label}.json"))
+    c = json.loads((SEC / "oauth_client.json").read_text())
+    t = json.loads((SEC / f"token_{label}.json").read_text())
     r = requests.post("https://oauth2.googleapis.com/token", data={
         "client_id": c["client_id"], "client_secret": c["client_secret"],
         "refresh_token": t["refresh_token"], "grant_type": "refresh_token"}, timeout=30)
