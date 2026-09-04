@@ -1,0 +1,145 @@
+{
+  "_rule": "НИКОГДА не использовать источник (loc_id) из этого реестра повторно. Перед рендером/заливкой любого нового ролика сверять loc_id кандидата с этим списком. Совпадение = стоп, брать другое фото. После каждой успешной заливки — дописывать сюда loc_id + video_id.",
+  "channel": "Photo Rescue UC4CKS_ETfECsmRbtOpqy_HA",
+  "used": [
+    {
+      "loc_id": "ppmsca.54126",
+      "src_file": "54126v.jpg",
+      "video_id": "pcmNs4N83Zo",
+      "subject": "woman, McClees & Germon Philadelphia",
+      "status": "LIVE"
+    },
+    {
+      "loc_id": "cph.3g11328",
+      "src_file": "3g11328v.jpg",
+      "video_id": "m6vDyirRPvI",
+      "subject": "couple 1850s",
+      "status": "LIVE"
+    },
+    {
+      "loc_id": "cph.3g12545",
+      "src_file": "3g12545v.jpg",
+      "video_id": "OqHZfAnl5E0",
+      "subject": "hand-tinted baby",
+      "status": "LIVE"
+    },
+    {
+      "loc_id": "ppmsca.51832",
+      "src_file": "51832v.jpg",
+      "video_id": "LhrqAL_Tlq4",
+      "subject": "tarnished man, satin vest",
+      "status": "LIVE",
+      "note": "v3_hero сделан из ЭТОГО ЖЕ фото — НЕ заливать v3_hero, это дубль"
+    },
+    {
+      "loc_id": "cph.3d01990",
+      "src_file": "3d01990v.jpg",
+      "video_id": "bFr0gyM3iT8",
+      "subject": "gentleman, bow tie",
+      "status": "LIVE"
+    },
+    {
+      "loc_id": "ds.10560",
+      "loc_item": "2017648611",
+      "src_file": "car_indians_2017648611.jpg",
+      "video_id": "LPwF10ncEgs",
+      "subject": "Indians in an automobile, Edwin Levick, 1905",
+      "status": "LIVE (uploaded 2026-08-30 ~07:14 UTC)",
+      "council": "v3.1 30.08: 7.8/8.0/8.5/7.5/7.6 — avg 7.88, ALL SHIP"
+    },
+    {
+      "loc_id": "stereo.1s07171",
+      "loc_item": "2015645134",
+      "alias": "cph.3a27370 (b&w copy neg левой половины)",
+      "src_file": "goat_centralpark_2015645134.jpg",
+      "video_id": "MmYzXjIKR8U",
+      "subject": "children driving goat team, Central Park, W.H. Rau, 1904",
+      "status": "LIVE (uploaded 2026-08-30 ~07:15 UTC)",
+      "council": "v3.1 30.08: 7.2/8.3/8.1/8.1/7.1 — avg 7.76, ALL SHIP"
+    },
+    {
+      "loc_id": "det.4a17018",
+      "loc_item": "2016807533",
+      "src_file": "ny_flatiron02_2016807533.jpg",
+      "video_id": "VBxxbtN6sWs",
+      "subject": "Flatiron Building glass negative, Detroit Publishing, ca.1902",
+      "status": "LIVE (uploaded 2026-08-30 ~07:16 UTC)",
+      "council": "v3.1 30.08: 7.7/7.8/8.4/7.8/7.2 — avg 7.78, ALL SHIP"
+    },
+    {
+      "loc_item": "2026160576",
+      "loc_id": "ppmscd.04774",
+      "title": "[Portrait of a baby smiling] tintype 1860",
+      "video_id": "BLRnRO8UZC4",
+      "uploaded": "2026-08-31",
+      "council": 7.8
+    },
+    {
+      "loc_item": "2010650754",
+      "loc_id": "ppmsca.27502",
+      "title": "[Unidentified soldier in pendant] tintype 1861",
+      "video_id": "0aORiw7kpoU",
+      "uploaded": "2026-08-31",
+      "council": 7.8
+    },
+    {
+      "loc_item": "2017645715",
+      "loc_id": "(dag)2017645715",
+      "title": "[Two children] daguerreotype 1840s",
+      "video_id": "GlGZgkdcYFE",
+      "uploaded": "2026-08-31",
+      "council": 7.6
+    },
+    {
+      "loc_id": "cph.3c09920",
+      "loc_item": null,
+      "title": "[Two girls] daguerreotype 1844",
+      "video_id": "ItoA3jo4P2U",
+      "uploaded": "2026-09-03",
+      "scheduled_public_at": "2026-09-04T00:00:00+07:00",
+      "council": null
+    }
+  ],
+  "queued_ok_distinct": [],
+  "blocked_duplicate": [
+    {
+      "loc_id": "ppmsca.51832",
+      "file": "PhotoRescue_v3_hero.mp4",
+      "reason": "same source as LIVE video LhrqAL_Tlq4 — DO NOT UPLOAD"
+    }
+  ],
+  "used_episode": {
+    "channel": "Restored History UCvldpC8yVoFd8mmKQFQ8MxQ",
+    "video_id": "uUcZFePv4Ms",
+    "title": "Faces from the 1850s - five real plates rescued, no AI",
+    "council": "30.08: hook 8.0, honesty 8.7, platform 8.0, pacing 8.0, sound 7.4 — avg 8.02, ALL SHIP",
+    "plates": [
+      {
+        "loc_id": "cph.3d02024",
+        "loc_item": "2004664374",
+        "subject": "woman ca.1850 (ch1)"
+      },
+      {
+        "loc_id": "cph.3g10117",
+        "loc_item": "2004664535",
+        "subject": "mother+child, J.P. Ball mat (ch2)"
+      },
+      {
+        "loc_id": "ds.00606",
+        "loc_item": "2009632801",
+        "subject": "child with rag doll 1852 (ch3)"
+      },
+      {
+        "loc_id": "ppmsca.58267",
+        "loc_item": "2014645006",
+        "subject": "Lucy Stone + Alice 1857/58 (ch4)"
+      },
+      {
+        "loc_id": "cph.3c09903",
+        "loc_item": "2004663990",
+        "subject": "Hinckley family, Brady studio 1853 (ch5)"
+      }
+    ],
+    "note": "межканально: эти 5 пластин заняты эпизодом; для шортов Photo Rescue не брать без решения Седрака"
+  }
+}
