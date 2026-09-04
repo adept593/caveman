@@ -30,7 +30,12 @@ meta.json:
 import argparse, json, os, sys, time
 import urllib.error, urllib.parse, urllib.request
 
-CLIENT = os.environ.get("YT_OAUTH_CLIENT", "C:/pixelpolish/secrets/oauth_client.json")
+# Папка с ключами. На ПК Седрака — D:\secrets, задаётся через YT_SECRETS.
+# Старый путь оставлен запасным, чтобы не ломать машины, где он ещё в ходу.
+_SEC = os.environ.get("YT_SECRETS", "")
+CLIENT = os.environ.get("YT_OAUTH_CLIENT") or (
+    os.path.join(_SEC, "oauth_client.json") if _SEC
+    else "C:/pixelpolish/secrets/oauth_client.json")
 API = "https://www.googleapis.com/youtube/v3"
 UPLOAD = "https://www.googleapis.com/upload/youtube/v3"
 CHUNK = 8 * 1024 * 1024
