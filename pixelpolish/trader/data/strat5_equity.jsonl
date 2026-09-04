@@ -268,3 +268,13 @@
 {"ts": 1788480000, "asset": "ETH", "strat": "donchian", "eq": 994.19}
 {"ts": 1788480000, "asset": "ETH", "strat": "roc", "eq": 1008.36}
 {"ts": 1788480000, "asset": "ETH", "strat": "boll", "eq": 1051.21}
+{"ts": 1788494400, "asset": "BTC", "strat": "sma", "eq": 996.49}
+{"ts": 1788494400, "asset": "BTC", "strat": "rsi", "eq": 1051.14}
+{"ts": 1788494400, "asset": "BTC", "strat": "donchian", "eq": 990.26}
+{"ts": 1788494400, "asset": "BTC", "strat": "roc", "eq": 1021.16}
+{"ts": 1788494400, "asset": "BTC", "strat": "boll", "eq": 1006.65}
+{"ts": 1788494400, "asset": "ETH", "strat": "sma", "eq": 1000.0}
+{"ts": 1788494400, "asset": "ETH", "strat": "rsi", "eq": 1051.21}
+{"ts": 1788494400, "asset": "ETH", "strat": "donchian", "eq": 993.84}
+{"ts": 1788494400, "asset": "ETH", "strat": "roc", "eq": 1008.01}
+{"ts": 1788494400, "asset": "ETH", "strat": "boll", "eq": 1051.21}
