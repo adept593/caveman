@@ -15,7 +15,7 @@
 Данные: data/*.json рядом со скриптом (коммитятся в репо = долговременная память).
 Ключи: $YT_SECRETS/{api_key, oauth_client.json, token_*.json}
        По умолчанию ~/.config/youtube (Linux) — на ПК Седрака задать
-       YT_SECRETS=D:\secrets
+       YT_SECRETS=D:\\secrets
 """
 import datetime as dt
 import json
@@ -24,6 +24,9 @@ import pathlib
 import string
 import sys
 import xml.etree.ElementTree as ET
+
+if hasattr(sys.stdout, "reconfigure"):  # Windows: консоль cp1251, кириллица ломается
+    sys.stdout.reconfigure(encoding="utf-8")
 
 import requests
 
@@ -34,16 +37,16 @@ CFG_PATH = HERE / "config.json"
 YT = "https://www.googleapis.com/youtube/v3"
 SEC = pathlib.Path(os.environ.get("YT_SECRETS",
                                   pathlib.Path.home() / ".config" / "youtube"))
-KEY = (SEC / "api_key").read_text().strip()
+KEY = (SEC / "api_key").read_text(encoding="utf-8").strip()
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
 
 
 def cfg():
-    return json.loads(CFG_PATH.read_text())
+    return json.loads(CFG_PATH.read_text(encoding="utf-8"))
 
 
 def save_cfg(c):
-    CFG_PATH.write_text(json.dumps(c, ensure_ascii=False, indent=1))
+    CFG_PATH.write_text(json.dumps(c, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
 def api(path, **params):
@@ -54,8 +57,8 @@ def api(path, **params):
 
 
 def oauth_access(label):
-    c = json.loads((SEC / "oauth_client.json").read_text())
-    t = json.loads((SEC / f"token_{label}.json").read_text())
+    c = json.loads((SEC / "oauth_client.json").read_text(encoding="utf-8"))
+    t = json.loads((SEC / f"token_{label}.json").read_text(encoding="utf-8"))
     r = requests.post("https://oauth2.googleapis.com/token", data={
         "client_id": c["client_id"], "client_secret": c["client_secret"],
         "refresh_token": t["refresh_token"], "grant_type": "refresh_token"}, timeout=30)
@@ -133,8 +136,8 @@ def cmd_snapshot():
         except requests.HTTPError:
             pass  # пустой канал без uploads-плейлиста
         out["channels"][k] = rec
-    (DATA / f"ours_{today}.json").write_text(json.dumps(out, ensure_ascii=False, indent=1))
-    with open(DATA / "ours_history.jsonl", "a") as f:
+    (DATA / f"ours_{today}.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+    with open(DATA / "ours_history.jsonl", "a", encoding="utf-8") as f:
         f.write(json.dumps({k: {"d": today, "s": v["subs"], "v": v["views"]}
                             for k, v in out["channels"].items()}) + "\n")
     print(json.dumps(out, ensure_ascii=False, indent=1))
@@ -178,7 +181,7 @@ def cmd_scout():
     c = cfg()
     now = dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")
     state_p = DATA / "scout_state.json"
-    prev = json.loads(state_p.read_text()) if state_p.exists() else {}
+    prev = json.loads(state_p.read_text(encoding="utf-8")) if state_p.exists() else {}
     cur = {"ts": now, "videos": {}}
     risers = []
     pending = []  # видео без views — добрать одним batch videos.list
@@ -218,7 +221,7 @@ def cmd_scout():
                 if vph > 0:
                     risers.append((vph, v, v["chan"], v["niche"]))
     if cur["videos"]:
-        state_p.write_text(json.dumps(cur, ensure_ascii=False))
+        state_p.write_text(json.dumps(cur, ensure_ascii=False), encoding="utf-8")
     else:
         print("[scout] все источники упали — состояние НЕ перезаписано", file=sys.stderr)
     risers.sort(key=lambda t: -t[0])
@@ -290,7 +293,7 @@ def _load_scout_state():
     p = DATA / "scout_state.json"
     if not p.exists():
         sys.exit("нет scout_state.json — сначала запусти: vidiq.py scout")
-    return json.loads(p.read_text())
+    return json.loads(p.read_text(encoding="utf-8"))
 
 
 def cmd_outliers(min_ratio=3.0, min_views=10_000):
@@ -348,7 +351,7 @@ def cmd_report():
     if not files:
         print("нет снапшотов")
         return
-    latest = json.loads(files[-1].read_text())
+    latest = json.loads(files[-1].read_text(encoding="utf-8"))
     print(f"# vidIQ дайджест {latest['date']}")
     for k, ch in latest["channels"].items():
         print(f"\n## {ch['title']} — {ch['subs']} подп., {ch['views']:,} просм., {ch['videos']} видео")
