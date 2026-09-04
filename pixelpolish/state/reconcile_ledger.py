@@ -62,6 +62,17 @@ def channel_videos(at):
     return ch["snippet"]["title"], ch["id"], out
 
 
+def norm_loc(v):
+    """Один и тот же номер LOC пишут по-разному: 2017645715 и (dag)2017645715.
+    Без приведения к одному виду проверка «эту пластину уже брали?» промахнётся
+    и мы выпустим повтор. Скобочный префикс носителя (dag, dig) отбрасываем."""
+    v = (v or "").strip().lower()
+    for pref in ("(dag)", "(dig)", "(ppmsca)", "(cph)"):
+        if v.startswith(pref):
+            v = v[len(pref):]
+    return v
+
+
 def read_ledger(path):
     """Понимает обе схемы: облачную (used) и ПК-шную (entries)."""
     d = json.load(open(path, encoding="utf-8"))
@@ -69,8 +80,14 @@ def read_ledger(path):
     norm = []
     for r in rows:
         if isinstance(r, dict):
-            norm.append({"loc_id": r.get("loc_id") or r.get("loc_item") or r.get("short_id") or "",
-                         "video_id": r.get("video_id") or "",
+            # Сведённый реестр держит список video_ids, исходные — одиночный
+            # video_id. Читать надо оба: после сведения 04.09 скрипт видел
+            # только video_id, не находил его ни у одной записи и печатал
+            # безупречно зелёный отчёт на пустом месте.
+            vids = r.get("video_ids") or ([r["video_id"]] if r.get("video_id") else [])
+            norm.append({"loc_id": norm_loc(r.get("loc_id") or r.get("loc_item")
+                                            or r.get("short_id")),
+                         "video_ids": [v for v in vids if v],
                          "subject": r.get("subject") or r.get("note") or "",
                          # used/done — опубликовано, брать нельзя никогда.
                          # prepared — занято под будущий ролик, чужим не отдавать,
@@ -90,7 +107,11 @@ def main():
 
     print("== каналы (истина в последней инстанции) ==")
     live = {}
-    for t in sorted(f for f in os.listdir(SEC) if f.startswith("token_")):
+    tokens = sorted(f for f in os.listdir(SEC)
+                    if f.startswith("token_")) if os.path.isdir(SEC) else []
+    if not tokens:
+        print(f"  нет ни одного token_*.json в {SEC}", file=sys.stderr)
+    for t in tokens:
         at = access_token(os.path.join(SEC, t))
         if not at:
             continue
@@ -101,6 +122,16 @@ def main():
             print(f"      {v['video_id']}  {v['published']}  {v['privacy']:8s} {v['title'][:52]}")
 
     here = os.path.dirname(os.path.abspath(__file__))
+    if not live:
+        print("\n  СВЕРКА НЕ ВЫПОЛНЕНА: ни один токен не дал доступа к каналу.",
+              file=sys.stderr)
+        print("  Сравнивать реестр не с чем. Пустой список каналов даёт "
+              "безупречный отчёт\n  на пустом месте — не принимай его за "
+              "порядок. Перевыпусти токен:\n"
+              "      python3 ../publish/oauth_flow.py <канал> --force",
+              file=sys.stderr)
+        sys.exit(2)
+
     ledgers = a.merge or [os.path.join(here, "used_photos_ledger.json")]
     print("\n== реестры ==")
     allrows = []
@@ -114,7 +145,8 @@ def main():
 
     by_vid = {}
     for r in allrows:
-        by_vid.setdefault(r["video_id"], []).append(r)
+        for v in r["video_ids"]:
+            by_vid.setdefault(v, []).append(r)
     live_ids = {v["video_id"]: (t, v) for t, vs in live.values() for v in vs}
 
     print("\n== расхождения ==")
@@ -131,7 +163,7 @@ def main():
     locs, statuses = {}, {}
     for r in allrows:
         if r["loc_id"]:
-            locs.setdefault(r["loc_id"], set()).add(r["video_id"])
+            locs.setdefault(r["loc_id"], set()).update(r["video_ids"])
             if r["status"]:
                 statuses.setdefault(r["loc_id"], set()).add(r["status"])
     dup = {k: v for k, v in locs.items() if len([x for x in v if x]) > 1}
