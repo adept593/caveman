@@ -10,3 +10,4 @@
 {"ts": 1788436800, "asset": "ETH", "strat": "rsi", "side": "sell", "price": 2517.04}
 {"ts": 1788436800, "asset": "ETH", "strat": "donchian", "side": "buy", "price": 2517.04}
 {"ts": 1788436800, "asset": "ETH", "strat": "boll", "side": "sell", "price": 2517.04}
+{"ts": 1788480000, "asset": "BTC", "strat": "sma", "side": "buy", "price": 80853.5}
