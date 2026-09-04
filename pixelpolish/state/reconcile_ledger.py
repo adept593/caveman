@@ -30,8 +30,16 @@ def access_token(token_path):
         return json.load(urllib.request.urlopen(
             "https://oauth2.googleapis.com/token", body, timeout=60))["access_token"]
     except urllib.error.HTTPError as e:
-        print(f"  {os.path.basename(token_path)}: токен не обновился ({e.code}) — "
-              "приложение снова в «Тестировании»?", file=sys.stderr)
+        # 401/invalid_client — это про ПАРУ client_id+client_secret, а не про
+        # сам токен: секрет сброшен или взят от другого клиента. 400 —
+        # про токен: отозван, в том числе семидневным отзывом в режиме
+        # «Тестирование». Подсказка «снова Тестирование» на 401 уже один раз
+        # увела диагностику не туда.
+        why = ("секрет клиента не подходит — сброшен в консоли или от другого "
+               "клиента" if e.code == 401 else
+               "refresh-токен отозван — перевыпусти через publish/oauth_flow.py")
+        print(f"  {os.path.basename(token_path)}: {e.code} — {why}",
+              file=sys.stderr)
         return None
 
 
