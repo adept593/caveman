@@ -72,6 +72,12 @@ def read_ledger(path):
             norm.append({"loc_id": r.get("loc_id") or r.get("loc_item") or r.get("short_id") or "",
                          "video_id": r.get("video_id") or "",
                          "subject": r.get("subject") or r.get("note") or "",
+                         # used/done — опубликовано, брать нельзя никогда.
+                         # prepared — занято под будущий ролик, чужим не отдавать,
+                         # но нашим опубликовать ещё предстоит. Разница важна:
+                         # свалив prepared в used, мы бы сами себе запретили
+                         # выпускать уже подготовленную пластину.
+                         "status": r.get("status") or "",
                          "src": os.path.basename(path)})
     return d, norm
 
@@ -122,10 +128,12 @@ def main():
     for vid in ghost:
         print(f"      {vid}  {by_vid[vid][0]['subject'][:52]}")
 
-    locs = {}
+    locs, statuses = {}, {}
     for r in allrows:
         if r["loc_id"]:
             locs.setdefault(r["loc_id"], set()).add(r["video_id"])
+            if r["status"]:
+                statuses.setdefault(r["loc_id"], set()).add(r["status"])
     dup = {k: v for k, v in locs.items() if len([x for x in v if x]) > 1}
     print(f"  один loc_id на нескольких роликах: {len(dup)}")
     for k, v in dup.items():
@@ -137,7 +145,10 @@ def main():
             "_rule": "НИКОГДА не использовать loc_id из этого списка повторно. "
                      "Сверять перед каждым рендером и перед каждой заливкой.",
             "_sources": [os.path.basename(p) for p in ledgers],
+            "_status": "used/done — опубликовано, повтор запрещён. "
+                       "prepared — занято под будущий ролик, другим не брать.",
             "used": sorted(({"loc_id": k, "video_ids": sorted(x for x in v if x),
+                             "status": "/".join(sorted(statuses.get(k, {"used"}))),
                              "subject": next((r["subject"] for r in allrows
                                               if r["loc_id"] == k and r["subject"]), "")}
                             for k, v in locs.items()), key=lambda r: r["loc_id"]),
