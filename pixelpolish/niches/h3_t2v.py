@@ -11,18 +11,22 @@ sys.stdout.reconfigure(encoding="utf-8")
 API = "http://127.0.0.1:8188"; OUTDIR = Path(r"C:\Users\RobotComp\pixelpolish\ComfyUI\output")
 
 
-def graph(prompt, width, height, length, seed, steps=6):
-    return {
-        "1": {"class_type": "UnetLoaderGGUF", "inputs": {"unet_name": "minimax_h3_fl2va_turbo_Q4_K_M.gguf"}},
-        "2": {"class_type": "CLIPLoaderGGUF", "inputs": {"clip_name": "qwen3vl_32b_minimax_h3_IQ3_XXS.gguf", "type": "minimax"}},
+def graph(prompt, width, height, length, seed, steps=8):
+    # веса шаблона video_minimax_h3_t2v (папка ComfyUI Desktop через extra_model_paths.yaml):
+    # int8 pruned модель + nvfp4 энкодер; steps<=8 -> LoRA turbo 8 шагов, иначе полный прогон без LoRA (20 шагов, как в шаблоне)
+    turbo = steps <= 8
+    g = {
+        "1": {"class_type": "UNETLoader", "inputs": {"unet_name": "minimax_h3_fl2va_pruned_int8_convrot.safetensors", "weight_dtype": "default"}},
+        "2": {"class_type": "CLIPLoader", "inputs": {"clip_name": "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors", "type": "minimax", "device": "default"}},
         "3": {"class_type": "VAELoader", "inputs": {"vae_name": "minimax_h3_video_vae_fp16.safetensors"}},
         "4": {"class_type": "VAELoader", "inputs": {"vae_name": "minimax_h3_audio_vae_fp32.safetensors"}},
         "5": {"class_type": "MiniMaxH3ImageToVideo", "inputs": {"clip": ["2", 0], "vae": ["3", 0], "prompt": prompt,
               "width": width, "height": height, "length": length}},
         "6": {"class_type": "RandomNoise", "inputs": {"noise_seed": seed}},
         "7": {"class_type": "KSamplerSelect", "inputs": {"sampler_name": "res_multistep"}},
-        "8": {"class_type": "BasicScheduler", "inputs": {"model": ["1", 0], "scheduler": "simple", "steps": steps, "denoise": 1.0}},
-        "9": {"class_type": "BasicGuider", "inputs": {"model": ["1", 0], "conditioning": ["5", 0]}},
+        "15": {"class_type": "LoraLoaderModelOnly", "inputs": {"model": ["1", 0], "lora_name": "minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors", "strength_model": 1.0}},
+        "8": {"class_type": "BasicScheduler", "inputs": {"model": ["15" if turbo else "1", 0], "scheduler": "simple", "steps": steps, "denoise": 1.0}},
+        "9": {"class_type": "BasicGuider", "inputs": {"model": ["15" if turbo else "1", 0], "conditioning": ["5", 0]}},
         "10": {"class_type": "SamplerCustomAdvanced", "inputs": {"noise": ["6", 0], "guider": ["9", 0], "sampler": ["7", 0],
                "sigmas": ["8", 0], "latent_image": ["5", 1]}},
         "11": {"class_type": "VAEDecode", "inputs": {"samples": ["10", 0], "vae": ["3", 0]}},
@@ -30,6 +34,8 @@ def graph(prompt, width, height, length, seed, steps=6):
         "13": {"class_type": "CreateVideo", "inputs": {"images": ["11", 0], "fps": 24, "audio": ["12", 0]}},
         "14": {"class_type": "SaveVideo", "inputs": {"video": ["13", 0], "filename_prefix": "video/h3_niche", "format": "auto", "codec": "auto"}},
     }
+    if not turbo: g.pop("15")
+    return g
 
 
 def run(prompt, out, sec=4.0, seed=1, size="480x864", steps=6):
