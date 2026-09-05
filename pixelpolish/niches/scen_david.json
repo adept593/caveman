@@ -1,0 +1,29 @@
+{
+ "key": "david_goliath",
+ "title": "David and Goliath",
+ "subtitle": "1 Samuel 17",
+ "timeline": false,
+ "voice": "en-US-AndrewNeural",
+ "music": "D:/PixelPolish/МУЗЫКА/gemini_lyria_01.m4a",
+ "music_vol": 0.12,
+ "seed": 303,
+ "intro": "A shepherd boy. A giant. And a God who chose the boy.",
+ "outro": "Type AMEN if you believe. Subscribe for a new story tomorrow.",
+ "shots": [
+  {"name": "The Valley of Elah", "label": "1 Samuel 17:3", "line": "Two armies. Forty days of silence.",
+   "line_voice": "For forty days, two armies stood across the Valley of Elah. Nobody moved.",
+   "prompt": "ancient Israelite army in bronze helmets standing on a rocky hillside at dusk, facing a wide dry valley, Philistine camp with torches on the far ridge, biblical epic"},
+  {"name": "Goliath", "label": "1 Samuel 17:4", "line": "Nine feet tall. Bronze armor. The same challenge every morning.",
+   "line_voice": "Goliath. Nine feet tall, in bronze armor. Every morning he roared the same challenge.",
+   "prompt": "a colossal Philistine warrior in bronze scale armor and a bronze helmet, holding a massive spear, shouting across a valley, low angle, storm clouds, biblical epic"},
+  {"name": "David", "label": "1 Samuel 17:40", "line": "A shepherd. No armor. A sling and five stones.",
+   "line_voice": "David. A shepherd boy. He refused the armor and took a sling and five smooth stones from the stream.",
+   "prompt": "a young shepherd boy with curly hair in a simple wool tunic kneeling at a clear stream, picking smooth stones, sling on his belt, warm morning light, biblical epic"},
+  {"name": "The Stone", "label": "1 Samuel 17:49", "line": "One stone. One throw.",
+   "line_voice": "He ran toward the giant. One stone. One throw. It struck Goliath on the forehead.",
+   "prompt": "a young shepherd whirling a leather sling above his head, running across a dry valley toward a giant armored warrior, dust in the air, dramatic sunlight, biblical epic"},
+  {"name": "The Fall", "label": "1 Samuel 17:50", "line": "The giant fell face down. The valley went silent.",
+   "line_voice": "The giant fell face down. And the whole valley went silent.",
+   "prompt": "a colossal bronze-armored warrior collapsing face-first onto dry ground, helmet rolling away, a small shepherd boy standing in the distance, golden dust, biblical epic"}
+ ]
+}
