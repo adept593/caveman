@@ -16,8 +16,12 @@ PROFILE = Path(r"D:\PixelPolish\browser_profile"); SHOTS = Path(r"D:\PixelPolish
 
 
 def ctx(p, headless=False):
-    return p.chromium.launch_persistent_context(str(PROFILE), headless=headless, viewport={"width": 1400, "height": 950},
-                                                locale="ru-RU", args=["--disable-blink-features=AutomationControlled"])
+    kw = dict(headless=False, viewport={"width": 1400, "height": 950}, locale="ru-RU",
+              args=["--disable-blink-features=AutomationControlled"] + (["--window-position=-32000,-32000"] if headless else []))
+    try:
+        return p.chromium.launch_persistent_context(str(PROFILE), channel="chrome", **kw)     # настоящий Chrome (Studio не любит chromium)
+    except Exception as e:
+        print("chrome не найден, chromium:", str(e)[:80]); return p.chromium.launch_persistent_context(str(PROFILE), **kw)
 
 
 def cmd_open():

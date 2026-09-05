@@ -14,7 +14,8 @@ sys.path.insert(0, str(Path(__file__).parent))
 import h3_t2v, stills_story as ss
 sys.stdout.reconfigure(encoding="utf-8")
 W, H, FPS = ss.W, ss.H, 24
-STYLE = " Photoreal wildlife documentary footage, natural movement, cinematic lighting, vertical 9:16, no text, no watermark."
+STYLE = (" Photoreal wildlife documentary footage, natural movement, cinematic lighting, vertical 9:16, no text, no watermark."
+         " Audio: only natural ambient sounds, no speech, no voice, no narration, no singing, no music.")
 
 
 def probe(p):
@@ -42,7 +43,7 @@ def main(path, sec=4.0):
     lines = [S["intro"]] + [sh.get("line_voice", sh["line"]) for sh in S["shots"]] + [S["outro"]]
     durs = [ss.tts(t, WORK / f"v{i}.mp3", voice) for i, t in enumerate(lines)]
     cdur = [probe(c) for c in clips]
-    INTRO = 1.6; OUTRO = max(durs[-1] + 0.4, 2.4)
+    INTRO = max(1.6, durs[0] + 0.3); OUTRO = max(durs[-1] + 0.4, 2.4)
     starts = [0.0]; t = INTRO
     for d in cdur: starts.append(t); t += d
     starts.append(t); total = t + OUTRO
@@ -74,8 +75,10 @@ def main(path, sec=4.0):
     inputs = []; filt = []; mix = []; idx = 1
     for j, st in enumerate(starts):
         inputs += ["-i", str(WORK / f"v{j}.mp3")]; filt.append(f"[{idx}:a]adelay={int(st*1000)}|{int(st*1000)}[v{j}]"); mix.append(f"[v{j}]"); idx += 1
-    for i, c in enumerate(clips):
-        inputs += ["-i", str(c)]; filt.append(f"[{idx}:a]volume=0.35,adelay={int(starts[i+1]*1000)}|{int(starts[i+1]*1000)}[amb{i}]"); mix.append(f"[amb{i}]"); idx += 1
+    # звук клипов H3 по умолчанию выключен: модель вставляет обрывки чужого голоса («What is good?», «Oh»)
+    if S.get("clip_audio"):
+        for i, c in enumerate(clips):
+            inputs += ["-i", str(c)]; filt.append(f"[{idx}:a]volume=0.35,adelay={int(starts[i+1]*1000)}|{int(starts[i+1]*1000)}[amb{i}]"); mix.append(f"[amb{i}]"); idx += 1
     inputs += ["-i", S["music"]]
     filt.append(f"[{idx}:a]atrim=0:{total},volume={S.get('music_vol', 0.10)},afade=t=out:st={total-1.5}:d=1.5[mus]"); mix.append("[mus]")
     filt.append("".join(mix) + f"amix=inputs={len(mix)}:normalize=0,alimiter=limit=0.9[a]")
