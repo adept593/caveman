@@ -18,7 +18,7 @@ EP = {}
 if len(sys.argv) > 1 and sys.argv[1].endswith(".json"):
     EP = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))      # {name, quiz, intro?, cues?, outro?}
 NAME = EP.get("name") or (sys.argv[1] if len(sys.argv) > 1 else "ep01")
-FLAGS = Path(r"D:\PixelPolish\assets\flags"); MUSIC = Path(r"D:\PixelPolish\МУЗЫКА\m3_flags.flac")
+FLAGS = Path(r"D:\PixelPolish\assets\flags"); MUSIC = Path(r"D:\PixelPolish\МУЗЫКА\m3_flags_master.flac")
 WORK = Path(rf"D:\PixelPolish\video\projects\flagquiz_{NAME}"); WORK.mkdir(parents=True, exist_ok=True)
 OUT = Path(rf"D:\PixelPolish\ШОРТСЫ\flagquiz_{NAME}.mp4")
 W, H, FPS = 1080, 1920, 30
@@ -135,7 +135,7 @@ def main():
         inputs += ["-i", str(WORK / f"{key}.mp3")]
         filt.append(f"[{j+1}:a]adelay={int(st*1000)}|{int(st*1000)}[v{j}]"); mix.append(f"[v{j}]")
     m = len(timeline); inputs += ["-i", str(MUSIC)]
-    filt.append(f"[{m+1}:a]atrim=0:{total},volume=0.10,afade=t=out:st={total-1.5}:d=1.5[mus]")
+    filt.append(f"[{m+1}:a]atrim=0:{total},volume=0.16,afade=t=out:st={total-1.5}:d=1.5[mus]")
     filt.append("".join(mix) + f"[mus]amix=inputs={m+1}:normalize=0,alimiter=limit=0.9[a]")
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(WORK / "video.mp4")] + inputs +
                    ["-filter_complex", ";".join(filt), "-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac", "-b:a", "160k",

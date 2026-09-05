@@ -18,7 +18,7 @@ import edge_tts
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 
 GEO = Path(r"D:\PixelPolish\assets\geo"); FLAGS = Path(r"D:\PixelPolish\assets\flags")
-MUSIC = Path(r"D:\PixelPolish\МУЗЫКА\m3_maps.flac")
+MUSIC = Path(r"D:\PixelPolish\МУЗЫКА\m3_maps_master.flac")
 W, H, FPS = 1080, 1920, 30
 F_BIG = ImageFont.truetype(r"C:\Windows\Fonts\impact.ttf", 80)
 F_MID = ImageFont.truetype(r"C:\Windows\Fonts\bahnschrift.ttf", 52)
@@ -160,7 +160,7 @@ def main():
     for j, st in enumerate(starts):
         inputs += ["-i", str(WORK / f"v{j}.mp3")]; filt.append(f"[{j+1}:a]adelay={int(st*1000)}|{int(st*1000)}[v{j}]"); mix.append(f"[v{j}]")
     m = len(starts); inputs += ["-i", str(MUSIC)]
-    filt.append(f"[{m+1}:a]atrim=0:{total},volume=0.14,afade=t=out:st={total-1.5}:d=1.5[mus]")
+    filt.append(f"[{m+1}:a]atrim=0:{total},volume=0.18,afade=t=out:st={total-1.5}:d=1.5[mus]")
     filt.append("".join(mix) + f"[mus]amix=inputs={m+1}:normalize=0,alimiter=limit=0.9[a]")
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(WORK / "video.mp4")] + inputs +
                    ["-filter_complex", ";".join(filt), "-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac", "-b:a", "160k", "-shortest", str(OUT)], check=True)

@@ -38,7 +38,8 @@ def main(path, sec=4.0):
         c = WORK / f"clip{i}.mp4"
         if not c.exists():
             print(f"H3 клип {i}: {sh['name']}", flush=True)
-            h3_t2v.run(sh.get("video_prompt", sh["prompt"]) + STYLE, str(c), sec, S.get("seed", 11) + i)
+            h3_t2v.run(sh.get("video_prompt", sh["prompt"]) + STYLE, str(c), sec, S.get("seed", 11) + i,
+                       size=S.get("h3_size", "720x1280"), steps=S.get("h3_steps", 8))   # потолок YouTube Shorts 1080x1920: 720p + апскейл
         clips.append(c)
     lines = [S["intro"]] + [sh.get("line_voice", sh["line"]) for sh in S["shots"]] + [S["outro"]]
     durs = [ss.tts(t, WORK / f"v{i}.mp3", voice) for i, t in enumerate(lines)]
@@ -88,8 +89,12 @@ def main(path, sec=4.0):
         for i, c in enumerate(clips):
             inputs += ["-i", str(c)]; filt.append(f"[{idx}:a]volume=0.35,adelay={int(starts[i+1]*1000)}|{int(starts[i+1]*1000)}[amb{i}]"); mix.append(f"[amb{i}]"); idx += 1
     inputs += ["-i", S["music"]]
-    filt.append(f"[{idx}:a]atrim=0:{total},volume={S.get('music_vol', 0.10)},afade=t=out:st={total-1.5}:d=1.5[mus]"); mix.append("[mus]")
-    filt.append("".join(mix) + f"amix=inputs={len(mix)}:normalize=0,alimiter=limit=0.9[a]")
+    # голос сводится отдельно, музыка приглушается под него (sidechain), потом общий лимитер
+    filt.append("".join(mix) + f"amix=inputs={len(mix)}:normalize=0[voice]")
+    filt.append(f"[{idx}:a]aloop=loop=-1:size=2e9,atrim=0:{total},volume={S.get('music_vol', 0.22)},afade=t=in:d=0.8,afade=t=out:st={total-1.5}:d=1.5[mus]")
+    filt.append("[voice]asplit=2[v1][v2]")
+    filt.append("[mus][v2]sidechaincompress=threshold=0.03:ratio=6:attack=40:release=500:makeup=1[musd]")
+    filt.append("[v1][musd]amix=inputs=2:normalize=0,alimiter=limit=0.9[a]")
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(WORK / "video.mp4")] + inputs + ["-filter_complex", ";".join(filt), "-map", "0:v", "-map", "[a]",
                     "-c:v", "copy", "-c:a", "aac", "-b:a", "160k", "-shortest", str(OUT)], check=True)
     json.dump({"scenario": S, "total": total, "clip_durs": cdur}, open(WORK / "decision.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)

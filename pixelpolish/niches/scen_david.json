@@ -4,8 +4,7 @@
  "subtitle": "1 Samuel 17",
  "timeline": false,
  "voice": "en-US-AndrewNeural",
- "music": "D:/PixelPolish/МУЗЫКА/m3_bible.flac",
- "music_vol": 0.12,
+ "music": "D:/PixelPolish/МУЗЫКА/m3_bible_master.flac",
  "seed": 404,
  "intro": "A shepherd boy. A giant. And a God who chose the boy.",
  "outro": "Type AMEN if you believe.",
@@ -45,5 +44,7 @@
    "line_voice": "The giant fell face down. And the whole valley went silent.",
    "prompt": "a giant Philistine warrior lying face down motionless on cracked dry ground, bronze helmet rolled aside, huge spear dropped, seen from a low wide angle, a tiny shepherd boy standing far behind, golden dust haze, biblical epic"
   }
- ]
+ ],
+ "h3_size": "720x1280",
+ "h3_steps": 8
 }
