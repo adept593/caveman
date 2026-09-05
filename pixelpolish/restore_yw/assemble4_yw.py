@@ -69,9 +69,10 @@ L5 = Y4 + chroma*keep + warm*(0.6 + 0.4*keep) + np.array([5.0, 0.0, -6.0], np.fl
 save(arr(SRC/"L1_master.png"), DST/"L1_master.png")
 save(arr(SRC/"L2_classic_v2.png", (W,H)), DST/"L2_clean.png")
 # левый нижний клочок старой базы (светлый полосатый блок) — в тон платья
-blob = np.zeros((H,W), bool); blob[1120:1300, 0:200] = True; blob &= Y4[...,0] > 70
+blob = np.zeros((H,W), bool); blob[930:1120, 250:400] = True; blob &= Y4[...,0] > 60   # левый манжет старой базы
 wbl = feather(grow(blob, 21), 18.0)
 dressY = float(np.median(Y4[1000:1250, 300:520]))
+cb = feather(grow(blob, 21), 18.0); L5 = L5*(1-cb) + np.repeat(luma(L5)[...,None],3,2)*cb
 for arrx in (L4, L5):
     arrx[...] = arrx*(1-wbl) + (soften(arrx, 30.0)*0 + dressY)*wbl
 save(soften(L4, 2.4), DST/"L3_tone.png"); save(L4, DST/"L4_detail.png"); save(L5, DST/"L5_color.png")
