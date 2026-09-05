@@ -38,6 +38,11 @@ SCEN = {
 }
 
 
+if len(sys.argv) > 1 and sys.argv[1].endswith(".json"):
+    SCEN = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
+    SCEN["waves"] = [tuple(w) for w in SCEN["waves"]]
+
+
 def tts(text, path):
     async def go():
         await edge_tts.Communicate(text, VOICE, rate="+4%").save(str(path))

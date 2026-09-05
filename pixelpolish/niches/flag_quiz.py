@@ -14,7 +14,10 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import edge_tts
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 
-NAME = sys.argv[1] if len(sys.argv) > 1 else "ep01"
+EP = {}
+if len(sys.argv) > 1 and sys.argv[1].endswith(".json"):
+    EP = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))      # {name, quiz, intro?, cues?, outro?}
+NAME = EP.get("name") or (sys.argv[1] if len(sys.argv) > 1 else "ep01")
 FLAGS = Path(r"D:\PixelPolish\assets\flags"); MUSIC = Path(r"D:\PixelPolish\МУЗЫКА\gemini_lyria_01.m4a")
 WORK = Path(rf"D:\PixelPolish\video\projects\flagquiz_{NAME}"); WORK.mkdir(parents=True, exist_ok=True)
 OUT = Path(rf"D:\PixelPolish\ШОРТСЫ\flagquiz_{NAME}.mp4")
@@ -34,6 +37,8 @@ INTRO = "Ten flags. Three seconds each. Nobody gets number ten."
 CUES = ["Flag one.", "Number two.", "Three.", "Medium now. Four.", "Five.", "Six. Still with me?",
         "Hard level. Seven.", "Eight.", "Nine.", "Extreme. The last one."]
 OUTRO = "Comment your score out of ten."
+if EP:
+    QUIZ = [tuple(q) for q in EP["quiz"]]; INTRO = EP.get("intro", INTRO); CUES = EP.get("cues", CUES); OUTRO = EP.get("outro", OUTRO)
 SHOW = 3.0      # секунды на угадывание
 REVEAL = 1.2    # показ ответа
 

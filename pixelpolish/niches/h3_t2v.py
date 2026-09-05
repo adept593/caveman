@@ -14,7 +14,7 @@ API = "http://127.0.0.1:8188"; OUTDIR = Path(r"C:\Users\RobotComp\pixelpolish\Co
 def graph(prompt, width, height, length, seed, steps=6):
     return {
         "1": {"class_type": "UnetLoaderGGUF", "inputs": {"unet_name": "minimax_h3_fl2va_turbo_Q4_K_M.gguf"}},
-        "2": {"class_type": "CLIPLoader", "inputs": {"clip_name": "qwen3vl_4b_fp8_scaled.safetensors", "type": "minimax", "device": "default"}},
+        "2": {"class_type": "CLIPLoaderGGUF", "inputs": {"clip_name": "qwen3vl_32b_minimax_h3_IQ3_XXS.gguf", "type": "minimax"}},
         "3": {"class_type": "VAELoader", "inputs": {"vae_name": "minimax_h3_video_vae_fp16.safetensors"}},
         "4": {"class_type": "VAELoader", "inputs": {"vae_name": "minimax_h3_audio_vae_fp32.safetensors"}},
         "5": {"class_type": "MiniMaxH3ImageToVideo", "inputs": {"clip": ["2", 0], "vae": ["3", 0], "prompt": prompt,
