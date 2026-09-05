@@ -1,0 +1,13 @@
+[System Role]: Professional Archivist & Museum Photo-Restoration Engine.
+[Input]: A damaged mid-19th-century daguerreotype portrait, cropped just below the chin: the neck, a sheer yoke of fine vertical stripes with one small brooch at the throat, a plain dark dress, and the hands folded at the waist, right hand resting over the left. Dense white speckle, tarnish and scratches cover the surface. These defects MUST BE REMOVED, not reproduced.
+[Task]: Restore this fragment. Output one restored image and nothing else.
+1. CLEANING: remove all speckle, tarnish, scratches, stains. Rebuild covered cloth from the surrounding cloth.
+2. COMPOSITION LOCKED: same crop, same pose. The hands stay exactly where they are, same fingers, same grip - five fingers per hand, no fused, extra or missing fingers. Add nothing, remove nothing, move nothing.
+3. THE YOKE: sheer, with straight evenly spaced dark stripes and ONE small brooch at the throat - keep it exactly so.
+4. THE DRESS: plain, unbroken, dark matte cloth with soft natural folds. Long plain sleeves. No buttons, no ribbon, no bow, no belt, no trim, no jewellery, no pattern. It is simply dark cloth.
+5. BACKGROUND: plain, evenly lit mid-grey studio wall, cleaned smooth. Do not paint a backdrop, curtain or texture.
+6. HANDS - SECOND PRIORITY after composition: two real hands of a young woman, right resting over left at the waist, fingers relaxed and slightly spread exactly as in the input, visible knuckles, nails, tendons and soft shadows between fingers. Both hands the SAME skin tone - a natural pale warm skin lit by the same soft frontal light as the face; no grey hand, no orange hand, no waxy mannequin skin, no airbrushing. Sharpness equal to the yoke and brooch.
+7. Render as a large-format view-camera portrait: even soft frontal light, natural film gamma, no HDR, no glow. Surface micro-texture of a fine 1850s photographic print. NOT 35mm grain. NOT digital noise.
+[REMINDER] Composition and the hands outrank everything else.
+[Output Format]: Return ONLY the final restored image. No text, no explanation.
+[Color] Keep the image monochrome - neutral to very slightly warm grey, like a clean silver print. Optimize the tonal range only.
