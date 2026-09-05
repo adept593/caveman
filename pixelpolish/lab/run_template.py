@@ -54,7 +54,7 @@ def assign_widgets(oi, ty, widgets, linked):
             if opt:
                 for sub in list(opt.get("inputs", {}).get("required", {})) + list(opt.get("inputs", {}).get("optional", {})):
                     v, ok2 = take()
-                    if ok2: out[sub] = v
+                    if ok2: out[f"{name}.{sub}"] = v; out[sub] = v          # ComfyUI ждёт «родитель.поле»; плоское имя — на всякий случай
             continue
         if isinstance(t, str) and t.startswith("COMFY_"): continue
         v, ok = take()
@@ -82,12 +82,15 @@ def convert(wf, oi):
         for nid, n in nodes.items():
             if n["type"] in defs:
                 sg = defs[n["type"]]; sub_prefix = f"{key(nid)}_"; sub_ext = {}; wv = list(n.get("widgets_values", [])); wi = 0
-                for k, sin in enumerate(sg["inputs"]):
-                    inp = next((i for i in n.get("inputs", []) if i.get("name") == sin["name"]), None)
-                    st = sin.get("type", "")
-                    if inp and inp.get("link") is not None:
+                idx_by_name = {sin["name"]: k for k, sin in enumerate(sg["inputs"])}
+                # порядок widgets_values = порядок входов ВНЕШНЕГО узла (n["inputs"]), не sg["inputs"]
+                for inp in n.get("inputs", []):
+                    k = idx_by_name.get(inp.get("name"))
+                    if k is None: continue
+                    st = sg["inputs"][k].get("type", "")
+                    if inp.get("link") is not None:
                         o_id, o_slot, _, _ = L_[inp["link"]]; sub_ext[k] = ("extlink", (prefix, o_id, o_slot, outmap))
-                    elif isinstance(st, str) and st not in PRIM and not st.startswith("COMFY_"):
+                    elif isinstance(st, str) and st not in PRIM and not st.startswith("COMFY_") and not inp.get("widget"):
                         sub_ext[k] = ("none", None)
                     else:
                         if wi < len(wv): sub_ext[k] = ("value", wv[wi]); wi += 1

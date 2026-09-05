@@ -10,7 +10,7 @@ import json, os, sys, time, shutil, urllib.request
 from pathlib import Path
 sys.stdout.reconfigure(encoding="utf-8")
 API = os.environ.get("COMFY_API", "http://127.0.0.1:8189")
-SHARED = Path(r"C:\Users\RobotComp\AppData\Local\Comfy-Desktop\ComfyUI-Shared"); INPUT_DIR = SHARED / "input"
+SHARED = Path(r"C:\Users\RobotComp\AppData\Local\Comfy-Desktop\ComfyUI-Shared"); INPUT_DIR = Path(os.environ.get("COMFY_INPUT", SHARED / "input"))
 OUT = Path(r"D:\PixelPolish\assets\descr"); OUT.mkdir(parents=True, exist_ok=True)
 Q = ("You are a film analyst for short vertical videos. Describe this clip for a video-generation prompt writer. "
      "Answer in English with these fields, one per line: SUBJECT (what/who, look, materials); ACTION (what moves, how fast); "
