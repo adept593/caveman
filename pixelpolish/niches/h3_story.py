@@ -40,7 +40,7 @@ def main(path, sec=4.0):
             print(f"H3 клип {i}: {sh['name']}", flush=True)
             if S.get("engine") == "wan_i2v":
                 import wan_i2v
-                still = Path(rf"D:\PixelPolishideo\projects\story_{S['key']}") / f"shot{i}.png"
+                still = Path("D:/PixelPolish/video/projects") / f"story_{S['key']}" / f"shot{i}.png"
                 if not still.exists(): raise SystemExit(f"нет стилла {still} — сначала stills_story.py")
                 wan_i2v.run(str(still), sh.get("video_prompt", sh["prompt"]) + " Strong natural motion, dynamic camera, photoreal, cinematic lighting.",
                             str(c), sec, S.get("seed", 11) + i, size=S.get("h3_size", "720x1280"), turbo=S.get("wan_turbo", True))
