@@ -15,7 +15,7 @@ bim=Image.open(base).convert("RGB")
 if size: bim=bim.resize(tuple(int(v) for v in size.split("x")), Image.LANCZOS)
 bim.save(os.path.join(CIN,"iid_base.png")); Image.open(os.path.join(CIN,"iid_kps.png")).resize(bim.size, Image.LANCZOS).save(os.path.join(CIN,"iid_kps.png"))  # исходник img2img (+ kps того же размера)
 POS=("photograph of a young woman, 1850s, long narrow face, thin dark eyebrows, dark hair parted in the centre and drawn smoothly back, "
-     "plain dark dress, sheer yoke with fine vertical stripes, one small brooch at the throat, hands folded at the waist, "
+     "plain dark dress, a sheer transparent yoke of fine dark vertical stripes over bare shoulders, one small brooch at the throat, hands folded at the waist, "
      "plain grey studio background, bright soft even frontal light, luminous skin with fine pores, sharp clear eyes, crisp detail, fine film grain, high quality")
 NEG=("painting, illustration, cartoon, 3d render, plastic skin, airbrushed, blurry, deformed, extra fingers, missing fingers, "
      "buttons, ribbon, bow, necklace, earrings, curls, ringlets, smile, teeth, text, watermark")
@@ -30,10 +30,12 @@ g={
  "8":{"class_type":"LoadImage","inputs":{"image":"iid_kps.png"}},
  "9":{"class_type":"LoadImage","inputs":{"image":"iid_base.png"}},
  "10":{"class_type":"ApplyInstantIDAdvanced","inputs":{"instantid":["4",0],"insightface":["5",0],"control_net":["6",0],
-        "image":["7",0],"model":["1",0],"positive":["2",0],"negative":["3",0],"ip_weight":ipw,"cn_strength":0.8,
+        "image":["7",0],"model":["1",0],"positive":["2",0],"negative":["3",0],"ip_weight":ipw,"cn_strength":float(os.environ.get("IID_CN","0.8")),
         "start_at":0.0,"end_at":1.0,"noise":0.0,"combine_embeds":"average","image_kps":["8",0]}},
  "11":{"class_type":"VAEEncode","inputs":{"pixels":["9",0],"vae":["1",2]}},
- "12":{"class_type":"KSampler","inputs":{"model":["10",0],"positive":["10",1],"negative":["10",2],"latent_image":["11",0],
+ "15":{"class_type":"LoadImageMask","inputs":{"image":"iid_headmask.png","channel":"red"}},
+ "16":{"class_type":"SetLatentNoiseMask","inputs":{"samples":["11",0],"mask":["15",0]}},
+ "12":{"class_type":"KSampler","inputs":{"model":["10",0],"positive":["10",1],"negative":["10",2],"latent_image":["16",0] if os.environ.get("IID_MASK","1")=="1" else ["11",0],
         "seed":seed,"steps":30,"cfg":5.0,"sampler_name":"dpmpp_2m","scheduler":"karras","denoise":den}},
  "13":{"class_type":"VAEDecode","inputs":{"samples":["12",0],"vae":["1",2]}},
  "14":{"class_type":"SaveImage","inputs":{"images":["13",0],"filename_prefix":"iid_yw"}},

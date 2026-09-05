@@ -61,7 +61,7 @@ fig = (Y4[...,0] < 60) | fell | hand | np.pad(np.ones((700-470, 960-330), bool),
 bgw = 1.0 - feather(grow(fig, 41), 30.0)
 chroma = chroma*(1-bgw) + np.array([4.0, 1.0, -5.0], np.float32)*bgw
 yoke = np.zeros((H,W), bool); yoke[470:700, 330:960] = True; wy = feather(yoke, 20.0)
-chroma = chroma*(1 - 0.5*wy)                                       # кокетка не оранжевая
+chroma = chroma*(1 - 0.7*wy)                                       # кокетка не оранжевая
 warm = np.array([7.0, 1.5, -7.5], np.float32)[None,None,:]
 dress = np.clip(1.0 - Y4/90.0, 0, 1)
 L5 = Y4 + chroma*keep + warm*(0.6 + 0.4*keep) + np.array([5.0, 0.0, -6.0], np.float32)*dress
