@@ -45,6 +45,8 @@
    "prompt": "a giant Philistine warrior lying face down motionless on cracked dry ground, bronze helmet rolled aside, huge spear dropped, seen from a low wide angle, a tiny shepherd boy standing far behind, golden dust haze, biblical epic"
   }
  ],
- "h3_size": "736x1280",
- "h3_steps": 20
+ "h3_size": "720x1280",
+ "h3_steps": 20,
+ "engine": "wan_i2v",
+ "wan_turbo": true
 }
