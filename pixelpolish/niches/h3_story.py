@@ -43,9 +43,11 @@ def main(path, sec=4.0):
     lines = [S["intro"]] + [sh.get("line_voice", sh["line"]) for sh in S["shots"]] + [S["outro"]]
     durs = [ss.tts(t, WORK / f"v{i}.mp3", voice) for i, t in enumerate(lines)]
     cdur = [probe(c) for c in clips]
+    # сегмент не короче реплики диктора (+0.35 с паузы), иначе голоса наезжают друг на друга
+    sdur = [max(cd, durs[i+1] + 0.35) for i, cd in enumerate(cdur)]
     INTRO = max(1.6, durs[0] + 0.3); OUTRO = max(durs[-1] + 0.4, 2.4)
     starts = [0.0]; t = INTRO
-    for d in cdur: starts.append(t); t += d
+    for d in sdur: starts.append(t); t += d
     starts.append(t); total = t + OUTRO
     fdir = WORK / "frames"; fdir.mkdir(exist_ok=True)
     for f in fdir.glob("*.png"): f.unlink()
@@ -60,6 +62,12 @@ def main(path, sec=4.0):
     last = None
     for i, c in enumerate(clips):
         imgs = first_imgs if i == 0 else [Image.open(p).convert("RGB") for p in frames_of(c, tmp)]
+        need = int(round(sdur[i] * FPS))
+        if need > len(imgs):                       # добить стоп-кадром с лёгким наездом
+            lastim = imgs[-1]; extra = need - len(imgs)
+            for q in range(extra):
+                z = 1.0 + 0.06 * (q + 1) / extra; cw, ch = int(W / z), int(H / z)
+                imgs.append(lastim.crop(((W-cw)//2, (H-ch)//2, (W+cw)//2, (H+ch)//2)).resize((W, H), Image.BILINEAR))
         for j, im in enumerate(imgs):
             fr = ss.overlay(im.copy(), S, S["shots"][i], i)
             e = min(1.0, j / (0.3*FPS), (len(imgs)-1-j) / (0.3*FPS))
