@@ -17,7 +17,8 @@
    "pos": 0.0,
    "line": "A wolf-sized mammal that hunted in shallow rivers",
    "line_voice": "Pakicetus. A wolf-sized mammal wading into rivers to hunt.",
-   "prompt": "Pakicetus, a wolf-sized prehistoric mammal with a long snout and hooved toes, wading in a shallow Eocene river at dawn, reeds and mist"
+   "prompt": "Pakicetus, a wolf-sized prehistoric mammal with a long snout and hooved toes, wading in a shallow Eocene river at dawn, reeds and mist",
+   "video_prompt": "A wolf-sized prehistoric mammal Pakicetus wades through a shallow misty river at dawn, splashing, lowers its long snout and snaps at a fish; camera slowly tracks alongside"
   },
   {
    "name": "Ambulocetus",
@@ -25,7 +26,8 @@
    "pos": 0.08,
    "line": "The walking whale: crocodile-like ambush hunter",
    "line_voice": "Ambulocetus, the walking whale. It ambushed prey like a crocodile.",
-   "prompt": "Ambulocetus natans, a prehistoric semi-aquatic MAMMAL with sleek dark fur, four short webbed legs, a long flat head with small eyes on top, and a long tail, lying half submerged in a muddy estuary like an ambush predator, reeds, warm light"
+   "prompt": "Ambulocetus natans, a prehistoric semi-aquatic MAMMAL with sleek dark fur, four short webbed legs, a long flat head with small eyes on top, and a long tail, lying half submerged in a muddy estuary like an ambush predator, reeds, warm light",
+   "video_prompt": "Ambulocetus, a prehistoric semi-aquatic mammal with sleek dark fur and short webbed legs, lies half submerged in a muddy estuary, then suddenly lunges forward out of the water at prey, water exploding; low camera at water level"
   },
   {
    "name": "Rodhocetus",
@@ -33,7 +35,8 @@
    "pos": 0.16,
    "line": "Legs shrink, tail takes over the swimming",
    "line_voice": "Rodhocetus. Its legs shrink, and the tail takes over the swimming.",
-   "prompt": "Rodhocetus, a prehistoric early whale with a long snout, a furry seal-like body, small webbed hind legs still visible, paddling in clear turquoise coastal water near the surface, sunlight rays"
+   "prompt": "Rodhocetus, a prehistoric early whale with a long snout, a furry seal-like body, small webbed hind legs still visible, paddling in clear turquoise coastal water near the surface, sunlight rays",
+   "video_prompt": "Rodhocetus, an early whale with a long snout and small webbed hind legs, swims fast through clear turquoise water, tail pumping up and down, sunlight rays flickering; camera follows from the side"
   },
   {
    "name": "Dorudon",
@@ -41,7 +44,8 @@
    "pos": 0.3,
    "line": "Fully marine. Nostrils move up toward a blowhole",
    "line_voice": "Dorudon. Fully marine now. The nostrils move up toward a blowhole.",
-   "prompt": "Dorudon, a five meter long sleek prehistoric whale with tiny vestigial hind limbs, gliding underwater in a deep blue ocean, school of fish"
+   "prompt": "Dorudon, a five meter long sleek prehistoric whale with tiny vestigial hind limbs, gliding underwater in a deep blue ocean, school of fish",
+   "video_prompt": "Dorudon, a sleek five-meter prehistoric whale, glides through a deep blue ocean and turns toward the camera, a school of fish scattering around it; camera slowly circles"
   },
   {
    "name": "Basilosaurus",
@@ -49,7 +53,8 @@
    "pos": 0.36,
    "line": "An 18-meter serpent-like giant, top predator",
    "line_voice": "Basilosaurus. Eighteen meters long, serpent-shaped, the top predator of its sea.",
-   "prompt": "Basilosaurus, an enormous eighteen meter long serpent-like prehistoric whale, hunting a shark in a dark ancient ocean, dramatic light from above"
+   "prompt": "Basilosaurus, an enormous eighteen meter long serpent-like prehistoric whale, hunting a shark in a dark ancient ocean, dramatic light from above",
+   "video_prompt": "Basilosaurus, an enormous eighteen-meter serpent-like prehistoric whale, undulates through a dark ocean and opens its jaws to seize a shark; dramatic light shafts from above, camera pushes in"
   },
   {
    "name": "Squalodon",
@@ -58,7 +63,7 @@
    "line": "Echolocation appears: hunting by sound",
    "line_voice": "Squalodon. Echolocation appears. It starts hunting by sound.",
    "prompt": "Squalodon, a shark-toothed prehistoric dolphin with a long jaw, surfacing in a cold grey ocean, spray and overcast sky",
-   "video_prompt": "Close-up underwater shot of Squalodon, a prehistoric shark-toothed dolphin with a long narrow jaw full of sharp teeth, filling the frame, turning its head toward the camera and opening its jaws, cold grey-green water, bubbles"
+   "video_prompt": "Close-up underwater: Squalodon, a prehistoric shark-toothed dolphin with a long narrow jaw, swims straight at the camera and opens its jaws wide showing sharp teeth, bubbles streaming; cold green water"
   },
   {
    "name": "Livyatan",
@@ -67,7 +72,7 @@
    "line": "Sperm-whale cousin with 36-cm teeth",
    "line_voice": "Livyatan. A sperm whale cousin with teeth thirty-six centimeters long.",
    "prompt": "Livyatan melvillei, a giant prehistoric sperm whale with huge teeth, breaching out of the ocean at sunset, enormous splash",
-   "video_prompt": "Livyatan melvillei, a gigantic prehistoric sperm whale with a massive head and huge teeth, breaching straight up out of the ocean at sunset, filling the frame, enormous splash, water cascading off its body, slow motion"
+   "video_prompt": "Livyatan, a gigantic prehistoric sperm whale with huge teeth, bursts out of the ocean at sunset breaching high, water cascading off its body, crashes back with an enormous splash; slow motion tracking shot"
   },
   {
    "name": "Blue whale",
@@ -75,9 +80,11 @@
    "pos": 1.0,
    "line": "The largest animal that has ever lived",
    "line_voice": "The blue whale. The largest animal that has ever lived.",
-   "prompt": "a blue whale, the largest animal ever, swimming majestically under the surface of a sunlit ocean, seen from below, bubbles and light rays"
+   "prompt": "a blue whale, the largest animal ever, swimming majestically under the surface of a sunlit ocean, seen from below, bubbles and light rays",
+   "video_prompt": "A blue whale, the largest animal ever, swims majestically beneath a sunlit surface and rises toward the camera, tail slowly beating, bubbles and light rays; camera from below looking up"
   }
  ],
  "h3_size": "720x1280",
- "h3_steps": 8
+ "h3_steps": 8,
+ "engine": "wan"
 }
