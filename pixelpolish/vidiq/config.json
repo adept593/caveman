@@ -1,23 +1,26 @@
 {
  "ours": {
   "photo_rescue": {
-   "label": "Photo Rescue",
+   "label": "Flag IQ Arena",
    "id": "UC4CKS_ETfECsmRbtOpqy_HA",
-   "token": "photorescue_full"
+   "token": "photorescue_full",
+   "note": "05.09.2026 переименован из Photo Rescue, ниша флаг-квиз; @FlagIQArena"
   },
   "restored_history": {
-   "label": "Restored History",
+   "label": "Scripture Lens",
    "id": "UCvldpC8yVoFd8mmKQFQ8MxQ",
-   "token": "restoredhistory_full"
+   "token": "restoredhistory_full",
+   "note": "05.09.2026 переименован из Restored History, ниша библейские истории AI; @ScriptureLensDaily"
   },
   "abyssal": {
-   "label": "Abyssal Studio",
-   "id": "UCWuyiXkI0WWFOhYb189ad_A"
+   "label": "Wild Origins Daily",
+   "id": "UCWuyiXkI0WWFOhYb189ad_A",
+   "note": "05.09.2026 переименован из Abyssal Studio, ниша животные/эволюция; @WildOriginsDaily; токена нет"
   },
   "scroll_flame": {
    "label": "Years in a Minute",
    "id": "UCW2PAiXy58LRIzbN7V-9t8g",
-   "note": "канал переименован 03.09 из Scroll & Flame, ниша сменена с библейских историй на таймлапсы; ключ бакета оставлен прежним, чтобы не рвать историю в ours_history.jsonl"
+   "note": "канал переименован 03.09 из Scroll & Flame, ниша сменена с библейских историй на таймлапсы; ключ бакета оставлен прежним, чтобы не рвать историю в ours_history.jsonl 05.09.2026: описание и ключевые слова под карты what-if"
   }
  },
  "competitors": {
