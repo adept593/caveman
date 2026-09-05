@@ -7,7 +7,7 @@
 """
 import json, sys, io, time, shutil, urllib.request
 from pathlib import Path
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
+sys.stdout.reconfigure(encoding="utf-8")
 API = "http://127.0.0.1:8188"; OUTDIR = Path(r"C:\Users\RobotComp\pixelpolish\ComfyUI\output")
 
 

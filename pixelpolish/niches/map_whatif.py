@@ -104,18 +104,26 @@ def main():
             bd.line(list(zip(x, y)), fill=255, width=2)
     base.paste(Image.new("RGB", (RW, RH), (235, 235, 245)), (0, 0), bord.point(lambda v: int(v*0.45)))
     flag = Image.open(FLAGS / f"{S['iso']}.png").convert("RGB")
-    owned = [S["country"]]; keys = []
+    # главный насыщенный цвет флага — им заливаются захваченные земли (сам флаг — только на своей стране)
+    a = np.asarray(flag.resize((64, 40)), np.float32).reshape(-1, 3)
+    sat = a.max(1) - a.min(1); cand = a[sat > 60] if (sat > 60).any() else a
+    q = (cand // 32).astype(int); keys_, cnt = np.unique(q, axis=0, return_counts=True)
+    dom = tuple(int(v) for v in cand[(q == keys_[cnt.argmax()]).all(1)].mean(0))
+    core = Image.new("L", (RW, RH), 0); draw_country(ImageDraw.Draw(core), view, g.loc[S["country"]].geometry)
+    cb = core.getbbox(); fl = flag.resize((cb[2]-cb[0], cb[3]-cb[1]), Image.LANCZOS)
+    flag_layer = Image.new("RGB", (RW, RH)); flag_layer.paste(fl, (cb[0], cb[1]))
+    owned = []; keys = []
     for wi, (names, _) in enumerate(S["waves"]):
         owned += names
         m = Image.new("L", (RW, RH), 0); md = ImageDraw.Draw(m)
         for nm in owned:
             if nm not in g.index: print("нет страны:", nm); continue
             draw_country(md, view, g.loc[nm].geometry)
-        bbox = m.getbbox()
-        fl = flag.resize((bbox[2]-bbox[0], bbox[3]-bbox[1]), Image.LANCZOS)
-        layer = Image.new("RGB", (RW, RH)); layer.paste(fl, (bbox[0], bbox[1]))
-        frame = base.copy(); frame.paste(layer, (0, 0), m.point(lambda v: int(v*0.88)))
-        edge = m.filter(ImageFilter.FIND_EDGES).filter(ImageFilter.MaxFilter(3))
+        frame = base.copy()
+        frame.paste(Image.new("RGB", (RW, RH), dom), (0, 0), m.point(lambda v: int(v*0.80)))
+        frame.paste(flag_layer, (0, 0), core.point(lambda v: int(v*0.92)))
+        allm = Image.fromarray(np.maximum(np.asarray(m), np.asarray(core)))
+        edge = allm.filter(ImageFilter.FIND_EDGES).filter(ImageFilter.MaxFilter(3))
         frame.paste(Image.new("RGB", (RW, RH), (255, 255, 255)), (0, 0), edge)
         frame.save(WORK / f"key{wi}.png"); keys.append(frame)
     lines = [f"What if {S['country']} became a superpower?"] + [t for _, t in S["waves"]] + [S["outro"]]

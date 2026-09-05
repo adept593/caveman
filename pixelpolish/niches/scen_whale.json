@@ -57,7 +57,8 @@
    "pos": 0.55,
    "line": "Echolocation appears: hunting by sound",
    "line_voice": "Squalodon. Echolocation appears. It starts hunting by sound.",
-   "prompt": "Squalodon, a shark-toothed prehistoric dolphin with a long jaw, surfacing in a cold grey ocean, spray and overcast sky"
+   "prompt": "Squalodon, a shark-toothed prehistoric dolphin with a long jaw, surfacing in a cold grey ocean, spray and overcast sky",
+   "video_prompt": "Close-up underwater shot of Squalodon, a prehistoric shark-toothed dolphin with a long narrow jaw full of sharp teeth, filling the frame, turning its head toward the camera and opening its jaws, cold grey-green water, bubbles"
   },
   {
    "name": "Livyatan",
@@ -65,7 +66,8 @@
    "pos": 0.78,
    "line": "Sperm-whale cousin with 36-cm teeth",
    "line_voice": "Livyatan. A sperm whale cousin with teeth thirty-six centimeters long.",
-   "prompt": "Livyatan melvillei, a giant prehistoric sperm whale with huge teeth, breaching out of the ocean at sunset, enormous splash"
+   "prompt": "Livyatan melvillei, a giant prehistoric sperm whale with huge teeth, breaching out of the ocean at sunset, enormous splash",
+   "video_prompt": "Livyatan melvillei, a gigantic prehistoric sperm whale with a massive head and huge teeth, breaching straight up out of the ocean at sunset, filling the frame, enormous splash, water cascading off its body, slow motion"
   },
   {
    "name": "Blue whale",

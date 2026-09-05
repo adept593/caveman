@@ -59,7 +59,7 @@
        "prompt": "an enormous whale rising from the deep ocean with its mouth open, a tiny man silhouetted against the light inside, cinematic biblical epic"},
       {"name": "The Shore", "label": "Jonah 2:10", "line": "Spat out on the shore. This time, he went.",
        "line_voice": "On the third day, the fish spat him out onto dry land. This time, Jonah went.",
-       "prompt": "a soaked bearded man kneeling on a sunrise beach, hands raised in prayer, a giant whale tail splashing far offshore, golden light, biblical epic"}]}
+       "prompt": "a soaked bearded man in a torn ancient linen robe kneeling on a sunrise beach, hands raised in prayer, a giant whale tail splashing far offshore, golden light, biblical epic"}]}
   },
   "3": {
    "map": {"key": "turkey", "iso": "tr", "country": "Turkey", "view": [36.0, 38.0, 22.0],

@@ -12,7 +12,7 @@ from pathlib import Path
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 import edge_tts
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
+sys.stdout.reconfigure(encoding="utf-8")
 API = "http://127.0.0.1:8188"; COMFY_OUT = Path(r"C:\Users\RobotComp\pixelpolish\ComfyUI\output")
 W, H, FPS = 1080, 1920, 30
 GW, GH = 768, 1360           # генерация 9:16 (кратно 16)
@@ -107,7 +107,9 @@ def main(path):
             d.text((W/2, H*0.45+100), S.get("subtitle", ""), font=F_MID, fill=(255, 210, 90), anchor="mm")
         elif t >= total - OUTRO:
             d = ImageDraw.Draw(fr, "RGBA"); d.rectangle((0, H-330, W, H), fill=(8, 10, 18, 205))
-            d.text((W/2, H-200), S["outro"], font=F_MID, fill=(255, 255, 255), anchor="mm")
+            import textwrap
+            for li, ln in enumerate(textwrap.wrap(S["outro"], 38)[:3]):
+                d.text((W/2, H-240 + li*62), ln, font=F_MID, fill=(255, 255, 255), anchor="mm")
         else:
             fr = overlay(fr, S, S["shots"][k], k)
         edge = min(1.0, (u*SHOT)/0.35, ((1-u)*SHOT)/0.35) if INTRO <= t < INTRO + SHOT*len(stills) else 1.0
