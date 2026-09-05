@@ -50,18 +50,28 @@ def build_l4():
     B = arr(SRC/"L2_clean_raw.png", (W,H))
     B = np.repeat(luma(B)[...,None], 3, axis=2)                 # база в нейтральном сером — цвет придёт из L5
     rep = {"база": "L2_clean_raw"}
-    # ---- лицо
+    # ---- лицо: рецепт REPORT_V5B — геометрия и черты из GFPGAN (та же женщина),
+    # кладутся в полный прогон Kontext, чей контур головы совпадает с пластиной.
+    # Эллипс только по чертам (лоб под волосами — подбородок), тон: лицо к лицу.
     x0,y0,x1,y1 = FBOX
-    Ff = B.copy()   # лицо остаётся из базы: оба кроп-прогона лица хуже (совет: волосы не блокер)
-    cx,cy,rx,ry = FACE_ELL
+    G = np.asarray(Image.open(SRC/"face_gfpgan_w05.png").convert("L").resize((x1-x0, y1-y0), Image.LANCZOS), np.float32)
+    # белые точки крапа, пришедшие с GFPGAN-входа: всё, что ярче локального фона на 20+, гасим
+    Gs = soften(np.repeat(G[...,None],3,2), 3.0)[...,0]
+    spots = (G - Gs) > 20
+    sw = np.asarray(Image.fromarray((spots*255).astype(np.uint8)).filter(ImageFilter.MaxFilter(5)).filter(ImageFilter.GaussianBlur(2.0)), np.float32)/255.0
+    G = G*(1-sw) + Gs*sw                                          # мягкая подмена, без ступенек
+    Gf = luma(B).copy(); Gf[y0:y1, x0:x1] = G
+    # эллипс: лоб под волосами — шея целиком, чтобы челюсть и подбородок были из GFPGAN,
+    # а шов лёг в тёмные волосы и на ровную шею, не поперёк контура лица
+    cx,cy,rx,ry = 700, 300, 178, 248
     ell = ((xx-cx)/rx)**2 + ((yy-cy)/ry)**2 <= 1.0
-    ell &= yy < 478                                              # ниже — кокетка торса
-    ring = (((xx-cx)/(rx+45))**2 + ((yy-cy)/(ry+45))**2 <= 1.0) & ~ell & (yy < 478)
-    edge = ell & ~(((xx-cx)/(rx-45))**2 + ((yy-cy)/(ry-45))**2 <= 1.0)
-    Ft, g1, o1 = tone_match(Ff, B, edge, ring)
-    w1 = feather(ell, FEATHER)
-    out = B.copy()
-    rep["лицо"] = {"src": "face_v2_raw", "эллипс": FACE_ELL, "gain": round(g1,3), "offset": round(o1,1)}
+    lb, lg = luma(B)[ell], Gf[ell]
+    g1 = float(np.clip(lb.std()/max(lg.std(),1e-3), 0.7, 1.5)); o1 = float(lb.mean() - lg.mean()*g1)
+    Gt = np.clip(Gf*g1 + o1, 0, 255)
+    Gt = np.clip(Gt + (Gt - soften(np.repeat(Gt[...,None],3,2), 1.4)[...,0])*0.3, 0, 255)   # чуть поверхности
+    w1 = feather(ell, 16.0)
+    out = B*(1-w1) + np.repeat(Gt[...,None], 3, axis=2)*w1
+    rep["лицо"] = {"src": "face_gfpgan_w05 в run1 (REPORT_V5B)", "эллипс": [cx,cy,rx,ry], "gain": round(g1,3), "offset": round(o1,1)}
     print("лицо: тон x%.3f %+.1f" % (g1, o1))
     # ---- торс (силуэт: тёмная ткань + кожа кистей), шов по шее градиентом 430..520
     x0,y0,x1,y1 = TBOX
@@ -112,6 +122,14 @@ def build_l5(color_path):
     near = np.zeros((H,W), bool); near[850:1200, 540:980] = True
     chroma = chroma * np.where(near[...,None] & (wh < 0.5), 0.0, 1.0) + 0.0
     chroma = chroma*(1-wh) + skin[None,None,:]*wh                 # кисти — в тон лица, один цвет
+    # голова заменена — цветность старого лица (локоны, другая геометрия) сюда не годится:
+    # в прямоугольнике головы цвет только на коже лица (ровный skin), остальное нейтрально
+    yoke = np.zeros((H,W), bool); yoke[470:700, 330:960] = True
+    wy = feather(yoke, 20.0)
+    chroma = chroma*(1 - 0.55*wy)                                 # кокетка: цветность прогона вдвое тише
+    fell = (((xx-700)/178.0)**2 + ((yy-300)/248.0)**2 <= 1.0) & (Y4[...,0] > 95)
+    wf = feather(fell, 14.0)
+    chroma = chroma*(1-wf) + skin[None,None,:]*wf
     # тёплый финал: лёгкая сепия на всё, платье в тёмно-коричневый, а не чёрный
     warm = np.array([7.0, 1.5, -7.5], np.float32)[None,None,:]
     dress = np.clip(1.0 - Y4/90.0, 0, 1)                          # тёмное

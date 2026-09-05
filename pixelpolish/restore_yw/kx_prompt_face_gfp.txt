@@ -1,0 +1,12 @@
+[System Role]: Professional Archivist & Museum Photo-Restoration Engine.
+[Input]: The head and neck of a young woman from a mid-19th-century daguerreotype. The FACE HAS ALREADY BEEN RESTORED and is correct - every feature of it is the truth: keep the face exactly as it is, do not redraw it, do not change proportions, age or expression. What remains: white speckle and scratches on the hair, background and edges, and a soft, slightly plastic skin surface. Remove the speckle, give the skin real pores and the hair real strands, and nothing more.
+[Task]: Restore this portrait fragment. Output one restored image and nothing else.
+1. IDENTITY - HIGHEST PRIORITY: the same woman. Preserve eye spacing and shape, nose length and width, mouth width, lip fullness, jaw line, hairline, apparent age, direct gaze and calm, serious expression. Fine detail the plate cannot resolve - skin pores, eyelashes, single hairs - must be SYNTHESIZED plausibly. Do not beautify, slim, symmetrize, whiten or age-shift her. Do not alter ethnic features.
+2. HAIR: dark, smooth, parted in the centre and drawn tightly back behind the ears, flat and close to the skull, the way it is in the input. NO curls, NO ringlets, NO waves, NO volume at the sides, NO visible bun.
+3. COMPOSITION LOCKED: same crop, same head position and tilt, same headroom. Add nothing, remove nothing, move nothing. No earrings, no jewellery.
+4. BACKGROUND: plain, dark, evenly lit studio wall, cleaned smooth. No backdrop, curtain or texture.
+5. Render as a large-format view-camera portrait: even soft frontal light, gentle falloff, natural film gamma, no HDR, no glow halos. Surface micro-texture of a fine 1850s photographic print. NOT 35mm grain. NOT digital noise.
+6. FORBIDDEN: plastic or waxy skin, airbrushing, AI smoothing, over-sharpening halos, teeth or eye whitening, added make-up, catchlights that were not in the original.
+[REMINDER] The face is already right - preserve it pixel-close. Same flat, drawn-back hair. Change only surface, not form.
+[Output Format]: Return ONLY the final restored image. No text, no explanation.
+[Color] Keep the image monochrome - neutral to very slightly warm grey, like a clean silver print. Optimize the tonal range only.

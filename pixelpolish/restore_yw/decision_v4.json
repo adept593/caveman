@@ -1,0 +1,10 @@
+{
+ "L4": "iid_refine_s21.png",
+ "цвет": "L5_color_iid70_raw.png",
+ "метод": "InstantID (SDXL img2img по L4 v3, слепок лица GFPGAN-кроп, kps с очищенной пластины)",
+ "skin_chroma": [
+  25.8,
+  -8.6,
+  -26.7
+ ]
+}
