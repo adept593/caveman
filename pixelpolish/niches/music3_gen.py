@@ -9,7 +9,10 @@
 import json, sys, time, shutil, urllib.request
 from pathlib import Path
 sys.stdout.reconfigure(encoding="utf-8")
-API = "http://127.0.0.1:8188"; OUTDIR = Path(r"C:\Users\RobotComp\pixelpolish\ComfyUI\output"); MUSIC = Path(r"D:\PixelPolish\МУЗЫКА")
+import os
+API = os.environ.get("COMFY_API", "http://127.0.0.1:8189")                       # лаунчер ComfyUI Desktop
+OUTDIR = Path(os.environ.get("COMFY_OUTPUT", r"C:\Users\RobotComp\AppData\Local\Comfy-Desktop\ComfyUI-Shared\output"))
+MUSIC = Path(r"D:\PixelPolish\МУЗЫКА")
 
 # стиль — по замерам конкурентов (темп/громкость/ударные/тембр), см. НИШИ_ПИЛОТЫ
 TRACKS = {
@@ -26,7 +29,7 @@ TRACKS = {
 
 def graph(caption, sec, seed):
     return {
-        "1": {"class_type": "UNETLoader", "inputs": {"unet_name": "minimax_music3_dit_int8_convrot.safetensors", "weight_dtype": "default"}},
+        "1": {"class_type": "UNETLoader", "inputs": {"unet_name": "minimax_music3_dit_fp16.safetensors", "weight_dtype": "default"}},
         "2": {"class_type": "CLIPLoader", "inputs": {"clip_name": "minimax_music3_text_encoder_pruned_int8_convrot.safetensors", "type": "minimax", "device": "default"}},
         "3": {"class_type": "VAELoader", "inputs": {"vae_name": "minimax_music3_dav.safetensors"}},
         "4": {"class_type": "MiniMaxMusic3TextEncode", "inputs": {"clip": ["2", 0], "caption": caption, "lyrics": "[Instrumental]\n[Instrumental]\n[Instrumental]\n[Outro]\n[Instrumental]", "seed": seed,
