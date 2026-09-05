@@ -2,36 +2,78 @@
  "key": "whale_evolution",
  "title": "How the whale evolved",
  "subtitle": "50 million years in 30 seconds",
- "timeline": true, "t0": "50 mya", "t1": "TODAY",
+ "timeline": true,
+ "t0": "50 mya",
+ "t1": "TODAY",
  "voice": "en-US-AndrewNeural",
  "music": "D:/PixelPolish/МУЗЫКА/gemini_lyria_01.m4a",
  "seed": 101,
  "intro": "Fifty million years ago, the whale had legs. Watch it happen.",
  "outro": "Which one surprised you? Comment below.",
  "shots": [
-  {"name": "Pakicetus", "label": "50 million years ago", "pos": 0.0,
-   "line": "A wolf-sized mammal that hunted in shallow rivers", "line_voice": "Pakicetus. A wolf-sized mammal wading into rivers to hunt.",
-   "prompt": "Pakicetus, a wolf-sized prehistoric mammal with a long snout and hooved toes, wading in a shallow Eocene river at dawn, reeds and mist"},
-  {"name": "Ambulocetus", "label": "48 million years ago", "pos": 0.08,
-   "line": "The walking whale: crocodile-like ambush hunter", "line_voice": "Ambulocetus, the walking whale. It ambushed prey like a crocodile.",
-   "prompt": "Ambulocetus, a crocodile-like prehistoric mammal with short legs and a long powerful tail, half submerged in a muddy estuary, eyes above water"},
-  {"name": "Rodhocetus", "label": "46 million years ago", "pos": 0.16,
-   "line": "Legs shrink, tail takes over the swimming", "line_voice": "Rodhocetus. Its legs shrink, and the tail takes over the swimming.",
-   "prompt": "Rodhocetus, a prehistoric early whale with small webbed hind legs and a long body, swimming in clear turquoise coastal water, sunlight rays"},
-  {"name": "Dorudon", "label": "40 million years ago", "pos": 0.3,
-   "line": "Fully marine. Nostrils move up toward a blowhole", "line_voice": "Dorudon. Fully marine now. The nostrils move up toward a blowhole.",
-   "prompt": "Dorudon, a five meter long sleek prehistoric whale with tiny vestigial hind limbs, gliding underwater in a deep blue ocean, school of fish"},
-  {"name": "Basilosaurus", "label": "38 million years ago", "pos": 0.36,
-   "line": "An 18-meter serpent-like giant, top predator", "line_voice": "Basilosaurus. Eighteen meters long, serpent-shaped, the top predator of its sea.",
-   "prompt": "Basilosaurus, an enormous eighteen meter long serpent-like prehistoric whale, hunting a shark in a dark ancient ocean, dramatic light from above"},
-  {"name": "Squalodon", "label": "25 million years ago", "pos": 0.55,
-   "line": "Echolocation appears: hunting by sound", "line_voice": "Squalodon. Echolocation appears. It starts hunting by sound.",
-   "prompt": "Squalodon, a shark-toothed prehistoric dolphin with a long jaw, surfacing in a cold grey ocean, spray and overcast sky"},
-  {"name": "Livyatan", "label": "12 million years ago", "pos": 0.78,
-   "line": "Sperm-whale cousin with 36-cm teeth", "line_voice": "Livyatan. A sperm whale cousin with teeth thirty-six centimeters long.",
-   "prompt": "Livyatan melvillei, a giant prehistoric sperm whale with huge teeth, breaching out of the ocean at sunset, enormous splash"},
-  {"name": "Blue whale", "label": "today", "pos": 1.0,
-   "line": "The largest animal that has ever lived", "line_voice": "The blue whale. The largest animal that has ever lived.",
-   "prompt": "a blue whale, the largest animal ever, swimming majestically under the surface of a sunlit ocean, seen from below, bubbles and light rays"}
+  {
+   "name": "Pakicetus",
+   "label": "50 million years ago",
+   "pos": 0.0,
+   "line": "A wolf-sized mammal that hunted in shallow rivers",
+   "line_voice": "Pakicetus. A wolf-sized mammal wading into rivers to hunt.",
+   "prompt": "Pakicetus, a wolf-sized prehistoric mammal with a long snout and hooved toes, wading in a shallow Eocene river at dawn, reeds and mist"
+  },
+  {
+   "name": "Ambulocetus",
+   "label": "48 million years ago",
+   "pos": 0.08,
+   "line": "The walking whale: crocodile-like ambush hunter",
+   "line_voice": "Ambulocetus, the walking whale. It ambushed prey like a crocodile.",
+   "prompt": "Ambulocetus natans, a prehistoric semi-aquatic MAMMAL with sleek dark fur, four short webbed legs, a long flat head with small eyes on top, and a long tail, lying half submerged in a muddy estuary like an ambush predator, reeds, warm light"
+  },
+  {
+   "name": "Rodhocetus",
+   "label": "46 million years ago",
+   "pos": 0.16,
+   "line": "Legs shrink, tail takes over the swimming",
+   "line_voice": "Rodhocetus. Its legs shrink, and the tail takes over the swimming.",
+   "prompt": "Rodhocetus, a prehistoric early whale with a long snout, a furry seal-like body, small webbed hind legs still visible, paddling in clear turquoise coastal water near the surface, sunlight rays"
+  },
+  {
+   "name": "Dorudon",
+   "label": "40 million years ago",
+   "pos": 0.3,
+   "line": "Fully marine. Nostrils move up toward a blowhole",
+   "line_voice": "Dorudon. Fully marine now. The nostrils move up toward a blowhole.",
+   "prompt": "Dorudon, a five meter long sleek prehistoric whale with tiny vestigial hind limbs, gliding underwater in a deep blue ocean, school of fish"
+  },
+  {
+   "name": "Basilosaurus",
+   "label": "38 million years ago",
+   "pos": 0.36,
+   "line": "An 18-meter serpent-like giant, top predator",
+   "line_voice": "Basilosaurus. Eighteen meters long, serpent-shaped, the top predator of its sea.",
+   "prompt": "Basilosaurus, an enormous eighteen meter long serpent-like prehistoric whale, hunting a shark in a dark ancient ocean, dramatic light from above"
+  },
+  {
+   "name": "Squalodon",
+   "label": "25 million years ago",
+   "pos": 0.55,
+   "line": "Echolocation appears: hunting by sound",
+   "line_voice": "Squalodon. Echolocation appears. It starts hunting by sound.",
+   "prompt": "Squalodon, a shark-toothed prehistoric dolphin with a long jaw, surfacing in a cold grey ocean, spray and overcast sky"
+  },
+  {
+   "name": "Livyatan",
+   "label": "12 million years ago",
+   "pos": 0.78,
+   "line": "Sperm-whale cousin with 36-cm teeth",
+   "line_voice": "Livyatan. A sperm whale cousin with teeth thirty-six centimeters long.",
+   "prompt": "Livyatan melvillei, a giant prehistoric sperm whale with huge teeth, breaching out of the ocean at sunset, enormous splash"
+  },
+  {
+   "name": "Blue whale",
+   "label": "today",
+   "pos": 1.0,
+   "line": "The largest animal that has ever lived",
+   "line_voice": "The blue whale. The largest animal that has ever lived.",
+   "prompt": "a blue whale, the largest animal ever, swimming majestically under the surface of a sunlit ocean, seen from below, bubbles and light rays"
+  }
  ]
 }
