@@ -18,7 +18,7 @@ import edge_tts
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 
 GEO = Path(r"D:\PixelPolish\assets\geo"); FLAGS = Path(r"D:\PixelPolish\assets\flags")
-MUSIC = Path(r"D:\PixelPolish\МУЗЫКА\gemini_lyria_01.m4a")
+MUSIC = Path(r"D:\PixelPolish\МУЗЫКА\m3_maps.flac")
 W, H, FPS = 1080, 1920, 30
 F_BIG = ImageFont.truetype(r"C:\Windows\Fonts\impact.ttf", 80)
 F_MID = ImageFont.truetype(r"C:\Windows\Fonts\bahnschrift.ttf", 52)

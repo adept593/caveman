@@ -18,7 +18,7 @@ EP = {}
 if len(sys.argv) > 1 and sys.argv[1].endswith(".json"):
     EP = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))      # {name, quiz, intro?, cues?, outro?}
 NAME = EP.get("name") or (sys.argv[1] if len(sys.argv) > 1 else "ep01")
-FLAGS = Path(r"D:\PixelPolish\assets\flags"); MUSIC = Path(r"D:\PixelPolish\МУЗЫКА\gemini_lyria_01.m4a")
+FLAGS = Path(r"D:\PixelPolish\assets\flags"); MUSIC = Path(r"D:\PixelPolish\МУЗЫКА\m3_flags.flac")
 WORK = Path(rf"D:\PixelPolish\video\projects\flagquiz_{NAME}"); WORK.mkdir(parents=True, exist_ok=True)
 OUT = Path(rf"D:\PixelPolish\ШОРТСЫ\flagquiz_{NAME}.mp4")
 W, H, FPS = 1080, 1920, 30
