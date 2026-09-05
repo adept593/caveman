@@ -1,0 +1,424 @@
+{
+ "crop": {
+  "plate": [
+   1280,
+   1760
+  ],
+  "scaled": [
+   1745,
+   2400
+  ],
+  "x0": 205,
+  "canvas": [
+   1350,
+   2400
+  ],
+  "out": [
+   1080,
+   1920
+  ],
+  "plate_upscale": 1.3636,
+  "subject_x": [
+   539,
+   751
+  ],
+  "margin_l": 530,
+  "margin_r": 531,
+  "photo_covers_frame": true
+ },
+ "exposure": [
+  [
+   "L1_master.png",
+   40.9,
+   0.66,
+   74.0
+  ],
+  [
+   "L2_clean.png",
+   37.4,
+   0.63,
+   74.0
+  ],
+  [
+   "L3_tone.png",
+   37.9,
+   0.633,
+   74.0
+  ],
+  [
+   "L4_detail.png",
+   37.9,
+   0.632,
+   74.0
+  ],
+  [
+   "L5_color.png",
+   37.4,
+   0.627,
+   74.0
+  ]
+ ],
+ "arms_D2": {
+  "порог": 12.0,
+  "цель": 8.0,
+  "руки": [],
+  "готовый_кадр": []
+ },
+ "hands": [
+  {
+   "box": [
+    600,
+    890,
+    850,
+    1140
+   ],
+   "px": 0,
+   "lapvar_detail": 4,
+   "lapvar_pre_detail": 1,
+   "lapvar_after": 4
+  }
+ ],
+ "gaps_after_10s": {
+  "list": [
+   [
+    11.0,
+    11.35,
+    0.35
+   ],
+   [
+    12.5,
+    12.95,
+    0.45
+   ],
+   [
+    15.3,
+    16.2,
+    0.9
+   ],
+   [
+    18.6,
+    18.95,
+    0.35
+   ],
+   [
+    21.3,
+    21.65,
+    0.35
+   ]
+  ],
+  "worst": 0.9
+ },
+ "texts": [
+  {
+   "text": "1855",
+   "size": 110,
+   "font_w": 244,
+   "y": 820,
+   "y1": 952,
+   "t0": 0.0,
+   "t1": 3.2,
+   "proof": null,
+   "tm": 1.6,
+   "band": [
+    810,
+    962
+   ]
+  },
+  {
+   "text": "Rochester, New York",
+   "size": 58,
+   "font_w": 578,
+   "y": 980,
+   "y1": 1049,
+   "t0": 0.0,
+   "t1": 3.2,
+   "proof": null,
+   "tm": 1.6,
+   "band": [
+    970,
+    1059
+   ]
+  },
+  {
+   "text": "her name was never recorded",
+   "size": 48,
+   "font_w": 679,
+   "y": 1000,
+   "y1": 1057,
+   "t0": 3.55,
+   "t1": 6.1,
+   "proof": null,
+   "tm": 4.82,
+   "band": [
+    990,
+    1067
+   ]
+  },
+  {
+   "text": "the brass mat is stamped F. Grice",
+   "size": 48,
+   "font_w": 768,
+   "y": 1000,
+   "y1": 1057,
+   "t0": 6.45,
+   "t1": 8.35,
+   "proof": null,
+   "tm": 7.4,
+   "band": [
+    990,
+    1067
+   ]
+  },
+  {
+   "text": "warmth back in her face",
+   "size": 48,
+   "font_w": 547,
+   "y": 1000,
+   "y1": 1057,
+   "t0": 8.7,
+   "t1": 11.0,
+   "proof": "color_face",
+   "tm": 9.85,
+   "band": [
+    990,
+    1067
+   ]
+  },
+  {
+   "text": "her hands, folded and still",
+   "size": 48,
+   "font_w": 591,
+   "y": 1000,
+   "y1": 1057,
+   "t0": 11.35,
+   "t1": 12.5,
+   "proof": null,
+   "tm": 11.93,
+   "band": [
+    990,
+    1067
+   ]
+  },
+  {
+   "text": "the sheer yoke, stripe by stripe",
+   "size": 48,
+   "font_w": 707,
+   "y": 1000,
+   "y1": 1057,
+   "t0": 12.95,
+   "t1": 15.3,
+   "proof": "detail",
+   "tm": 14.12,
+   "band": [
+    990,
+    1067
+   ]
+  },
+  {
+   "text": "the color she was painted in",
+   "size": 48,
+   "font_w": 640,
+   "y": 1000,
+   "y1": 1057,
+   "t0": 16.2,
+   "t1": 18.6,
+   "proof": "color_full",
+   "tm": 17.4,
+   "band": [
+    990,
+    1067
+   ]
+  },
+  {
+   "text": "one young woman, no name",
+   "size": 48,
+   "font_w": 642,
+   "y": 1000,
+   "y1": 1057,
+   "t0": 18.95,
+   "t1": 21.3,
+   "proof": null,
+   "tm": 20.12,
+   "band": [
+    990,
+    1067
+   ]
+  },
+  {
+   "text": "she held still for half a minute",
+   "size": 48,
+   "font_w": 674,
+   "y": 1000,
+   "y1": 1057,
+   "t0": 21.65,
+   "t1": 24.0,
+   "proof": null,
+   "tm": 22.82,
+   "band": [
+    990,
+    1067
+   ]
+  },
+  {
+   "text": "the plate survived 171 years",
+   "size": 48,
+   "font_w": 642,
+   "y": 930,
+   "y1": 987,
+   "t0": 24.0,
+   "t1": 27.0,
+   "proof": null,
+   "tm": 25.5,
+   "band": [
+    920,
+    997
+   ]
+  },
+  {
+   "text": "AI restoration",
+   "size": 44,
+   "font_w": 285,
+   "y": 1030,
+   "y1": 1082,
+   "t0": 24.0,
+   "t1": 27.0,
+   "proof": null,
+   "tm": 25.5,
+   "band": [
+    1020,
+    1092
+   ]
+  },
+  {
+   "text": "Library of Congress · Public Domain",
+   "size": 44,
+   "font_w": 759,
+   "y": 1092,
+   "y1": 1144,
+   "t0": 24.0,
+   "t1": 27.0,
+   "proof": null,
+   "tm": 25.5,
+   "band": [
+    1082,
+    1154
+   ]
+  },
+  {
+   "text": "Who was she?",
+   "size": 92,
+   "font_w": 639,
+   "y": 880,
+   "y1": 990,
+   "t0": 27.0,
+   "t1": 30.0,
+   "proof": null,
+   "tm": 28.5,
+   "band": [
+    870,
+    1000
+   ]
+  }
+ ],
+ "probe_noaudio": {
+  "programs": [],
+  "stream_groups": [],
+  "streams": [
+   {
+    "codec_name": "h264",
+    "codec_type": "video",
+    "width": 1080,
+    "height": 1920,
+    "pix_fmt": "yuv420p",
+    "r_frame_rate": "30/1"
+   }
+  ],
+  "format": {
+   "duration": "30.000000",
+   "bit_rate": "1954584"
+  }
+ },
+ "stages": {
+  "moves": [
+   [
+    2.4,
+    4.6,
+    0,
+    1
+   ],
+   [
+    5.6,
+    6.4,
+    1,
+    2
+   ],
+   [
+    6.4,
+    8.0,
+    2,
+    3
+   ],
+   [
+    10.4,
+    12.6,
+    3,
+    4
+   ],
+   [
+    14.2,
+    15.9,
+    4,
+    5
+   ]
+  ],
+  "holds": [
+   [
+    0.0,
+    0.4,
+    5
+   ],
+   [
+    0.4,
+    2.4,
+    0
+   ],
+   [
+    4.6,
+    5.6,
+    1
+   ],
+   [
+    8.0,
+    10.4,
+    3
+   ],
+   [
+    12.6,
+    14.2,
+    4
+   ],
+   [
+    15.9,
+    30.01,
+    5
+   ]
+  ],
+  "feather_px": 425.0,
+  "feather_pct_h": 17.7
+ },
+ "kenburns": {
+  "mode": "off",
+  "filter": "crop=1350:2400:0:0,scale=1080:1920:flags=lanczos,fps=30",
+  "info": {
+   "окно": "1350x2400",
+   "запас разрешения": "1.250x",
+   "зум": "нет"
+  }
+ },
+ "skin": {
+  "face_all_Y": 156.0,
+  "face_ref_Y": 158.7,
+  "limb_Y_before": 155.6,
+  "shift": -7.5
+ }
+}
