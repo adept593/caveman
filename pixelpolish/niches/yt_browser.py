@@ -38,11 +38,24 @@ def cmd_open():
         print("вход есть:", pg.url); time.sleep(3); c.close()
 
 
-def cmd_brand(cid, avatar, banner):
+def cmd_brand(cid, avatar, banner, title=None):
     with sync_playwright() as p:
         c = ctx(p); pg = c.pages[0] if c.pages else c.new_page()
         pg.goto(f"https://studio.youtube.com/channel/{cid}/editing/profile", wait_until="domcontentloaded"); pg.wait_for_timeout(6000)
-        if "accounts.google.com" in pg.url: print("НЕТ ВХОДА — сначала: python yt_browser.py open"); c.close(); return
+        if "accounts.google.com" in pg.url:
+            print("НЕТ ВХОДА — войди в открытом окне, жду до 15 мин", flush=True); t0 = time.time()
+            while time.time() - t0 < 900 and "/channel/" not in pg.url: time.sleep(3)
+            if "/channel/" not in pg.url: print("входа не дождался"); c.close(); return
+            pg.goto(f"https://studio.youtube.com/channel/{cid}/editing/profile", wait_until="domcontentloaded"); pg.wait_for_timeout(6000)
+        if title and pg.get_by_text("У вас нет доступа").count():
+            print("нет доступа под текущим аккаунтом — переключаю через меню аватара на", title, flush=True)
+            pg.goto("https://studio.youtube.com/", wait_until="domcontentloaded"); pg.wait_for_timeout(6000)
+            pg.get_by_role("button", name="Account").click(); pg.wait_for_timeout(2000)
+            pg.get_by_text("Сменить аккаунт").first.click(); pg.wait_for_timeout(3000)
+            pg.screenshot(path=str(SHOTS / f"{cid}_switch.png"))
+            pg.get_by_text(title, exact=True).first.click(); pg.wait_for_timeout(10000)
+            pg.goto(f"https://studio.youtube.com/channel/{cid}/editing/profile", wait_until="domcontentloaded"); pg.wait_for_timeout(6000)
+        pg.screenshot(path=str(SHOTS / f"{cid}_page.png")); print("страница:", pg.url, "|", pg.title(), flush=True)
         for label, path, idx in (("Баннер", banner, 0), ("Фото профиля", avatar, 1)):
             with pg.expect_file_chooser(timeout=20000) as fc:
                 pg.get_by_role("button", name="Изменить").nth(idx).click()
@@ -64,4 +77,4 @@ def cmd_shot(url, out):
 
 if __name__ == "__main__":
     a = sys.argv[1:]
-    {"open": lambda: cmd_open(), "brand": lambda: cmd_brand(a[1], a[2], a[3]), "shot": lambda: cmd_shot(a[1], a[2])}[a[0]]()
+    {"open": lambda: cmd_open(), "brand": lambda: cmd_brand(a[1], a[2], a[3], a[4] if len(a) > 4 else None), "shot": lambda: cmd_shot(a[1], a[2])}[a[0]]()
