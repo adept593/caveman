@@ -84,7 +84,6 @@
    "video_prompt": "A blue whale, the largest animal ever, swims majestically beneath a sunlit surface and rises toward the camera, tail slowly beating, bubbles and light rays; camera from below looking up"
   }
  ],
- "h3_size": "720x1280",
- "h3_steps": 8,
- "engine": "wan"
+ "h3_size": "576x1024",
+ "h3_steps": 20
 }
