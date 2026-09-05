@@ -44,7 +44,7 @@ def main(path, sec=4.0):
                             str(c), sec, S.get("seed", 11) + i, size=S.get("h3_size", "720x1280"), steps=S.get("wan_steps", 4))
             else:
                 h3_t2v.run(sh.get("video_prompt", sh["prompt"]) + STYLE, str(c), sec, S.get("seed", 11) + i,
-                           size=S.get("h3_size", "576x1024"), steps=S.get("h3_steps", 20))   # потолок YouTube Shorts 1080x1920: 720p + апскейл
+                           size=S.get("h3_size", "736x1280"), steps=S.get("h3_steps", 20))   # потолок YouTube Shorts 1080x1920: 720p + апскейл
         clips.append(c)
     lines = [S["intro"]] + [sh.get("line_voice", sh["line"]) for sh in S["shots"]] + [S["outro"]]
     durs = [ss.tts(t, WORK / f"v{i}.mp3", voice) for i, t in enumerate(lines)]

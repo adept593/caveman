@@ -171,7 +171,7 @@
       "prompt": "a great white shark cruising just below the surface of a sunlit ocean, seen from the side, rays of light, photoreal"
      }
     ],
-    "h3_size": "576x1024",
+    "h3_size": "736x1280",
     "h3_steps": 20
    },
    "bible": {
@@ -221,7 +221,7 @@
       "prompt": "a soaked bearded man in a torn ancient linen robe kneeling on a sunrise beach, hands raised in prayer, a giant whale tail splashing far offshore, golden light, biblical epic"
      }
     ],
-    "h3_size": "576x1024",
+    "h3_size": "736x1280",
     "h3_steps": 20
    }
   },
@@ -393,7 +393,7 @@
       "prompt": "a powerful modern horse galloping at full speed across a golden field at sunset, mane flying, dust, photoreal"
      }
     ],
-    "h3_size": "576x1024",
+    "h3_size": "736x1280",
     "h3_steps": 20
    },
    "bible": {
@@ -443,7 +443,7 @@
       "prompt": "an old man walking up out of a stone pit into golden morning light, a king in royal robes reaching out to him in awe, biblical epic"
      }
     ],
-    "h3_size": "576x1024",
+    "h3_size": "736x1280",
     "h3_steps": 20
    }
   }
