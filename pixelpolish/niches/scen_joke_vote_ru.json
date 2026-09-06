@@ -1,0 +1,22 @@
+{
+ "key": "vote_ru", "lang": "ru", "voice": "ru-RU-DmitryNeural", "seed": 4200,
+ "title": "Экскурсия в ад", "music": "D:/PixelPolish/МУЗЫКА/m3_flags_master.flac", "music_vol": 0.15,
+ "shots": [
+  {"text": "Умер один мужик, и попадает он на небо.", "prompt": "a plump middle-aged clay man in a grey suit stands on fluffy white clouds looking around in confusion, soft golden light", "motion": "the man looks around in confusion, clouds drift, camera slowly pushes in"},
+  {"text": "Встречает его апостол Пётр и говорит:", "prompt": "close-up of a kind old clay Saint Peter with a white beard and huge golden keys at ornate golden gates, warm heavenly light", "motion": "Saint Peter smiles and gestures welcomingly, camera slow push in"},
+  {"text": "«У тебя грехи и добрые дела ровно поровну. Выбирай сам: рай или ад».", "prompt": "clay Saint Peter holding a giant golden balance scale that is perfectly level, the plump man in a suit staring at it, golden gates behind", "motion": "the scale wobbles and settles level, the man scratches his head"},
+  {"text": "«Можно я сначала посмотрю?» — говорит мужик.", "prompt": "close-up of the plump clay man in a suit raising one finger with a sly grin, heaven clouds background", "motion": "the man raises a finger and grins slyly, eyes glancing sideways"},
+  {"text": "Спускается он в ад.", "prompt": "the plump clay man in a suit walking down a long dark stone staircase into red glowing depths, tiny flames along the walls", "motion": "the man walks down the stairs, flames flicker, camera follows from behind"},
+  {"text": "А там — пляж, солнце, музыка, столы ломятся от еды.", "prompt": "a bright sunny clay beach party in hell with palm trees, cocktails, a buffet table piled with food, red devils dancing happily, disco lights", "motion": "devils dance, lights sparkle, camera pans across the party"},
+  {"text": "Черти веселятся, все его обнимают, наливают.", "prompt": "cheerful red clay devils hugging the plump man in a suit and handing him a huge cocktail, confetti in the air, party lights", "motion": "devils hug the man and raise glasses, confetti falls"},
+  {"text": "Поднимается он в рай — тишина, ангелы на облаках играют на арфах.", "prompt": "a serene clay heaven: white angels sitting quietly on clouds playing tiny harps, soft pastel light, very calm", "motion": "angels gently pluck harps, clouds drift, camera slow drift"},
+  {"text": "Скукота.", "prompt": "the plump clay man in a suit yawning hugely on a cloud, bored, one angel playing a harp beside him", "motion": "the man yawns wide and slumps, the angel keeps playing"},
+  {"text": "«Ладно, — говорит, — я выбираю ад».", "prompt": "the plump clay man shaking hands with Saint Peter at the golden gates, pointing down with his other hand, confident grin", "motion": "handshake, the man points down confidently"},
+  {"text": "Спускается обратно.", "prompt": "the plump clay man happily skipping down the dark stone staircase into the red glow, arms spread", "motion": "the man skips down the stairs, flames flicker"},
+  {"text": "А там — кипящая смола, крики, черти с вилами гонят грешников.", "prompt": "a terrifying clay hell: bubbling black tar pits, screaming clay sinners, muscular red devils with pitchforks, harsh red light", "motion": "tar bubbles, devils jab pitchforks, sinners flail, camera shakes slightly"},
+  {"text": "Мужик кричит: «Стойте! Вчера же был пляж и вечеринка!»", "prompt": "close-up of the plump clay man in a suit screaming in shock, hands on his cheeks, red hellish light on his face", "motion": "the man screams and grabs his cheeks, eyes wide"},
+  {"text": "А главный чёрт ему отвечает:", "prompt": "close-up of a huge smug clay Lucifer with curled horns in a black suit, leaning on a pitchfork, one eyebrow raised", "motion": "Lucifer raises an eyebrow and leans in, smirking"},
+  {"text": "«Вчера была предвыборная кампания.", "prompt": "clay Lucifer holding a campaign poster with his own smiling face and a big red checkmark, hellish background", "motion": "Lucifer taps the poster and grins, poster wobbles"},
+  {"text": "А сегодня вы уже проголосовали».", "prompt": "clay Lucifer laughing with his head thrown back while the plump man in a suit sinks into bubbling black tar behind him", "motion": "Lucifer laughs, the man slowly sinks into tar waving his arms"}
+ ]
+}
