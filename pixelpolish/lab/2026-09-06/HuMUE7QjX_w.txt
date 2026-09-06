@@ -1,0 +1,8 @@
+SUBJECT: Various national flags, text overlays, and UI elements; digital, flat design.
+ACTION: Static display of flags and text, with progress bars filling slowly.
+CAMERA: Static, centered, vertical framing.
+LIGHT: Bright, even studio lighting, vibrant colors.
+COMPOSITION: Centered flag/text against a solid, gradient green background.
+STYLE: Flat graphic design, digital UI aesthetic.
+HOOK: Rapid succession of distinct national flags.
+TEXT_ON_SCREEN: Yes, various text like "THESE", "NAME", "TEACHERS", "CHINA", "START", etc.

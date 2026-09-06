@@ -1,0 +1,8 @@
+SUBJECT: Bearded man in white polo shirt, holding up national flags
+ACTION: Man speaks and gestures with hands, flags are held steady
+CAMERA: Medium close-up, static
+LIGHT: Indoor, bright, even
+COMPOSITION: Man centered, flags held in front of him
+STYLE: Photoreal, vlog style
+HOOK: Man smiling and presenting the first flag
+TEXT_ON_SCREEN: Yes, changing text throughout (e.g., "The Country", "Brazil Number Four", "Leave Your Answer")

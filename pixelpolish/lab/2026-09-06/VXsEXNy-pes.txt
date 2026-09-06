@@ -1,0 +1,8 @@
+SUBJECT: Earth globe with a blue and red overlay representing a nation, transitioning to various national flags and symbols.
+ACTION: Slow, continuous rotation of the globe, with rapid, stylized transitions between different flag/symbol states.
+CAMERA: Medium shot, slight orbital movement around the globe, wide lens feel.
+LIGHT: Deep space black background, bright, even illumination on the globe.
+COMPOSITION: Globe centered, text/year overlays at the bottom.
+STYLE: Digital illustration, high-detail graphic design.
+HOOK: The immediate, striking visual of the blue and red overlaid map of Eurasia.
+TEXT_ON_SCREEN: Yes, "DATA UNIVERSE" and a year number (e.g., "2026", "2155").

@@ -1,0 +1,8 @@
+SUBJECT: World map, green landmasses, red highlighted areas, yellow sun emblem
+ACTION: Red areas expand and shift across the map, emblem placement changes
+CAMERA: Top-down, static, wide lens feel
+LIGHT: Bright, even, daylight
+COMPOSITION: World map centered, red areas overlaying continents
+STYLE: Photoreal map graphic, digital
+HOOK: Sudden appearance of the red highlighted area on the map
+TEXT_ON_SCREEN: Yes, @AKGeoGraphy-q7h

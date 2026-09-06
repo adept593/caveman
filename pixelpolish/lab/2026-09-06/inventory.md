@@ -1,0 +1,267 @@
+# Инвентарь лаунчера, 2026-09-06
+
+Шаблонов всего 538, локальных 234, API-облако 304.
+Готовы к прогону (модели есть, узлы есть): **22**. Узлов в 8189: 917, в 8188: 1396.
+
+## Готовые к прогону
+
+- `video_minimax_h3_i2v` — MiniMax H3: Image to Video (Video); входы: LoadImage
+- `video_minimax_h3_t2v` — MiniMax H3: Text to Video (Video); входы: —
+- `video_wan2_2_14B_i2v` — Wan 2.2 14B Image to Video (Video); входы: LoadImage
+- `video_wan2_2_14B_flf2v` — Wan 2.2 14B First-Last Frame to Video (Video); входы: LoadImage, LoadImage, LoadImage, LoadImage
+- `video_minimax_h3_i2v_continuation` — Image to Video  (Video); входы: LoadImage
+- `image_sdxl_simple` — SDXL1.0: Text to Image (Simple) (Image); входы: —
+- `templates-1_input-multiple_styles_prompt.app` — 1 input multiple styles from prompt (Use Cases); входы: LoadImage
+- `templates-6-key-frames` — Multi-Keyframe Video Stitching (Use Cases); входы: LoadImage, LoadImage, LoadImage, LoadImage, LoadImage, LoadImage
+- `audio_minimax_music_3` — MiniMax Music 3: Text to Music (Audio); входы: —
+- `llm_qwen3vl_text_gen` — Qwen3-VL: Text Generation (LLM); входы: LoadImage
+- `utility_interpolation_image_upscale` — Image Upscale: Traditional Interpolation (Image Tools); входы: LoadImage
+- `utility_topaz_illustration_upscale` — Image Upscale: Topaz Illustration (Image Tools); входы: LoadImage
+- `utility-topaz_landscape_upscaler` — Image Upscale: Topaz Reimagine Landscape (Image Tools); входы: LoadImage
+- `utility_hitpaw_general_image_enhance` — Image Upscale: HitPaw Portrait (Image Tools); входы: LoadImage
+- `utility_bria_increase_resolution` — Image Upscale: Bria Increase Resolution (Image Tools); входы: LoadImage
+- `utility_bria_remove_image_background` — Remove Background: Bria (Image Tools); входы: LoadImage
+- `utility_hitpaw_video_enhance` — Video Upscale: HitPaw (Video Tools); входы: LoadVideo
+- `utility-bria_remove_video_background` — Remove Background: Bria Local (Video Tools); входы: LoadVideo
+- `basic_image_color_adjustment` — Color Adjustment Blueprints Showcase (Node Basics); входы: LoadImage
+- `basic_datatype_conversion` — Built-in Data Type Conversion Example (Node Basics); входы: —
+- `basic_mask_operations_and_compositing` — Mask Operations, Combining & Compositing (Node Basics); входы: LoadImage
+- `utility_image_stitch` — Image Stitch  2x2 Grid  (Node Basics); входы: LoadImage, LoadImage, LoadImage, LoadImage
+
+## Локальные, не хватает моделей
+
+- `video_minimax_h3_r2v` — MiniMax H3: Reference to Video: minimax_h3_ref2va_pruned_int8_convrot.safetensors; minimax_h3_ref2v_turbo_4step_v0.1_comfyui_bf16.safetensors
+- `video_minimax_h3_multiframe_reference` — MiniMax H3: Multiframe Reference: minimax_h3_ref2va_pruned_int8_convrot.safetensors; minimax_h3_ref2v_turbo_4step_v0.1_comfyui_bf16.safetensors
+- `video_ltx2_5_i2v` — LTX-2.5: Image to Video: gemma4_e2b_it_int8_convrot.safetensors; ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors; ltx-2.5-video-vae-bf16.safetensors; ltx-2.5-audio-vae-bf16.safetensors …
+- `video_ltx2_5_flf2v` — LTX-2.5: FLF2V: ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors; ltx-2.5-video-vae-bf16.safetensors; ltx-2.5-audio-vae-bf16.safetensors; gemma4-12b-with-proj-ltx-2.5-comfy-int8-convrot.safetensors …
+- `video_ltx2_5_t2v` — LTX-2.5: Text to Video: ltx-2.5-latent-spatial-upscaler-x2-bf16-1.0.safetensors; ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors; ltx-2.5-video-vae-bf16.safetensors; ltx-2.5-audio-vae-bf16.safetensors …
+- `video_ltx2_3_i2v` — LTX-2.3: Image to Video: ltx-2.3-22b-dev-fp8.safetensors; ltx_2.3_22b_distilled_1.1_lora_dynamic_fro09_avg_rank_111_bf16.safetensors; ltx-2.3-spatial-upscaler-x2-1.1.safetensors; gemma_3_12B_it_fp4_mixed.safetensors …
+- `video_ltx2_3_ia2v` — LTX-2.3: Image Audio to Video: ltx-2.3-22b-dev-fp8.safetensors; ltx-2.3-spatial-upscaler-x2-1.1.safetensors; ltx_2.3_22b_distilled_1.1_lora_dynamic_fro09_avg_rank_111_bf16.safetensors; gemma_3_12B_it_fp4_mixed.safetensors …
+- `video_wan_animate2` — Wan Animate 2: Motion Transfer: wan_animate_2_int8_convrot.safetensors; lightx2v_I2V_14B_480p_cfg_step_distill_rank64_bf16.safetensors; clip_vision_h.safetensors; Wan2_1_VAE_bf16.safetensors
+- `video_wan_animate2_distilled` — Wan Animate 2 Distilled: Motion Transfer: wan_animate_2_distill_int8_convrot.safetensors; clip_vision_h.safetensors; Wan2_1_VAE_bf16.safetensors
+- `video_wan21_scail2_character_replacement` — SCAIL-2: Character Replacement: lightx2v_I2V_14B_480p_cfg_step_distill_rank64_bf16.safetensors; Wan2_1_VAE_bf16.safetensors; clip_vision_h.safetensors; wan2.1_14B_SCAIL_2_fp16.safetensors …
+- `video_wan21_scail2_character_replacement_int8` — SCAIL-2 Int8: Character Replacement: lightx2v_I2V_14B_480p_cfg_step_distill_rank64_bf16.safetensors; Wan2_1_VAE_bf16.safetensors; clip_vision_h.safetensors; wan2.1_14B_SCAIL_2_int8_convrot.safetensors …
+- `video_ltx2_3_t2v` — LTX-2.3: Text to Video: ltx-2.3-22b-dev-fp8.safetensors; ltx_2.3_22b_distilled_1.1_lora_dynamic_fro09_avg_rank_111_bf16.safetensors; ltx-2.3-spatial-upscaler-x2-1.1.safetensors; gemma_3_12B_it_fp4_mixed.safetensors …
+- `video_ltx2_3_id_lora` — LTX-2.3: ID LoRA: ltx-2.3-22b-dev-fp8.safetensors; ltx-2.3-spatial-upscaler-x2-1.1.safetensors; ltx_2.3_22b_distilled_1.1_lora_dynamic_fro09_avg_rank_111_bf16.safetensors; gemma_3_12B_it_fp4_mixed.safetensors …
+- `video_ltx2_3_flf2v` — LTX-2.3: FLF2V: ltx-2.3-22b-distilled-fp8.safetensors; gemma_3_12B_it_fp4_mixed.safetensors
+- `video_ltx2_3_ic_lora` — LTX 2.3 IC-LoRA Union Control: ltx-2.3-22b-distilled-fp8.safetensors; gemma_3_12B_it_fp4_mixed.safetensors; ltx-2.3-22b-ic-lora-union-control-ref0.5.safetensors; gemma-3-12b-it-abliterated_lora_rank64_bf16.safetensors …
+- `video_bernini_r_video_editing` — Bernini-R: Video Edit: Wan2_1_VAE_bf16.safetensors; lightx2v_T2V_14B_cfg_step_distill_v2_lora_rank64_bf16.safetensors; wan2.2_bernini_r_high_noise_fp8_scaled.safetensors; wan2.2_bernini_r_low_noise_fp8_scaled.safetensors
+- `video_wan2_2_14B_t2v` — Wan 2.2 14B Text to Video: wan2.2_t2v_low_noise_14B_fp8_scaled.safetensors; wan2.2_t2v_high_noise_14B_fp8_scaled.safetensors; wan2.2_t2v_lightx2v_4steps_lora_v1.1_high_noise.safetensors; wan2.2_t2v_lightx2v_4steps_lora_v1.1_low_noise.safetensors
+- `video_ltx2_i2v` — LTX-2: Image to Video: ltx-2-19b-dev-fp8.safetensors; ltx-2-19b-lora-camera-control-dolly-left.safetensors; gemma_3_12B_it_fp4_mixed.safetensors; ltx-2-19b-distilled-lora-384.safetensors …
+- `video_ltx2_t2v` — LTX-2 Text to Video: ltx-2-19b-dev-fp8.safetensors; gemma_3_12B_it_fp4_mixed.safetensors; ltx-2-spatial-upscaler-x2-1.0.safetensors; ltx-2-19b-distilled-lora-384.safetensors …
+- `video_wan_vace_14B_v2v` — Wan2.1 VACE Control Video: wan2.1_vace_14B_fp16.safetensors; wan2.1_vace_1.3B_fp16.safetensors; Wan21_CausVid_bidirect2_T2V_1_3B_lora_rank32.safetensors; umt5_xxl_fp16.safetensors …
+- `video_causal_forcing_i2v` — Causal Forcing: Image to Video: causal_forcing-framewise.safetensors
+- `video_ltx2_i2v_lora` — Squish Anything with LTX-2 I2V and LoRA: ltx-2-19b-dev.safetensors; ltx-2-19b-distilled-lora-384.safetensors; ltx-2-spatial-upscaler-x2-1.0.safetensors; gemma_3_12B_it.safetensors …
+- `video_wan2_2_14B_fun_control` — Wan 2.2 14B Fun Control: wan2.2_fun_control_high_noise_14B_fp8_scaled.safetensors; wan2.2_fun_control_low_noise_14B_fp8_scaled.safetensors
+- `video_ltx2_i2v_distilled` — LTX-2 Image to Video (Distilled): ltx-2-19b-distilled.safetensors; ltx-2-19b-lora-camera-control-dolly-left.safetensors; gemma_3_12B_it_fp4_mixed.safetensors; ltx-2-spatial-upscaler-x2-1.0.safetensors
+- `video_ltx2_t2v_distilled` — LTX-2 Text to Video (Distilled): ltx-2-19b-distilled.safetensors; ltx-2-19b-lora-camera-control-dolly-left.safetensors; ltx-2-spatial-upscaler-x2-1.0.safetensors; gemma_3_12B_it_fp4_mixed.safetensors
+- `video_ltx2_canny_to_video` — LTX-2 Canny to Video: ltx-2-19b-ic-lora-canny-control.safetensors; ltx-2-19b-dev-fp8.safetensors; gemma_3_12B_it_fp4_mixed.safetensors; ltx-2-19b-distilled-lora-384.safetensors …
+- `video_ltx2_depth_to_video` — LTX-2 Depth to Video: ltx-2-19b-ic-lora-depth-control.safetensors; ltx-2-19b-dev-fp8.safetensors; gemma_3_12B_it_fp4_mixed.safetensors; ltx-2-19b-distilled-lora-384.safetensors …
+- `video_hunyuan_video_1.5_720p_i2v` — Hunyuan Video 1.5 Image to Video: sigclip_vision_patch14_384.safetensors; qwen_2.5_vl_7b_fp8_scaled.safetensors; byt5_small_glyphxl_fp16.safetensors; hunyuanvideo15_latent_upsampler_1080p.safetensors …
+- `video_wan2_2_5B_ti2v` — Wan 2.2 5B Video Generation: wan2.2_ti2v_5B_fp16.safetensors; wan2.2_vae.safetensors
+- `video_wan2_2_14B_s2v` — Wan2.2-S2V Audio-Driven Video Generation: wav2vec2_large_english_fp16.safetensors; wan2.2_t2v_lightx2v_4steps_lora_v1.1_high_noise.safetensors; wan2.2_s2v_14B_fp8_scaled.safetensors
+- `video_wan_vace_inpainting` — Wan2.1 VACE Inpainting: sam3.1_multiplex_fp16.safetensors; Wan21_CausVid_14B_T2V_lora_rank32.safetensors; wan2.1_vace_14B_fp16.safetensors
+- `video_wan2_2_14B_fun_inpaint` — Wan 2.2 14B Fun Inp: wan2.2_fun_inpaint_high_noise_14B_fp8_scaled.safetensors; wan2.2_fun_inpaint_low_noise_14B_fp8_scaled.safetensors
+- `ltxv_image_to_video` — LTXV Image to Video: t5xxl_fp16.safetensors; ltx-video-2b-v0.9.5.safetensors
+- `video_hunyuan_video_1.5_720p_t2v` — Hunyuan Video 1.5 Text to Video: qwen_2.5_vl_7b_fp8_scaled.safetensors; byt5_small_glyphxl_fp16.safetensors; hunyuanvideo1.5_1080p_sr_distilled_fp16.safetensors; hunyuanvideo15_vae_fp16.safetensors …
+- `wan2.1_fun_control` — Wan 2.1 ControlNet: wan2.1_fun_control_1.3B_bf16.safetensors; clip_vision_h.safetensors
+- `video_wan_vace_14B_ref2v` — Wan2.1 VACE Reference to Video: wan2.1_vace_1.3B_fp16.safetensors; Wan21_CausVid_bidirect2_T2V_1_3B_lora_rank32.safetensors; umt5_xxl_fp16.safetensors; wan2.1_vace_14B_fp16.safetensors …
+- `video_wan2_1_infinitetalk` — InfiniteTalk: Audio-Driven Full-Body Video Dubbing: Wan2_1-I2V-14B-480p_fp8_e4m3fn_scaled_KJ.safetensors; Wan2_1_VAE_bf16.safetensors; wan2.1_infiniteTalk_multi_fp16.safetensors; wav2vec2-chinese-base_fp16.safetensors …
+- `video_wanmove_480p` — Wan-Move Motion-Control Image to Video: lightx2v_I2V_14B_480p_cfg_step_distill_rank64_bf16.safetensors; clip_vision_h.safetensors; Wan21-WanMove_fp8_scaled_e4m3fn_KJ.safetensors
+- `video_wan_vace_outpainting` — Wan2.1 VACE Outpainting: wan2.1_vace_1.3B_fp16.safetensors; Wan21_CausVid_bidirect2_T2V_1_3B_lora_rank32.safetensors; umt5_xxl_fp16.safetensors; wan2.1_vace_14B_fp16.safetensors …
+- `video_wan2_2_5B_fun_control` — Wan 2.2 5B Fun Control: wan2.2_vae.safetensors; wan2.2_fun_control_5B_bf16.safetensors
+- `video_humo` — HuMo Video Generation: lightx2v_I2V_14B_480p_cfg_step_distill_rank64_bf16.safetensors; humo_17B_fp8_e4m3fn.safetensors; whisper_large_v3_fp16.safetensors
+- `text_to_video_wan` — Wan 2.1 Text to Video: wan2.1_t2v_1.3B_fp16.safetensors
+- `video_wan_dancer` — Wan Dancer: Music to Dance: wan2.2_dancer_14b_global_fp8_scaled.safetensors; lightx2v_I2V_14B_480p_cfg_step_distill_rank64_bf16.safetensors; wan2.2_dancer_14b_local_fp8_scaled.safetensors; umt5_xxl_fp16.safetensors …
+- `video_wan2_2_14B_fun_camera` — Wan 2.2 14B Fun Camera Control: wan2.2_fun_camera_high_noise_14B_fp8_scaled.safetensors; wan2.2_fun_camera_low_noise_14B_fp8_scaled.safetensors
+- `wan2.1_flf2v_720_f16` — Wan 2.1 FLF2V 720p F16: clip_vision_h.safetensors; wan2.1_flf2v_720p_14B_fp16.safetensors
+- `image_to_video_wan` — Wan 2.1 Image to Video: wan2.1_i2v_480p_14B_fp16.safetensors; clip_vision_h.safetensors
+- `video_wan_vace_flf2v` — Wan2.1 VACE First-Last Frame: lightx2v_I2V_14B_480p_cfg_step_distill_rank64_bf16.safetensors; wan2.1_vace_14B_fp16.safetensors
+- `video_kandinsky5_i2v` — Kandinsky 5.0 Video Lite Image to Video: kandinsky5lite_i2v_5s.safetensors; hunyuan_video_vae_bf16.safetensors; qwen_2.5_vl_7b_fp8_scaled.safetensors
+- `video_kandinsky5_t2v` — Kandinsky 5.0 Video Lite Text to Video: qwen_2.5_vl_7b_fp8_scaled.safetensors; hunyuan_video_vae_bf16.safetensors; kandinsky5lite_t2v_sft_5s.safetensors
+- `video_wan2.1_alpha_t2v_14B` — Wan2.1 Alpha T2V: wan2.1_t2v_14B_fp8_scaled.safetensors; wan_alpha_2.1_rgba_lora.safetensors; wan_alpha_2.1_vae_rgb_channel.safetensors; wan_alpha_2.1_vae_alpha_channel.safetensors …
+- `video_capybara_v0_1_image_to_video` — Capybara: Image to Video: capybara_v0.1.safetensors; qwen_2.5_vl_7b.safetensors; byt5_small_glyphxl_fp16.safetensors; hunyuanvideo15_vae_fp16.safetensors …
+- `video_capybara_v0_1_video_edit` — Capybara: Video Edit: capybara_v0.1.safetensors; qwen_2.5_vl_7b.safetensors; byt5_small_glyphxl_fp16.safetensors; hunyuanvideo15_vae_fp16.safetensors …
+- `txt_to_image_to_video` — SVD Text to Image to Video: svd_xt.safetensors
+- `video_wan_ati` — Wan2.1 ATI: Wan2_1-I2V-ATI-14B_fp8_e4m3fn.safetensors; clip_vision_h.safetensors
+- `video_wan2_2_5B_fun_inpaint` — Wan 2.2 5B Fun Inpaint: wan2.2_vae.safetensors; wan2.2_fun_inpaint_5B_bf16.safetensors
+- `ltxv_text_to_video` — LTXV Text to Video: t5xxl_fp16.safetensors; ltx-video-2b-v0.9.safetensors
+- `video_wan2.1_fun_camera_v1.1_14B` — Wan 2.1 Fun Camera 14B: wan2.1_fun_camera_v1.1_14B_bf16.safetensors; clip_vision_h.safetensors
+- `video_wan_vace_14B_t2v` — Wan2.1 VACE Text to Video: wan2.1_vace_1.3B_fp16.safetensors; Wan21_CausVid_bidirect2_T2V_1_3B_lora_rank32.safetensors; umt5_xxl_fp16.safetensors; Wan21_CausVid_14B_T2V_lora_rank32.safetensors …
+- `video_wan2.1_fun_camera_v1.1_1.3B` — Wan 2.1 Fun Camera 1.3B: clip_vision_h.safetensors; wan2.1_fun_camera_v1.1_1.3B_bf16.safetensors
+- `wan2.1_fun_inp` — Wan 2.1 Inpainting: wan2.1_fun_inp_1.3B_bf16.safetensors; clip_vision_h.safetensors
+- `hunyuan_video_text_to_video` — Hunyuan Video Text to Video: llava_llama3_fp8_scaled.safetensors; hunyuan_video_t2v_720p_bf16.safetensors; hunyuan_video_vae_bf16.safetensors
+- `image_z_image_turbo` — Z-Image-Turbo: Text to Image: qwen_3_4b.safetensors; z_image_turbo_bf16.safetensors
+- `image_z_image_turbo_int8` — Z-Image-Turbo Int8: Text to Image: qwen_3_4b_fp8_mixed.safetensors; z_image_turbo_int8_convrot.safetensors
+- `image_krea2_turbo_t2i` — Krea-2: Text to Image: krea2_turbo_fp8_scaled.safetensors; qwen_image_vae.safetensors; krea2_darkbrush.safetensors
+- `image_qwen_image_edit_2509` — Qwen Image Edit 2509: qwen_image_vae.safetensors; qwen_2.5_vl_7b_fp8_scaled.safetensors; qwen_image_edit_2509_fp8_e4m3fn.safetensors; Qwen-Image-Edit-2509-Lightning-4steps-V1.0-bf16.safetensors
+- `image_qwen_image_edit_2511` — Qwen Image Edit 2511 - Material Replacement: qwen_image_vae.safetensors; Qwen-Image-Edit-2511-Lightning-4steps-V1.0-bf16.safetensors; qwen_image_edit_2511_fp8mixed.safetensors; qwen_2.5_vl_7b_fp8_scaled.safetensors
+- `image_firered_image_edit1_1` — FireRed Image Edit 1.1: Image Edit: qwen_image_vae.safetensors; qwen_2.5_vl_7b_fp8_scaled.safetensors; FireRed-Image-Edit-1.0-Lightning-8steps-v1.0.safetensors; FireRed-Image-Edit-1.1-transformer.safetensors
+- `image_krea2_turbo_int8_image_style_reference` — Krea-2 Int8: Image Style Reference: krea2_turbo_int8_convrot.safetensors; qwen_image_vae.safetensors; krea2_style_reference.safetensors
+- `image_krea2_turbo_t2i_int8` — Krea-2 Int8: Text to Image: krea2_turbo_int8_convrot.safetensors; qwen_image_vae.safetensors; krea2_darkbrush.safetensors
+- `image_flux2` — Flux.2 Dev: full_encoder_small_decoder.safetensors; mistral_3_small_flux2_bf16.safetensors; Flux_2-Turbo-LoRA_comfyui.safetensors; flux2_dev_fp8mixed.safetensors
+- `image_flux2_klein_image_edit_9b_base` — Flux.2 [Klein] 9B: Image Edit: flux-2-klein-base-9b-fp8.safetensors; qwen_3_8b_fp8mixed.safetensors; full_encoder_small_decoder.safetensors
+- `image_flux2_text_to_image` — Flux.2 Dev Text to Image: full_encoder_small_decoder.safetensors; mistral_3_small_flux2_bf16.safetensors; Flux_2-Turbo-LoRA_comfyui.safetensors; flux2_dev_fp8mixed.safetensors
+- `image_qwen_image_edit_2511_int8` — Qwen Image Edit 2511 Int8: Image Edit: qwen_image_vae.safetensors; Qwen-Image-Edit-2511-Lightning-4steps-V1.0-bf16.safetensors; qwen_image_edit_2511_int8_convrot.safetensors; qwen_2.5_vl_7b_fp8_scaled.safetensors
+- `video_bernini_r_image_editing` — Bernini-R: Image Edit: Wan2_1_VAE_bf16.safetensors; lightx2v_T2V_14B_cfg_step_distill_v2_lora_rank64_bf16.safetensors; wan2.2_bernini_r_high_noise_fp8_scaled.safetensors; wan2.2_bernini_r_low_noise_fp8_scaled.safetensors
+- `image_z_image` — Z-Image: Text to Image: qwen_3_4b.safetensors; z_image_bf16.safetensors
+- `image_anima_base_v1` — Anima Base v1: Text to Image: qwen_3_06b_base.safetensors; qwen_image_vae.safetensors; anima-base-v1.0.safetensors; anima-turbo-lora-v0.2.safetensors
+- `image_anima_lllite_any_control_to_image` — Anima Lllite: Any Control to Image: qwen_3_06b_base.safetensors; qwen_image_vae.safetensors; anima-base-v1.0.safetensors; anima-lllite-any-test-like-v2.safetensors …
+- `image_anima_lllite_image_inpainting` — Anima Lllite: Image Inpainting: qwen_3_06b_base.safetensors; qwen_image_vae.safetensors; anima-base-v1.0.safetensors; anima-lllite-inpainting-v2.safetensors …
+- `image_anima_lllite_depth_control_to_image` — Anima Lllite: Depth Control to Image: qwen_3_06b_base.safetensors; qwen_image_vae.safetensors; anima-base-v1.0.safetensors; anima-lllite-depth-1.safetensors …
+- `image_anima_preview` — Anima Anime Text-to-Image Generation: qwen_3_06b_base.safetensors; qwen_image_vae.safetensors; anima-preview3-base.safetensors
+- `image_boogu_image_0_1_edit_int8` — Boogu image 0.1 Edit Int8: boogu_image_edit_int8_convrot.safetensors; qwen3vl_8b_fp8_scaled.safetensors
+- `image_boogu_image_0_1_edit` — Boogu image 0.1 Edit: boogu_image_edit_fp8_scaled.safetensors; qwen3vl_8b_fp8_scaled.safetensors
+- `image_z_image_int8` — Z-Image Int8: Text to Image: qwen_3_4b.safetensors; z_image_int8_convrot.safetensors
+- `image_qwen_Image_2512` — Qwen Image 2512: qwen_2.5_vl_7b_fp8_scaled.safetensors; qwen_image_vae.safetensors; qwen_image_2512_fp8_e4m3fn.safetensors; Qwen-Image-2512-Lightning-4steps-V1.0-fp32.safetensors
+- `image_joyai_image_edit` — JoyAI Image Edit: joyai_image_edit_int8_convrot.safetensors; qwen3vl_8b_joyimage_edit_int8_convrot.safetensors
+- `image_hidream_o1_dev` — HiDream O1 Dev: hidream_o1_image_dev_fp8_scaled.safetensors; gemma4_e4b_it_fp8_scaled.safetensors
+- `image_ernie_image_turbo` — Ernie Image Turbo: Text To Image: ernie-image-turbo.safetensors; ministral-3-3b.safetensors; flux2-vae.safetensors; ernie-image-prompt-enhancer.safetensors
+- `image_ernie_image` — Ernie Image: Text to Image: ernie-image.safetensors; ministral-3-3b.safetensors; flux2-vae.safetensors; ernie-image-prompt-enhancer.safetensors
+- `image_hidream_o1` — HiDream O1 Full: Image generation: hidream_o1_image_bf16.safetensors; gemma4_e4b_it_fp8_scaled.safetensors
+- `image_flux2_klein_9b_kv_image_edit` — Flux.2 Klein KV: Image Edit: flux-2-klein-9b-kv-fp8.safetensors; qwen_3_8b_fp8mixed.safetensors; flux2-vae.safetensors
+- `image_flux2_text_to_image_9b` — Flux.2 [Klein] 9B: Text to Image: flux-2-klein-base-9b-fp8.safetensors; qwen_3_8b_fp8mixed.safetensors; full_encoder_small_decoder.safetensors
+- `image_flux2_klein_image_edit_9b_distilled` — Flux.2 [Klein] 9B Distilled: Image Edit: flux-2-klein-9b-fp8.safetensors; qwen_3_8b_fp8mixed.safetensors; full_encoder_small_decoder.safetensors
+- `image_flux2_klein_image_edit_4b_base` — Flux.2 [Klein] 4B: Image Edit: flux-2-klein-base-4b-fp8.safetensors; qwen_3_4b.safetensors; full_encoder_small_decoder.safetensors
+- `image_boogu_image_0_1_turbo_t2i` — Boogu Turbo: Text to Image: qwen3vl_8b_fp8_scaled.safetensors; boogu_image_turbo_fp8_scaled.safetensors
+- `image_qwen_Image_2512_controlnet` — Qwen-Image 2512: Fun Union ControlNet: Qwen-Image-2512-Fun-Controlnet-Union-2602.safetensors; Qwen-Image-Lightning-4steps-V1.0.safetensors; qwen_image_2512_fp8_e4m3fn.safetensors; qwen_2.5_vl_7b_fp8_scaled.safetensors …
+- `image_longcat_text_to_image` — LongCat Image: Text to Image: longcat_image_bf16.safetensors; qwen_2.5_vl_7b_fp8_scaled.safetensors
+- `image_z_image_turbo_fun_union_controlnet` — Z-Image-Turbo Fun Union ControlNet: qwen_3_4b.safetensors; z_image_turbo_bf16.safetensors; Z-Image-Turbo-Fun-Controlnet-Union.safetensors
+- `image-qwen_image_edit_2511_lora_inflation` — Image Inflation Effect with INFL8 LoRA: qwen_image_vae.safetensors; qwen_image_edit_2511_bf16.safetensors; qwen_2.5_vl_7b_fp8_scaled.safetensors; Qwen_Image_Edit_2511-SYSTMS_INFL8.safetensors
+- `image_qwen_image_2512_with_2steps_lora` — Qwen-Image 2512 Turbo: qwen_2.5_vl_7b_fp8_scaled.safetensors; qwen_image_2512_fp8_e4m3fn.safetensors; qwen_image_vae.safetensors; Wuli-Qwen-Image-2512-Turbo-LoRA-2steps-V1.0-bf16.safetensors
+- `flux_kontext_dev_basic` — Flux Kontext Dev Image Edit: t5xxl_fp8_e4m3fn_scaled.safetensors
+- `image_flux2_klein_text_to_image` — Flux.2 [Klein] 4B: Text to Image: flux-2-klein-base-4b.safetensors; qwen_3_4b.safetensors; flux2-vae.safetensors; flux-2-klein-4b.safetensors
+- `image_flux2_klein_image_edit_4b_distilled` — Flux.2 [Klein] 4B Distilled: Image Edit: flux-2-klein-4b-fp8.safetensors; qwen_3_4b.safetensors; flux2-vae.safetensors
+- `flux_fill_inpaint_example` — Flux.1 Inpaint: t5xxl_fp16.safetensors; flux1-fill-dev.safetensors
+- `flux1_dev_uso_reference_image_gen` — Flux.1 Dev USO Reference Image Generation: flux1-dev-fp8.safetensors; sigclip_vision_patch14_384.safetensors; uso-flux1-projector-v1.safetensors; uso-flux1-dit-lora-v1.safetensors
+- `Image_capybara_v0_1_text_to_image` — Capybara: Text to Image: capybara_v0.1.safetensors; qwen_2.5_vl_7b.safetensors; byt5_small_glyphxl_fp16.safetensors; hunyuanvideo15_vae_fp16.safetensors
+- `image_qwen_image_edit` — Qwen Image Edit: qwen_image_vae.safetensors; qwen_2.5_vl_7b_fp8_scaled.safetensors; Qwen-Image-Edit-Lightning-4steps-V1.0-bf16.safetensors; qwen_image_edit_fp8_e4m3fn.safetensors
+- `Image_capybara_v0_1_image_edit` — Capybara: Image Edit: capybara_v0.1.safetensors; qwen_2.5_vl_7b.safetensors; byt5_small_glyphxl_fp16.safetensors; hunyuanvideo15_vae_fp16.safetensors …
+- `image_longcat_image_edit` — LongCat Image Edit: longcat_image_edit_bf16.safetensors; qwen_2.5_vl_7b_fp8_scaled.safetensors
+- `image_lens_t2i` — Lens: Text to Image: flux2-vae.safetensors; gpt_oss_20b_nvfp4.safetensors; lens_bf16.safetensors
+- `image_lens_turbo_t2i` — Lens Turbo: Text to Image: flux2-vae.safetensors; gpt_oss_20b_nvfp4.safetensors; lens_turbo_bf16.safetensors
+- `image_chroma_text_to_image` — Chroma: Text to Image: t5xxl_fp8_e4m3fn_scaled.safetensors; Chroma1-HD-fp8mixed.safetensors
+- `flux1_krea_dev` — Flux.1 Krea Dev: t5xxl_fp16.safetensors; flux1-krea-dev_fp8_scaled.safetensors
+- `flux_dev_checkpoint_example` — Flux.1 Dev fp8: Text to Image: flux1-dev.safetensors; t5xxl_fp16.safetensors
+- `image_flux2_fp8` — Product Mockup(Flux.2 Dev FP8): flux2-vae.safetensors; flux2_dev_fp8mixed.safetensors; mistral_3_small_flux2_fp8.safetensors; Flux2TurboComfyv2.safetensors
+- `sdxl_simple_example` — SDXL Simple: sd_xl_refiner_1.0.safetensors
+- `flux_dev_full_text_to_image` — Flux.1 Dev: Text to Image: flux1-dev.safetensors; t5xxl_fp16.safetensors
+- `flux_fill_outpaint_example` — Flux.1 Outpaint: t5xxl_fp16.safetensors; flux1-fill-dev.safetensors
+- `image_qwen_image_instantx_controlnet` — Qwen-Image InstantX Union ControlNet: qwen_2.5_vl_7b_fp8_scaled.safetensors; qwen_image_vae.safetensors; Qwen-Image-InstantX-ControlNet-Union.safetensors; qwen_image_fp8_e4m3fn.safetensors …
+- `image_qwen_image` — Qwen-Image: Text to Image: qwen_image_vae.safetensors; qwen_2.5_vl_7b_fp8_scaled.safetensors; qwen_image_fp8_e4m3fn.safetensors; Qwen-Image-Lightning-8steps-V1.0.safetensors
+- `image_kandinsky5_t2i` — Kandinsky 5.0 Image Lite: Text to Image: qwen_2.5_vl_7b_fp8_scaled.safetensors; kandinsky5lite_t2i.safetensors
+- `image_mage_flow_turbo_t2i_int8` — Mage-Flow Turbo: Text to Image: mage_flow_int8_convrot.safetensors; qwen3vl_4b_bf16.safetensors; mage_flow_vae_bf16.safetensors
+- `image_mage_flow_t2i_int8` — Mage-Flow: Text to Image: mage_flow_int8_convrot.safetensors; qwen3vl_4b_bf16.safetensors; mage_flow_vae_bf16.safetensors
+- `image_mage_flow_edit_turbo_int8` — Mage-Flow-Edit Turbo: Image Edit: mage_flow_edit_turbo_int8_convrot.safetensors; qwen3vl_4b_bf16.safetensors; mage_flow_vae_bf16.safetensors
+- `image_mage_flow_edit_int8` — Mage-Flow-Edit: Image Edit: mage_flow_edit_int8_convrot.safetensors; qwen3vl_4b_bf16.safetensors; mage_flow_vae_bf16.safetensors
+- `image_chroma1_radiance_text_to_image` — Chroma1 Radiance Text to Image: t5xxl_fp8_e4m3fn_scaled.safetensors; chroma-radiance-x0.safetensors
+- `image_qwen_image_edit_2509_relight` — Image Relight: qwen_image_vae.safetensors; qwen_2.5_vl_7b_fp8_scaled.safetensors; qwen_image_edit_2509_fp8_e4m3fn.safetensors; Qwen-Image-Edit-2509-Lightning-4steps-V1.0-bf16.safetensors …
+- `image_qwen_image_instantx_inpainting_controlnet` — Qwen-Image InstantX Inpainting ControlNet: qwen_2.5_vl_7b_fp8_scaled.safetensors; qwen_image_fp8_e4m3fn.safetensors; Qwen-Image-InstantX-ControlNet-Inpainting.safetensors; qwen_image_vae.safetensors …
+- `sd3.5_large_canny_controlnet_example` — SD3.5 Large Canny ControlNet: sd3.5_large_fp8_scaled.safetensors; sd3.5_large_controlnet_canny.safetensors
+- `image_chrono_edit_14B` — ChronoEdit 14B: Image Edit: clip_vision_h.safetensors; chrono_edit_14B_fp16.safetensors; chronoedit_distill_lora.safetensors
+- `image_flux.1_fill_dev_OneReward` — Flux.1 Dev OneReward: flux.1-fill-dev-OneReward-transformer_fp8.safetensors; t5xxl_fp16.safetensors; removal_timestep_alpha-2-1740.safetensors
+- `sd3.5_simple_example` — SD3.5 Simple: sd3.5_large_fp8_scaled.safetensors
+- `flux_canny_model_example` — Flux.1 Canny Model: t5xxl_fp16.safetensors; flux1-canny-dev.safetensors
+- `image_netayume_lumina_t2i` — NetaYume Lumina Text to Image: NetaYumev35_pretrained_all_in_one.safetensors
+- `flux_depth_lora_example` — Flux.1 Depth Lora: vae-ft-mse-840000-ema-pruned.safetensors; lotus-depth-d-v1-1.safetensors; flux1-dev-fp8.safetensors; flux1-depth-dev-lora.safetensors …
+- `sdxlturbo_example` — SDXL Turbo: sd_xl_turbo_1.0_fp16.safetensors
+- `image_qwen_image_union_control_lora` — Qwen-Image Union Control: qwen_image_vae.safetensors; qwen_2.5_vl_7b_fp8_scaled.safetensors; qwen_image_union_diffsynth_lora.safetensors; qwen_image_fp8_e4m3fn.safetensors …
+- `image_qwen_image_controlnet_patch` — Qwen-Image ControlNet Model Patch: qwen_image_canny_diffsynth_controlnet.safetensors; qwen_image_vae.safetensors; qwen_image_fp8_e4m3fn.safetensors; qwen_2.5_vl_7b_fp8_scaled.safetensors …
+- `image_newbieimage_exp0_1-t2i` — NewBie Exp0.1: Anime Generation: NewBie-Image-Exp0.1-bf16.safetensors; gemma_3_4b_it_bf16.safetensors; jina_clip_v2_bf16.safetensors
+- `sd3.5_large_depth` — SD3.5 Large Depth: sd3.5_large_controlnet_depth.safetensors; sd3.5_large_fp8_scaled.safetensors; vae-ft-mse-840000-ema-pruned.safetensors; lotus-depth-d-v1-1.safetensors
+- `flux_redux_model_example` — Flux.1 Redux Model: flux1-dev.safetensors; t5xxl_fp16.safetensors; flux1-redux-dev.safetensors; sigclip_vision_patch14_384.safetensors
+- `flux_schnell` — Flux.1 Schnell FP8: flux1-schnell-fp8.safetensors
+- `flux_schnell_full_text_to_image` — Flux.1 Schnell Full: Text to Image: t5xxl_fp16.safetensors; flux1-schnell.safetensors
+- `image_pixeldit_t2i` — PixelDiT: Text to Image: gemma_2_2b_it_elm_bf16.safetensors; pixeldit_1300m_1024px_bf16.safetensors
+- `hidream_e1_full` — HiDream E1 Image Edit: hidream_e1_full_bf16.safetensors; clip_g_hidream.safetensors; clip_l_hidream.safetensors; t5xxl_fp8_e4m3fn_scaled.safetensors …
+- `hidream_e1_1` — HiDream E1.1 Image Editing: hidream_e1_1_bf16.safetensors; clip_g_hidream.safetensors; clip_l_hidream.safetensors; t5xxl_fp8_e4m3fn_scaled.safetensors …
+- `hidream_i1_dev` — HiDream I1 Dev: clip_l_hidream.safetensors; clip_g_hidream.safetensors; t5xxl_fp8_e4m3fn_scaled.safetensors; llama_3.1_8b_instruct_fp8_scaled.safetensors …
+- `hidream_i1_full` — HiDream I1 Full: clip_l_hidream.safetensors; clip_g_hidream.safetensors; t5xxl_fp8_e4m3fn_scaled.safetensors; llama_3.1_8b_instruct_fp8_scaled.safetensors …
+- `hidream_i1_fast` — HiDream I1 Fast: clip_l_hidream.safetensors; clip_g_hidream.safetensors; t5xxl_fp8_e4m3fn_scaled.safetensors; llama_3.1_8b_instruct_fp8_scaled.safetensors …
+- `image_omnigen2_image_edit` — OmniGen2 Image Edit: qwen_2.5_vl_fp16.safetensors; omnigen2_fp16.safetensors
+- `sdxl_revision_text_prompts` — SDXL Revision Text Prompts: clip_vision_g.safetensors
+- `image_ovis_text_to_image` — Ovis-Image Text to Image: ovis_image_bf16.safetensors; ovis_2.5.safetensors
+- `sdxl_refiner_prompt_example` — SDXL Refiner Prompt: sd_xl_refiner_1.0.safetensors
+- `image_omnigen2_t2i` — OmniGen2: Text to Image: qwen_2.5_vl_fp16.safetensors; omnigen2_fp16.safetensors
+- `sd3.5_large_blur` — SD3.5 Large Blur: sd3.5_large_controlnet_blur.safetensors; sd3.5_large_fp8_scaled.safetensors
+- `template_ltx2_3_ic_lora_ingredients` — LTX-2.3 IC-LoRA: Reference Sheet Control: ltx-2.3-22b-distilled-fp8.safetensors; gemma_3_12B_it_fp4_mixed.safetensors; ltx-2.3-22b-ic-lora-ingredients-0.9.safetensors; gemma-3-12b-it-abliterated_lora_rank64_bf16.safetensors
+- `templates-1_click_multiple_character_angles-v1.0` — 1 Click Multiple Character Angles: qwen_image_vae.safetensors; Qwen-Image-Edit-2511-Lightning-4steps-V1.0-bf16.safetensors; qwen_image_edit_2511_bf16.safetensors; qwen_2.5_vl_7b_fp8_scaled.safetensors …
+- `template_qwen_image_edit_2511_systms_action` — Qwen Image Edit 2511: SYSTMS ACTION LoRA: qwen_image_vae.safetensors; Qwen-Image-Edit-2511-Lightning-4steps-V1.0-bf16.safetensors; qwen_image_edit_2511_bf16.safetensors; qwen_2.5_vl_7b_fp8_scaled.safetensors …
+- `template_ltx2_3_style_transition` — LTX-2.3 Style Transition : ltx-2.3-22b-distilled-fp8.safetensors; gemma_3_12B_it_fp4_mixed.safetensors; ltx2.3-transition.safetensors
+- `template_qwen_Image_2512_360_lora` — Qwen Image 2512: 360 Panorama Image: qwen_2.5_vl_7b_fp8_scaled.safetensors; qwen_image_vae.safetensors; qwen_image_2512_fp8_e4m3fn.safetensors; Qwen-Image-2512-Lightning-4steps-V1.0-fp32.safetensors …
+- `template_qwen_image_illustration_lora` — Qwen Image: Illustration LoRA: qwen_image_vae.safetensors; qwen_2.5_vl_7b_fp8_scaled.safetensors; qwen_image_fp8_e4m3fn.safetensors; illustration-1.0-qwen-image.safetensors
+- `template_sugar_coated_gummy_style_qwen` — Qwen Image: Gummy Animals LoRA: qwen_image_vae.safetensors; qwen_2.5_vl_7b_fp8_scaled.safetensors; qwen_image_fp8_e4m3fn.safetensors; gummycandy_qwen.safetensors
+- `templates_rob_realistic_2k_images_quick_variations.app` —  Generate Realistic Variations: z_image_turbo_bf16.safetensors; qwen_3_4b.safetensors; RealESRGAN_x4plus.safetensors
+- `templates_rob_portrait_light_migration.app` — Portrait Relight: qwen_image_vae.safetensors; qwen_2.5_vl_7b_fp8_scaled.safetensors; qwen_image_edit_2509_fp8_e4m3fn.safetensors; Qwen-Image-Edit-2509-Lightning-4steps-V1.0-bf16.safetensors …
+- `template_rob_realistic_2k_images_quick_variations` — Realistic 2k Images - Quick Variations: z_image_turbo_bf16.safetensors; qwen_3_4b.safetensors; RealESRGAN_x4plus.safetensors
+- `templates-portrait_light_migration` — Light Migration for Character Portrait: qwen_image_vae.safetensors; qwen_2.5_vl_7b_fp8_scaled.safetensors; qwen_image_edit_2509_fp8_e4m3fn.safetensors; Qwen-Image-Edit-2509-Lightning-4steps-V1.0-bf16.safetensors …
+- `templates-image_to_real` — Illustration to Realism: qwen_2.5_vl_7b_fp8_scaled.safetensors; qwen_image_vae.safetensors; qwen_image_edit_2509_fp8_e4m3fn.safetensors; Qwen-Image-Edit-2509-Anything2RealAlpha.safetensors …
+- `templates-1_click_multiple_scene_angles-v1.0` — 1 click Multiple Scene Angles: qwen_image_vae.safetensors; qwen_2.5_vl_7b_fp8_scaled.safetensors; qwen_image_edit_2509_fp8_e4m3fn.safetensors; Qwen-Edit-2509-Multiple-angles.safetensors …
+- `audio_stable_audio_3_medium_base` — Stable Audio 3.0 Medium Base: qwen3.5_2b_bf16.safetensors; stable_audio_3_medium_base.safetensors; t5gemma_b_b_ul2.safetensors
+- `audio_stable_audio_3_medium` — Stable Audio 3.0 Medium: qwen3.5_2b_bf16.safetensors; stable_audio_3_medium.safetensors; t5gemma_b_b_ul2.safetensors
+- `audio_ace_step1_5_xl_base` — ACE-Step 1.5XL Base: Text to Music: acestep_v1.5_xl_base_bf16.safetensors; ace_1.5_vae.safetensors; qwen_0.6b_ace15.safetensors; qwen_4b_ace15.safetensors
+- `audio_ace_step1_5_xl_turbo` — ACE-Step 1.5XL Turbo: Text to Music: acestep_v1.5_xl_turbo_bf16.safetensors; ace_1.5_vae.safetensors; qwen_0.6b_ace15.safetensors; qwen_4b_ace15.safetensors
+- `audio_ace_step1_5_xl_sft` — ACE-Step 1.5XL SFT： Text to Music: acestep_v1.5_xl_sft_bf16.safetensors; ace_1.5_vae.safetensors; qwen_0.6b_ace15.safetensors; qwen_4b_ace15.safetensors
+- `audio_ace_step_1_5_split_4b` — ACE-Step 1.5 Music Generation (4B LLM ): acestep_v1.5_turbo.safetensors; ace_1.5_vae.safetensors; qwen_0.6b_ace15.safetensors; qwen_4b_ace15.safetensors
+- `audio_ace_step_1_5_split` — ACE-Step 1.5 Music Generation Workflow: acestep_v1.5_turbo.safetensors; qwen_0.6b_ace15.safetensors; qwen_1.7b_ace15.safetensors; ace_1.5_vae.safetensors
+- `audio_ace_step_1_5_checkpoint` — ACE-Step 1.5 Music Generation AIO: ace_step_1.5_turbo_aio.safetensors
+- `audio_stable_audio_example` — Stable Audio 1.0: Text to Audio: stable-audio-open-1.0.safetensors; t5-base.safetensors
+- `audio_ace_step_1_m2m_editing` — ACE Step v1 M2M Editing: ace_step_v1_3.5b.safetensors
+- `audio_ace_step_1_t2a_song` — ACE Step v1 Text to Song: ace_step_v1_3.5b.safetensors
+- `audio_ace_step_1_t2a_instrumentals` — ACE-Step v1 Text to Instrumentals Music: ace_step_v1_3.5b.safetensors
+- `utility_sam3d_body` — SAM 3D Body:  3D Human Mesh Extraction From Video: sam3.1_multiplex_fp16.safetensors; sam_3d_body_dinov3_bf16.safetensors; moge_2_vitl_normal_fp16.safetensors; rt_detr_v4-x-hgnet_fp32.safetensors
+- `3d_pixal3d_trellis2_image_to_model` — Pixal3D & TRELLIS.2: Image to Model: trellis_2_texture_vae_bf16.safetensors; dino_v3_L_naf_fp32.safetensors; trellis_2_shape_vae_bf16.safetensors; moge_2_vitl_normal_fp16.safetensors …
+- `3d_hunyuan3d-v2.1` — HY 3D 2.1: hunyuan_3d_v2.1.safetensors
+- `3d_hunyuan3d_image_to_model` — HY 3D 2.0: hunyuan3d-dit-v2_fp16.safetensors
+- `3d_hunyuan3d_multiview_to_model` — HY 3D 2.0 MV: hunyuan3d-dit-v2-mv_fp16.safetensors
+- `3d_hunyuan3d_multiview_to_model_turbo` — HY 3D 2.0 MV Turbo: hunyuan3d-dit-v2-mv-turbo_fp16.safetensors
+- `3d_moge_panorama_to_mesh` — Moge: Panorama to Mesh: moge_2_vitl_normal_fp16.safetensors
+- `3d_moge_perspective_to_mesh` — MoGe: Perspective Geometry Estimation: moge_2_vitl_normal_fp16.safetensors
+- `llm_gemma4_text_gen` — Gemma4: Text Generation: gemma4_e4b_it_fp8_scaled.safetensors
+- `llm_qwen3_5_text_gen` — Qwen3.5: Text Generation: qwen3.5_4b_bf16.safetensors
+- `llm_qwen3_text_gen` — Qwen3.0: Text Generation: qwen_3_4b.safetensors
+- `utility_seedvr2_7b_int8_upscale_image` — Image Upscale: SeedVR2 7B Int8: seedvr2_ema_vae_fp16.safetensors; seedvr2_7b_int8_convrot.safetensors
+- `utility_z_image_turbo_2k_upscaler.app` — Image Upscale: Z-Image-Turbo 2K: z_image_turbo_bf16.safetensors; qwen_3_4b.safetensors; RealESRGAN_x4plus.safetensors
+- `utility_seedvr2_3b_int8_upscale_image` — Image Upscale: SeedVR2 3B Int8: seedvr2_ema_vae_fp16.safetensors; seedvr2_3b_int8_convrot.safetensors
+- `utility_pid_latent_upscale_dit` — Image Upscale: PiD Latent Decode: gemma_2_2b_it_elm_fp8_scaled.safetensors; pid_flux1_1024_to_4096_4step_bf16.safetensors; qwen_3_4b.safetensors; z_image_turbo_bf16.safetensors
+- `utility_image_segment_sam3` — Image Segmentation: SAM3: sam3.1_multiplex_fp16.safetensors
+- `image_qwen_image_layered` — Layer Decomposition: Qwen-Image-Layered: qwen_2.5_vl_7b_fp8_scaled.safetensors; qwen_image_layered_vae.safetensors; qwen_image_layered_bf16.safetensors
+- `image_qwen_image_layered_control` — Layer Decomposition: Qwen-Image-Layered Control: qwen_image_layered_control_bf16.safetensors; qwen_2.5_vl_7b_fp8_scaled.safetensors; qwen_image_layered_vae.safetensors
+- `utility_depth_anything3_image_depth_estimation` — Depth Estimation: Depth Anything 3: depth_anything_3_mono_large.safetensors
+- `image_lotus_depth_v1_1` — Depth Estimation: Lotus: lotus-depth-d-v1-1.safetensors; vae-ft-mse-840000-ema-pruned.safetensors
+- `utility_moge_depth_estimation` — Depth Estimation: MoGe: moge_2_vitl_normal_fp16.safetensors
+- `utility_birefnet_remove_background` — Remove Background: BiRefNet: birefnet.safetensors
+- `utility_sdpose_ood_image_to_pose` — Pose Map: SDPose-OOD: sdpose_wholebody_fp16.safetensors
+- `utility_sdpose_multi_person` — Pose Detection: SDPose Multi-Person: sdpose_wholebody_fp16.safetensors; rt_detr_v4-x-hgnet_fp16.safetensors
+- `utility_seedvr2_3b_int8_upscale_video` — Video Upscale: SeedVR2 3B Int8: seedvr2_ema_vae_fp16.safetensors; seedvr2_3b_int8_convrot.safetensors
+- `utility-gan_upscaler` — Video Upscale: Real-ESRGAN: RealESRGAN_x4plus.safetensors
+- `utility_depth_anything3_video_depth_estimation` — Depth Map: Depth Anything 3: depth_anything_3_mono_large.safetensors
+- `utility_video_segment_sam3` — Video Segmentation: SAM3: sam3.1_multiplex_fp16.safetensors
+- `utility_video_frame_interpolation` — Frame Interpolation: FILM or RIFE: film_net_fp16.safetensors
+- `utility_void_video_inpainting` — Video Inpainting: VOID: sam3.1_multiplex_fp16.safetensors; t5xxl_fp16.safetensors; cogvideox_vae.safetensors; raft_large_C_T_SKHT_V2-ff5fadd5.safetensors …
+- `utility_sdpose_ood_video_to_pose_map` — Pose Map: SDPose-OOD: sdpose_wholebody_fp16.safetensors
+- `utility_sdpose_multi_person_video` — Pose Detection: SDPose Multi-Person: sdpose_wholebody_fp16.safetensors; rt_detr_v4-x-hgnet_fp16.safetensors
+- `basic_switch_node` — Switch Node: pixel_art_style_z_image_turbo.safetensors; z_image_turbo_bf16.safetensors; qwen_3_4b.safetensors
+
+## Локальные, не хватает узлов (нет расширения)
+
+- `video_ltx2_3_i2v` — LTX-2.3: Image to Video: Reroute
+- `video_ltx2_3_ia2v` — LTX-2.3: Image Audio to Video: Reroute
+- `video_ltx2_3_t2v` — LTX-2.3: Text to Video: Reroute
+- `video_ltx2_3_id_lora` — LTX-2.3: ID LoRA: Reroute
+- `video_ltx2_t2v` — LTX-2 Text to Video: Reroute
+- `video_ltx2_i2v_lora` — Squish Anything with LTX-2 I2V and LoRA: Reroute
+- `video_ltx2_canny_to_video` — LTX-2 Canny to Video: Reroute
+- `video_ltx2_depth_to_video` — LTX-2 Depth to Video: Reroute
+- `video_wanmove_480p` — Wan-Move Motion-Control Image to Video: Reroute
+- `image_qwen_Image_2512_controlnet` — Qwen-Image 2512: Fun Union ControlNet: Reroute
+- `hidream_e1_full` — HiDream E1 Image Edit: Reroute
+- `hidream_e1_1` — HiDream E1.1 Image Editing: Reroute
+- `templates_rob_realistic_2k_images_quick_variations.app` —  Generate Realistic Variations: AILab_QwenVL
+- `template_rob_realistic_2k_images_quick_variations` — Realistic 2k Images - Quick Variations: AILab_QwenVL
+- `templates-1_click_multiple_scene_angles-v1.0` — 1 click Multiple Scene Angles: Reroute
+
+## Расширения
+
+Лаунчер (8189): нет — только штатные узлы
+Наш (8188): ComfyUI-Custom-Scripts, ComfyUI-GGUF, ComfyUI-GGUF-Loader, ComfyUI-Impact-Pack, ComfyUI-Impact-Subpack, ComfyUI-Manager, ComfyUI-SUPIR, ComfyUI_IPAdapter_plus, ComfyUI_InstantID, ComfyUI_UltimateSDUpscale, ComfyUI_essentials, comfyui-inpaint-nodes, comfyui_controlnet_aux

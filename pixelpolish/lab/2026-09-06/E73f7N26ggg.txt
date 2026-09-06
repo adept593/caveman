@@ -1,0 +1,8 @@
+SUBJECT: World map, country outlines, flags, and animated emojis on a stylized globe
+ACTION: Rapid transitions between different maps and graphic overlays
+CAMERA: Static, top-down view, digital map feel
+LIGHT: Bright, even, digital lighting
+COMPOSITION: Centered world map with highlighted regions and overlaid graphics
+STYLE: Digital graphic, infographic, flat design
+HOOK: Quick succession of diverse world maps and flags
+TEXT_ON_SCREEN: Yes, "COMMENT" at the end

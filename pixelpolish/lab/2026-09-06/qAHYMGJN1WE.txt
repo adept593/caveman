@@ -1,0 +1,8 @@
+SUBJECT: Historical map of ancient empires (Han, Roman, Parthian, Kushan, etc.)
+ACTION: Static display
+CAMERA: Static, flat
+LIGHT: Neutral, even
+COMPOSITION: Full screen map, text overlay at top and bottom
+STYLE: Informational graphic, digital illustration
+HOOK: Intriguing question text overlay
+TEXT_ON_SCREEN: Yes, "Imagine These Ancient Empires Kept Expanding Until They Clashed At Some Point In History. Which Would Be The Last One Standing?"
