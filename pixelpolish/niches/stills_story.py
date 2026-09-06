@@ -61,10 +61,11 @@ def tts(text, path, voice):
 
 def overlay(img, S, shot, k):
     d = ImageDraw.Draw(img, "RGBA")
-    d.rectangle((0, H-330, W, H), fill=(8, 10, 18, 205))
-    d.text((W/2, H-250), shot["name"].upper(), font=F_BIG, fill=(255, 255, 255), anchor="mm")
-    d.text((W/2, H-165), shot["label"], font=F_MID, fill=(255, 210, 90), anchor="mm")
-    d.text((W/2, H-95), shot["line"], font=F_SMALL, fill=(225, 228, 238), anchor="mm")
+    # плашка тоньше (13 % кадра вместо 17 %), полупрозрачная, чтобы движение под ней читалось
+    d.rectangle((0, H-250, W, H), fill=(8, 10, 18, 170))
+    d.text((W/2, H-190), shot["name"].upper(), font=F_BIG, fill=(255, 255, 255), anchor="mm")
+    d.text((W/2, H-120), shot["label"], font=F_MID, fill=(255, 210, 90), anchor="mm")
+    d.text((W/2, H-62), shot["line"], font=F_SMALL, fill=(225, 228, 238), anchor="mm")
     if S.get("timeline"):
         d.rectangle((0, 0, W, 190), fill=(8, 10, 18, 180))
         d.text((W/2, 60), S["title"].upper(), font=F_MID, fill=(255, 255, 255), anchor="mm")

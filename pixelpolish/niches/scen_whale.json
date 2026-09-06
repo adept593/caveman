@@ -87,5 +87,6 @@
  "h3_size": "720x1280",
  "h3_steps": 20,
  "engine": "wan_i2v",
- "wan_turbo": true
+ "wan_turbo": true,
+ "hook_shot": 6
 }

@@ -13,7 +13,41 @@ from PIL import Image, ImageDraw
 sys.path.insert(0, str(Path(__file__).parent))
 import h3_t2v, stills_story as ss
 sys.stdout.reconfigure(encoding="utf-8")
-W, H, FPS = ss.W, ss.H, 24
+W, H, FPS = ss.W, ss.H, 30
+UP_API = "http://127.0.0.1:8188"; UP_IN = Path(r"C:\Users\RobotComp\pixelpolish\ComfyUI\input"); UP_OUT = Path(r"C:\Users\RobotComp\pixelpolish\ComfyUI\output")
+
+
+def postprocess(clip, model="RealESRGAN_x4plus.pth"):
+    """Качество клипа: ESRGAN x4 -> 1080x1920 (ComfyUI 8188) -> motion-интерполяция до 30 к/с, лёгкая градация и резкость."""
+    import shutil, urllib.request, time as _t
+    post = clip.with_name(clip.stem + "_post.mp4")
+    if post.exists() and post.stat().st_mtime > clip.stat().st_mtime: return post
+    up = clip.with_name(clip.stem + "_up.mp4")
+    if model:
+        name = f"pp_{clip.parent.name}_{clip.name}"; shutil.copy(clip, UP_IN / name)
+        g = {"1": {"class_type": "LoadVideo", "inputs": {"file": name}}, "2": {"class_type": "GetVideoComponents", "inputs": {"video": ["1", 0]}},
+             "3": {"class_type": "UpscaleModelLoader", "inputs": {"model_name": model}},
+             "4": {"class_type": "ImageUpscaleWithModel", "inputs": {"upscale_model": ["3", 0], "image": ["2", 0]}},
+             "5": {"class_type": "ImageScale", "inputs": {"image": ["4", 0], "upscale_method": "lanczos", "width": W, "height": H, "crop": "disabled"}},
+             "6": {"class_type": "CreateVideo", "inputs": {"images": ["5", 0], "fps": ["2", 2]}},
+             "7": {"class_type": "SaveVideo", "inputs": {"video": ["6", 0], "filename_prefix": "pp/up", "format": "auto", "codec": "auto"}}}
+        pid = json.loads(urllib.request.urlopen(urllib.request.Request(UP_API + "/prompt", json.dumps({"prompt": g}).encode(), {"Content-Type": "application/json"}), timeout=60).read())["prompt_id"]
+        t0 = _t.time()
+        while True:
+            _t.sleep(4); h = json.loads(urllib.request.urlopen(f"{UP_API}/history/{pid}", timeout=30).read())
+            if pid in h:
+                st = h[pid]
+                if st["status"].get("status_str") == "error": raise SystemExit("ESRGAN: " + json.dumps(st["status"].get("messages", []))[:800])
+                f = [x for o in st["outputs"].values() for k in ("videos", "images") for x in o.get(k, []) if str(x.get("filename", "")).endswith(".mp4")][-1]
+                shutil.copy(UP_OUT / f.get("subfolder", "") / f["filename"], up); print(f"  ESRGAN {clip.name}: {_t.time()-t0:.0f} с", flush=True); break
+            if _t.time() - t0 > 1800: raise SystemExit("ESRGAN таймаут")
+        src = up; vf = f"minterpolate=fps={FPS}:mi_mode=mci:mc_mode=aobmc:me_mode=bidir:vsbmc=1,unsharp=3:3:0.35,eq=contrast=1.05:saturation=1.07"
+    else:
+        src = clip; vf = f"minterpolate=fps={FPS}:mi_mode=mci:mc_mode=aobmc:me_mode=bidir:vsbmc=1,scale={W}:{H}:flags=lanczos,unsharp=5:5:0.6,eq=contrast=1.05:saturation=1.07"
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(src), "-vf", vf, "-an", "-c:v", "libx264", "-crf", "16", "-preset", "medium", str(post)], check=True)
+    return post
+
+
 STYLE = (" Photoreal wildlife documentary footage, natural movement, cinematic lighting, vertical 9:16, no text, no watermark."
          " Audio: only natural ambient sounds, no speech, no voice, no narration, no singing, no music.")
 
@@ -52,6 +86,8 @@ def main(path, sec=4.0):
                 h3_t2v.run(sh.get("video_prompt", sh["prompt"]) + STYLE, str(c), sec, S.get("seed", 11) + i,
                            size=S.get("h3_size", "736x1280"), steps=S.get("h3_steps", 20))   # потолок YouTube Shorts 1080x1920: 720p + апскейл
         clips.append(c)
+    # качество: ESRGAN + 30 к/с — после всех генераций (GPU по очереди, не параллельно с лаунчером)
+    clips = [postprocess(c, model=None if S.get("upscale") == "none" else "RealESRGAN_x4plus.pth") for c in clips]
     lines = [S["intro"]] + [sh.get("line_voice", sh["line"]) for sh in S["shots"]] + [S["outro"]]
     durs = [ss.tts(t, WORK / f"v{i}.mp3", voice) for i, t in enumerate(lines)]
     cdur = [probe(c) for c in clips]
@@ -64,16 +100,19 @@ def main(path, sec=4.0):
     fdir = WORK / "frames"; fdir.mkdir(exist_ok=True)
     for f in fdir.glob("*.png"): f.unlink()
     n = 0; tmp = WORK / "tmpf"
-    first = frames_of(clips[0], tmp); first_imgs = [Image.open(p).convert("RGB") for p in first]
+    # холодный старт: самый сильный кадр (hook_shot) идёт первым как тизер, заголовок наплывает поверх живого движения
+    hook = S.get("hook_shot", 0)
+    hook_imgs = [Image.open(p).convert("RGB") for p in frames_of(clips[hook], tmp)]
     for k in range(int(INTRO * FPS)):
-        fr = first_imgs[min(k, len(first_imgs)-1)].copy(); d = ImageDraw.Draw(fr, "RGBA")
-        d.rectangle((0, 0, W, H), fill=(0, 0, 0, 120))
-        d.text((W/2, H*0.45), S["title"].upper(), font=ss.F_BIG, fill=(255, 255, 255), anchor="mm")
-        d.text((W/2, H*0.45+100), S.get("subtitle", ""), font=ss.F_MID, fill=(255, 210, 90), anchor="mm")
+        fr = hook_imgs[min(k, len(hook_imgs)-1)].copy(); d = ImageDraw.Draw(fr, "RGBA")
+        a = min(1.0, k / (0.5 * FPS))
+        d.rectangle((0, int(H*0.36), W, int(H*0.56)), fill=(0, 0, 0, int(110 * a)))
+        d.text((W/2, H*0.45), S["title"].upper(), font=ss.F_BIG, fill=(255, 255, 255, int(255 * a)), anchor="mm")
+        d.text((W/2, H*0.45+96), S.get("subtitle", ""), font=ss.F_MID, fill=(255, 210, 90, int(255 * a)), anchor="mm")
         fr.save(fdir / f"f{n:05d}.png"); n += 1
     last = None
     for i, c in enumerate(clips):
-        imgs = first_imgs if i == 0 else [Image.open(p).convert("RGB") for p in frames_of(c, tmp)]
+        imgs = hook_imgs if i == hook else [Image.open(p).convert("RGB") for p in frames_of(c, tmp)]
         need = int(round(sdur[i] * FPS))
         if need > len(imgs):                       # добить стоп-кадром с лёгким наездом
             lastim = imgs[-1]; extra = need - len(imgs)
@@ -86,9 +125,9 @@ def main(path, sec=4.0):
             if e < 1.0: fr = Image.fromarray((np.asarray(fr, np.float32) * (0.4 + 0.6*e)).astype(np.uint8))
             fr.save(fdir / f"f{n:05d}.png"); n += 1; last = fr
     for k in range(int(OUTRO * FPS)):
-        fr = last.copy(); d = ImageDraw.Draw(fr, "RGBA"); d.rectangle((0, H-330, W, H), fill=(8, 10, 18, 225))
+        fr = last.copy(); d = ImageDraw.Draw(fr, "RGBA"); d.rectangle((0, H-250, W, H), fill=(8, 10, 18, 200))
         for li, ln in enumerate(textwrap.wrap(S["outro"], 38)[:3]):
-            d.text((W/2, H-240 + li*62), ln, font=ss.F_MID, fill=(255, 255, 255), anchor="mm")
+            d.text((W/2, H-180 + li*58), ln, font=ss.F_MID, fill=(255, 255, 255), anchor="mm")
         fr.save(fdir / f"f{n:05d}.png"); n += 1
     print(f"кадров {n}, {total:.1f} с")
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-framerate", str(FPS), "-i", str(fdir / "f%05d.png"), "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "18", str(WORK / "video.mp4")], check=True)
